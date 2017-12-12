@@ -12,7 +12,7 @@ public class LivroBO {
     }
     
     public void CadastroLivro(LivroVO livroVO){
-        if(livroVO.getNome().isEmpty() || livroVO.getNome() == null || livroVO.getSetor().isEmptu || livroVO.getSetor() == null){
+        if(livroVO.getNome().isEmpty() || livroVO.getNome() == null || livroVO.getSetor().isEmpty() || livroVO.getSetor() == null){
             throw new IllegalArgumentException("Erro ao cadastrar livro, nome ou setor fora das regras ");
         }else{
             this.livroDAO.cadastro(livroVO);
