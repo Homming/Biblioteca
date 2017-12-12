@@ -1,14 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bo;
 
-/**
- *
- * @author nicholas1994
- */
+import dao.ILivroDAO;
+import dao.LivroDAO;
+import vo.LivroVO;
+
 public class LivroBO {
+    private ILivroDAO livroDAO;
+     
+    public LivroBO(ILivroDAO livroDAO){
+        this.livroDAO = livroDAO;
+    }
+    
+    public void CadastroLivro(LivroVO livroVO){
+        if(livroVO.getNome().isEmpty() || livroVO.getNome() == null || livroVO.getSetor().isEmptu || livroVO.getSetor() == null){
+            throw new IllegalArgumentException("Erro ao cadastrar livro, nome ou setor fora das regras ");
+        }else{
+            this.livroDAO.cadastro(livroVO);
+        }
+    }
     
 }
