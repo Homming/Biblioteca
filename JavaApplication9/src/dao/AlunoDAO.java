@@ -9,6 +9,6 @@ package dao;
  *
  * @author nicholas1994
  */
-public interface IBibliotecaDAO {
+public class AlunoDAO {
     
 }

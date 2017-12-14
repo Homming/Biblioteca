@@ -1,13 +1,13 @@
 package bo;
 
 import dao.LivroDAO;
-import dao.UsuarioDAO;
+import dao.AlunoDAO;
 import dao.ILivroDAO;
-import dao.IUsuarioDAO;
+import dao.IAlunoDAO;
 
-public class BibliotecaBO {
+public class BibliotecariaBO {
     private ILivroDAO livroDAO;
-    private IUsuarioDAO usuarioDAO;
+    private IAlunoDAO usuarioDAO;
     private String senha;
     
     public boolean validarSenha(String senha){

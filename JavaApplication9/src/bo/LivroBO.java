@@ -1,7 +1,7 @@
 package bo;
 
 import dao.ILivroDAO;
-import dao.LivroDAO;
+import java.sql.SQLException;
 import vo.LivroVO;
 
 public class LivroBO {
@@ -11,9 +11,9 @@ public class LivroBO {
         this.livroDAO = livroDAO;
     }
     
-    public void CadastroLivro(LivroVO livroVO){
-        if(livroVO.getNome().isEmpty() || livroVO.getNome() == null || livroVO.getSetor().isEmpty() || livroVO.getSetor() == null){
-            throw new IllegalArgumentException("Erro ao cadastrar livro, nome ou setor fora das regras ");
+    public void CadastroLivro(LivroVO livroVO) throws SQLException{
+        if(livroVO.getTitulo().isEmpty() || livroVO.getTitulo()== null || livroVO.getData().isEmpty() || livroVO.getData()== null){
+            throw new IllegalArgumentException("Erro ao cadastrar livro, título ou editora fora das regras ");
         }else{
             this.livroDAO.cadastro(livroVO);
         }
