@@ -1,7 +1,6 @@
 package vo;
 
 public class LivroVO {
-    
      private int id_livro;
      private String titulo;
      private String data;
