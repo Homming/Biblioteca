@@ -10,6 +10,10 @@ public class BibliotecariaBO {
     private IAlunoDAO usuarioDAO;
     private String senha;
     
+    public BibliotecariaBO(){
+        
+    }
+    
     public boolean validarSenha(String senha){
         if(this.senha == senha)
             return true;
