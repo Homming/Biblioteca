@@ -1,6 +1,8 @@
 package vo;
 
-public class BibliotecariaVO {
+import java.io.Serializable;
+
+public class BibliotecariaVO implements Serializable {
     
      private int id_usuario;
      private String nome;

@@ -12,7 +12,11 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
     private ArrayList<BibliotecariaVO> biblio;
     private Connection conexao;
     
-    public BibliotecariaDAO(Connection conexao){
+    public Connection getConnection() {
+        return conexao;
+    }
+
+    public void setConnection(Connection conexao) {
         this.conexao = conexao;
     }
     
@@ -34,7 +38,7 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
           
           pstm.close();
         
-        }catch (Exception e){
+        }catch (SQLException e){
         JOptionPane.showMessageDialog(null, "Erro na inserção: " + e);
         }// fim try
     }// fim do cadastrar

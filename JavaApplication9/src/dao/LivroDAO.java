@@ -2,11 +2,8 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Properties;
 import javax.swing.JOptionPane;
 import vo.LivroVO;
 
@@ -21,7 +18,11 @@ public class LivroDAO implements ILivroDAO {
     private ArrayList<LivroVO> livros;
     private Connection conexao;
     
-    public LivroDAO(Connection conexao){
+    public Connection getConnection() {
+        return conexao;
+    }
+
+    public void setConnection(Connection conexao) {
         this.conexao = conexao;
     }
     
