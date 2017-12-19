@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="622.0" prefWidth="730.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="javafx.controller.FXMLAnchorPaneCadastroUsuarioController">
+<AnchorPane id="AnchorPane" prefHeight="622.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.FXMLAnchorPaneCadastroUsuarioController">
    <children>
       <SplitPane dividerPositions="0.38127090301003347" layoutX="7.0" layoutY="6.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -87,37 +86,37 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblUserCod" text="Label" GridPane.columnIndex="1">
+                        <Label fx:id="lblUserCod" GridPane.columnIndex="1">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblUserName" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label fx:id="lblUserName" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblUserCPF" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Label fx:id="lblUserCPF" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblUserEmail" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <Label fx:id="lblUserEmail" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblUserUser" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <Label fx:id="lblUserUser" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblUserPass" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                        <Label fx:id="lblUserPass" GridPane.columnIndex="1" GridPane.rowIndex="6">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblUserConfPass" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                        <Label fx:id="lblUserConfPass" GridPane.columnIndex="1" GridPane.rowIndex="7">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -127,7 +126,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblUserTel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <Label fx:id="lblUserTel" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <font>
                               <Font size="14.0" />
                            </font>

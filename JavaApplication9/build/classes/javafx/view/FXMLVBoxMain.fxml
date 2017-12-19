@@ -6,13 +6,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.FXMLVBoxMainController">
    <children>
       <MenuBar>
         <menus>
           <Menu mnemonicParsing="false" text="Gerenciar">
             <items>
-              <MenuItem fx:id="menuItemGerenciarUsuario" mnemonicParsing="false" text="Usuário" />
+              <MenuItem fx:id="menuItemGerenciarUsuario" mnemonicParsing="false" onAction="#handleMenuItemGerenciarUsuario" text="Usuário" />
                   <MenuItem fx:id="menuItemGerenciarLivro" mnemonicParsing="false" text="Livro" />
             </items>
           </Menu>

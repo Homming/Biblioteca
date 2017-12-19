@@ -7,6 +7,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import vo.BibliotecariaVO;
 
 public class FXMLAnchorPaneCadastroUsuarioController implements Initializable {
@@ -60,7 +62,41 @@ public class FXMLAnchorPaneCadastroUsuarioController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        bibliotecariaDAO.setConnection(connection);
+        carregarTableViewUsuario();
         
+        //Ação de clicar no nome do usuário exibido
+        tblViewUsuarios.getSelectionModel().selectedItemProperty().addListener( 
+                (observable, oldValue, newValue) -> selecionarItemTblViewUsuarios(newValue));
     }    
+    
+    public void carregarTableViewUsuario(){
+        tblColumnUsuarioNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        tblColumnUsuarioCodigo.setCellValueFactory(new PropertyValueFactory<>("id_usuario"));
+        
+        listUsuarios = bibliotecariaDAO.listar();
+        
+        observableListUsuarios = FXCollections.observableArrayList(listUsuarios);
+        tblViewUsuarios.setItems(observableListUsuarios);
+    }
+    
+    public void selecionarItemTblViewUsuarios(BibliotecariaVO usuario){
+        //Preenchimento dos campos através do usuário selecionado
+        if(usuario != null){
+            lblUserCod.setText(String.valueOf(usuario.getId_usuario()));
+            lblUserName.setText(usuario.getNome());
+            lblUserCPF.setText(usuario.getCpf());
+            lblUserEmail.setText(usuario.getEmail());
+            lblUserUser.setText(usuario.getUsuario());
+            lblUserTel.setText(usuario.getCel());
+        }else{
+            lblUserCod.setText("");
+            lblUserName.setText("");
+            lblUserCPF.setText("");
+            lblUserEmail.setText("");
+            lblUserUser.setText("");
+            lblUserTel.setText("");
+        }
+    }
     
 }

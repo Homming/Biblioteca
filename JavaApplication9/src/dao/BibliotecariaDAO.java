@@ -2,8 +2,12 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import vo.BibliotecariaVO;
 
@@ -45,7 +49,7 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
     
     public void editar(BibliotecariaVO cad){
          try{
-             String editaSQL = ("UPDATE usuario SET nome = ?, cpf = ?, cel = ?, usuario = ?, senha = ?, email = ? WHERE id_usuario = ?");
+             String editaSQL = ("UPDATE bibliotecaria SET nome = ?, cpf = ?, cel = ?, usuario = ?, senha = ?, email = ? WHERE id_usuario = ?");
              
              PreparedStatement pstm = conexao.prepareStatement(editaSQL);
           
@@ -88,6 +92,28 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
             JOptionPane.showMessageDialog(null, "Erro na exclusão do usuário!" + ex);
 
         }
+    }
+    
+    public List<BibliotecariaVO> listar() {
+        String sql = "SELECT * FROM bibliotecaria";
+        List<BibliotecariaVO> retorno = new ArrayList<>();
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            ResultSet resultado = stmt.executeQuery();
+            while (resultado.next()) {
+                BibliotecariaVO bibliotecaria = new BibliotecariaVO();
+                bibliotecaria.setId_usuario(resultado.getInt("id_usuario"));
+                bibliotecaria.setNome(resultado.getString("nome"));
+                bibliotecaria.setCpf(resultado.getString("cpf"));
+                bibliotecaria.setCel(resultado.getString("cel"));
+                bibliotecaria.setUsuario(resultado.getString("usuario"));
+                bibliotecaria.setEmail(resultado.getString("email"));
+                retorno.add(bibliotecaria);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BibliotecariaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
     }
     
 }
