@@ -15,7 +15,7 @@ public class LivroBO {
         if(livroVO.getTitulo().isEmpty() || livroVO.getTitulo()== null || livroVO.getData().isEmpty() || livroVO.getData()== null){
             throw new IllegalArgumentException("Erro ao cadastrar livro, título ou editora fora das regras ");
         }else{
-            this.livroDAO.cadastro(livroVO);
+            this.livroDAO.cadastrar(livroVO);
         }
     }
     

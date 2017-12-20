@@ -10,11 +10,7 @@ import vo.LivroVO;
 
 public class LivroDAO implements ILivroDAO {
     
-   
-    @Override
-    public void cadastro(LivroVO livroVO) {
-        //IMPLEMENTADO SOMENTE PARA CORRIGIR O ERRO DE CLASSE ABSTRATA.
-    }
+  
     
     private ArrayList<LivroVO> livros;
     private Connection conexao;
@@ -23,10 +19,10 @@ public class LivroDAO implements ILivroDAO {
         this.conexao = conexao;
     }
     
-    public void cadastrar(LivroVO livro) throws SQLException{
+    public void cadastrar(LivroVO livroVO) throws SQLException{
         Statement stmt = this.conexao.createStatement();
         stmt.executeUpdate("INSERT INTO livro(titulo, data_livro, cdd, cutter, complemento, autor1, assunto, autor2, local_livro, autor3, editora, tradutores, ano, ilustradores, edicao) VALUES "
-                + "('"+livro.getTitulo()+"','"+livro.getData()+"','"+livro.getCdd()+"','"+livro.getCutter()+"','"+livro.getComplemento()+"','"+livro.getAutor1()+"','"+livro.getAutor2()+"','"+livro.getAutor3()+"','"+livro.getTradutores()+"','"+livro.getIlustradores()+"','"+livro.getAssunto()+"','"+livro.getLocal()+"','"+livro.getEditora()+"','"+livro.getAno()+"','"+livro.getEdicao()+"')");
+                + "('"+livroVO.getTitulo()+"','"+livroVO.getData()+"','"+livroVO.getCdd()+"','"+livroVO.getCutter()+"','"+livroVO.getComplemento()+"','"+livroVO.getAutor1()+"','"+livroVO.getAutor2()+"','"+livroVO.getAutor3()+"','"+livroVO.getTradutores()+"','"+livroVO.getIlustradores()+"','"+livroVO.getAssunto()+"','"+livroVO.getLocal()+"','"+livroVO.getEditora()+"','"+livroVO.getAno()+"','"+livroVO.getEdicao()+"')");
         
     }
     
@@ -37,6 +33,18 @@ public class LivroDAO implements ILivroDAO {
         ResultSet rs = stmt.executeQuery(sqlQuery);
         
         return rs;
+    }
+
+    @Override
+    public void excluir(LivroVO livroVO) throws SQLException {
+        // CRIADO PRA TIRAR O ERRO DA CLASSE ABSTRATA
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void alterar(LivroVO livroVO) throws SQLException {
+        // CRIADO PRA TIRAR O ERRO DA CLASSE ABSTRATA
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
    
