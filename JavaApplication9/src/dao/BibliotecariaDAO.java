@@ -24,28 +24,23 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
         this.conexao = conexao;
     }
     
-    public void cadastrar(BibliotecariaVO cad){
-        
-        try{
-            String insertSQL =("INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha, email) values (?,?,?,?,?,?)");
-            
-          PreparedStatement pstm = conexao.prepareStatement(insertSQL);
-          
-          pstm.setString(1, cad.getNome());
-          pstm.setString(2, cad.getCpf());
-          pstm.setString(3, cad.getCel());
-          pstm.setString(4, cad.getUsuario());
-          pstm.setString(5, cad.getSenha());
-          pstm.setString(6, cad.getEmail());
-          
-          pstm.execute();
-          
-          pstm.close();
-        
-        }catch (SQLException e){
-        JOptionPane.showMessageDialog(null, "Erro na inserção: " + e);
-        }// fim try
-    }// fim do cadastrar
+    public boolean cadastrar(BibliotecariaVO bibliotecaria) {
+        String sql = "INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha, email) values (?,?,?,?,?,?)";
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, bibliotecaria.getNome());
+            stmt.setString(2, bibliotecaria.getCpf());
+            stmt.setString(3, bibliotecaria.getCel());
+            stmt.setString(4, bibliotecaria.getUsuario());
+            stmt.setString(5, bibliotecaria.getSenha());
+            stmt.setString(6, bibliotecaria.getEmail());
+            stmt.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(BibliotecariaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
     
     public void editar(BibliotecariaVO cad){
          try{

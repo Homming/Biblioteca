@@ -7,7 +7,6 @@ public class BibliotecariaVO implements Serializable {
      private int id_usuario;
      private String nome;
      private String cpf;
-     private String fone;
      private String cel;
      private String usuario;
      private String senha;
@@ -36,14 +35,6 @@ public class BibliotecariaVO implements Serializable {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public String getFone() {
-        return fone;
-    }
-
-    public void setFone(String fone) {
-        this.fone = fone;
     }
 
     public String getCel() {

@@ -133,11 +133,9 @@
                         </Label>
                      </children>
                   </GridPane>
-                  <Button fx:id="btnNovo" layoutX="14.0" layoutY="570.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="70.0" text="Novo" />
-                  <Button fx:id="btnSalvar" layoutX="102.0" layoutY="570.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="70.0" text="Salvar" />
-                  <Button fx:id="btnExcluir" layoutX="188.0" layoutY="570.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="70.0" text="Excluir" />
-                  <Button fx:id="btnEditar" layoutX="273.0" layoutY="570.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="70.0" text="Editar" />
-                  <Button fx:id="btnLimpar" layoutX="355.0" layoutY="570.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="70.0" text="Limpar" />
+                  <Button fx:id="btnNovo" layoutX="99.0" layoutY="570.0" mnemonicParsing="false" onAction="#handleButtonNovo" prefHeight="36.0" prefWidth="70.0" text="Novo" />
+                  <Button fx:id="btnExcluir" layoutX="263.0" layoutY="570.0" mnemonicParsing="false" onAction="#handleButtonRemover" prefHeight="36.0" prefWidth="70.0" text="Excluir" />
+                  <Button fx:id="btnEditar" layoutX="180.0" layoutY="570.0" mnemonicParsing="false" onAction="#handleButtonEditar" prefHeight="36.0" prefWidth="70.0" text="Editar" />
                </children>
             </AnchorPane>
         </items>

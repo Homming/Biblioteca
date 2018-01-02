@@ -3,6 +3,7 @@ package javafx.controller;
 import dao.BibliotecariaDAO;
 import database.Database;
 import database.DatabaseFactory;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.List;
@@ -10,17 +11,22 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import vo.BibliotecariaVO;
 
 public class FXMLAnchorPaneCadastroUsuarioController implements Initializable {
 
-    @FXML
+    @FXML // deve se utilizar @fxml para cada elemento visual que será utilizado na view
     private TableView<BibliotecariaVO> tblViewUsuarios;
     @FXML
     private TableColumn<BibliotecariaVO, String> tblColumnUsuarioCodigo;
@@ -29,13 +35,7 @@ public class FXMLAnchorPaneCadastroUsuarioController implements Initializable {
     @FXML
     private Button btnNovo;
     @FXML
-    private Button btnSalvar;
-    @FXML
     private Button btnExcluir;
-    @FXML
-    private Button btnEditar;
-    @FXML
-    private Button btnLimpar;
     @FXML
     private Label lblUserCod;
     @FXML
@@ -97,6 +97,73 @@ public class FXMLAnchorPaneCadastroUsuarioController implements Initializable {
             lblUserUser.setText("");
             lblUserTel.setText("");
         }
+    }
+    
+    
+    @FXML
+    public void handleButtonNovo() throws IOException {
+        BibliotecariaVO bibliotecaria = new BibliotecariaVO(); // instancia nova bibliotecaria 
+        boolean buttonConfirmarClicked = showFXMLAnchorPaneCadastroUsuarioDialog(bibliotecaria); // abre a tela para inserção dos dados
+        if(buttonConfirmarClicked){// se o botão confirmar for clicado
+            bibliotecariaDAO.cadastrar(bibliotecaria);// insere os dados cadastrados na tela
+            carregarTableViewUsuario();
+        }
+    }
+    
+    @FXML
+    public void handleButtonEditar() throws IOException{
+        BibliotecariaVO bibliotecaria = tblViewUsuarios.getSelectionModel().getSelectedItem();// puxa as informações da bibliotecaria/usuário selecionado
+        if(bibliotecaria != null){
+            boolean buttonConfirmarClicked = showFXMLAnchorPaneCadastroUsuarioDialog(bibliotecaria);
+            if(buttonConfirmarClicked){
+                bibliotecariaDAO.editar(bibliotecaria);
+                carregarTableViewUsuario();
+            }else{
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Por favor, escolha um usuário na Tabela!");
+                alert.show();
+            }
+        }
+    }
+    
+    @FXML
+    public void handleButtonRemover() throws IOException{
+        BibliotecariaVO bibliotecaria = tblViewUsuarios.getSelectionModel().getSelectedItem();
+        if(bibliotecaria != null){
+            bibliotecariaDAO.excluirCad(bibliotecaria);
+            carregarTableViewUsuario();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Por favor, escolha um usuário na Tabela!");
+            alert.show();
+        }
+    }
+    
+    //Método para exibir a tela de cadastro (Dialog) 
+    public boolean showFXMLAnchorPaneCadastroUsuarioDialog(BibliotecariaVO bibliotecariaVO) throws IOException{
+        
+       FXMLLoader loader = new FXMLLoader();
+       loader.setLocation(FXMLAnchorPaneCadastroUsuarioDialogController.class.getResource("/javafx/view/FXMLAnchorPaneCadastroUsuarioDialog.fxml"));
+        
+        AnchorPane page = (AnchorPane) loader.load(); //typecast para guardar em page a tela carregada.
+        
+        // Stage Dialog, para que seja visível ao usuário
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Cadastro de Usuário");//exibido na parte superior da tela
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+        
+        // Usuário no controller
+        FXMLAnchorPaneCadastroUsuarioDialogController controller = loader.getController(); // instancia do controller da tela dialog
+        //setando o stage e o usuário para o controller
+        controller.setDialogStage(dialogStage);
+        controller.setBibliotecaria(bibliotecariaVO);
+        
+        // Mostra a tela e espera o usuário fechar
+        dialogStage.showAndWait();
+        
+        return controller.isButtonConfirmarClicked();
+        
     }
     
 }
