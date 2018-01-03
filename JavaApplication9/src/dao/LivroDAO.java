@@ -2,8 +2,12 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import vo.LivroVO;
 
@@ -118,6 +122,39 @@ public class LivroDAO implements ILivroDAO {
             JOptionPane.showMessageDialog(null, "Erro na exclusão do livro!" + ex);
 
         }
+    }
+     
+     public List<LivroVO> listar() {
+        String sql = "SELECT * FROM livro";
+        List<LivroVO> retorno = new ArrayList<>();
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            ResultSet resultado = stmt.executeQuery();
+            while (resultado.next()) {
+                LivroVO livro = new LivroVO();
+                livro.setId_livro(resultado.getInt("id_livro"));
+                livro.setTitulo(resultado.getString("titulo"));
+                livro.setData(resultado.getString("data_livro"));
+                livro.setCdd(resultado.getString("cdd"));
+                livro.setCutter(resultado.getString("cutter"));
+                livro.setComplemento(resultado.getString("complemento"));
+                livro.setAutor1(resultado.getString("autor1"));
+                livro.setAutor2(resultado.getString("autor2"));
+                livro.setAutor3(resultado.getString("autor3"));
+                livro.setTradutores(resultado.getString("tradutores"));
+                livro.setIlustradores(resultado.getString("ilustradores"));
+                livro.setAssunto(resultado.getString("assunto"));
+                livro.setLocal(resultado.getString("local_livro"));
+                livro.setEditora(resultado.getString("editora"));
+                livro.setAno(resultado.getString("ano"));
+                livro.setEdicao(resultado.getString("edicao"));
+                  
+                retorno.add(livro);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BibliotecariaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
     }
     
     /*
