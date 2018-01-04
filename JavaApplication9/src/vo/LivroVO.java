@@ -1,5 +1,7 @@
 package vo;
 
+import java.time.LocalDate;
+
 public class LivroVO {
      private int id_livro;
      private String titulo;
@@ -41,6 +43,7 @@ public class LivroVO {
     public void setData(String data) {
         this.data = data;
     }
+
 
     public String getCdd() {
         return cdd;
@@ -145,5 +148,6 @@ public class LivroVO {
     public void setEdicao(String edicao) {
         this.edicao = edicao;
     }
-     
+    
 }
+

@@ -30,7 +30,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Label layoutX="141.0" layoutY="14.0" text="Cadastro de Usuário">
+                  <Label layoutX="141.0" layoutY="14.0" text="Gerenciar Usuário">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -44,8 +44,6 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -76,16 +74,6 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Senha" GridPane.rowIndex="6">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label text="Confirma a Senha" GridPane.rowIndex="7">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
                         <Label fx:id="lblUserCod" GridPane.columnIndex="1">
                            <font>
                               <Font size="14.0" />
@@ -107,16 +95,6 @@
                            </font>
                         </Label>
                         <Label fx:id="lblUserUser" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="lblUserPass" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="lblUserConfPass" GridPane.columnIndex="1" GridPane.rowIndex="7">
                            <font>
                               <Font size="14.0" />
                            </font>

@@ -4,15 +4,15 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import vo.BibliotecariaVO;
+import bo.BibliotecariaBO;
 
 public class FXMLAnchorPaneCadastroUsuarioDialogController implements Initializable {
 
+/* ACREDITO QUE AS LABELS NAO SAO NECESSARIAS NO CONTROLLER
     @FXML
     private Button btnConfirmar;
     @FXML
@@ -31,6 +31,7 @@ public class FXMLAnchorPaneCadastroUsuarioDialogController implements Initializa
     private Label lblUserConfPass;
     @FXML
     private Label lblUserTel;
+*/
     @FXML
     private TextField txtUserName;
     @FXML
@@ -42,9 +43,9 @@ public class FXMLAnchorPaneCadastroUsuarioDialogController implements Initializa
     @FXML
     private TextField txtUserUser;
     @FXML
-    private TextField txtUserPass;
+    private PasswordField txtUserPass;
     @FXML
-    private TextField txtUserConfPass;
+    private PasswordField txtUserConfPass;
 
     private Stage dialogStage;
     private boolean buttonConfirmarClicked = false;
@@ -89,8 +90,14 @@ public class FXMLAnchorPaneCadastroUsuarioDialogController implements Initializa
 
     @FXML
     public void handleButtonConfirmar() {
-
-        if (validarEntradaDeDados()) {// se todos os campos estiverem ok
+        String valNome = txtUserName.getText();// guardando o valor que deseja validar em uma variavel
+        String valEmail = txtUserEmail.getText();
+        String valUser = txtUserUser .getText();
+        String valPass = txtUserPass.getText();
+        String valConfPass = txtUserConfPass.getText();//NAO ESTA FUNCIONANDO
+        BibliotecariaBO validar = new BibliotecariaBO(); // instanciando a classe BO para chamar o método de validação
+        
+        if (validar.validarEntradaDeDados(valNome, valEmail, valUser, valPass)) {// se todos os campos estiverem ok
 
             bibliotecaria.setNome(txtUserName.getText());
             bibliotecaria.setCpf(txtUserCPF.getText());
@@ -108,35 +115,6 @@ public class FXMLAnchorPaneCadastroUsuarioDialogController implements Initializa
     @FXML
     public void handleButtonCancelar() {
         dialogStage.close();
-    }
-
-    //Validação da entrada dos dados de cadastro
-    private boolean validarEntradaDeDados() {
-        String errorMessage = "";
-
-        if (txtUserName.getText() == null || txtUserName.getText().length() == 0) {
-            errorMessage += "Nome Inválido!\n";
-        }
-        if (txtUserEmail.getText() == null || txtUserEmail.getText().length() == 0) {
-            errorMessage += "E-mail Inválido!\n";
-        }
-        if (txtUserUser.getText() == null || txtUserUser.getText().length() == 0) {
-            errorMessage += "Usuário Inválido!\n";
-        }
-        if (txtUserPass.getText() == null || txtUserPass.getText().length() == 0) {
-            errorMessage += "Senha Inválida!\n";
-        }
-
-        if (errorMessage.length() == 0) {
-            return true;
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Falha no Cadastro!");
-            alert.setHeaderText("Campos Inválidos, por favor, corrija...");
-            alert.setContentText(errorMessage);
-            alert.show();
-            return false;
-        }
     }
 
 }

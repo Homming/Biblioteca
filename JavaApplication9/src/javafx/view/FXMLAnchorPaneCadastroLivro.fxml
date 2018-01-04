@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="622.0" prefWidth="730.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="javafx.controller.FXMLAnchorPaneCadastroLivroController">
+<AnchorPane id="AnchorPane" prefHeight="622.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.FXMLAnchorPaneCadastroLivroController">
    <children>
       <SplitPane dividerPositions="0.4010989010989011" layoutX="14.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -32,7 +31,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="279.0">
                <children>
-                  <Label layoutX="143.0" layoutY="14.0" text="Cadastro de Livro">
+                  <Label layoutX="143.0" layoutY="14.0" text="Gerenciar Livros">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -225,9 +224,9 @@
                   </GridPane>
                   <Group layoutX="115.0" layoutY="567.0">
                      <children>
-                        <Button fx:id="btnExcluir" layoutX="143.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="62.0" text="Excluir" />
-                        <Button fx:id="btnEditar" layoutX="72.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="62.0" text="Editar" />
-                        <Button fx:id="btnNovo" mnemonicParsing="false" prefHeight="38.0" prefWidth="62.0" text="Novo" />
+                        <Button fx:id="btnExcluir" layoutX="143.0" mnemonicParsing="false" onAction="#handleButtonRemover" prefHeight="38.0" prefWidth="62.0" text="Excluir" />
+                        <Button fx:id="btnEditar" layoutX="72.0" mnemonicParsing="false" onAction="#handleButtonEditar" prefHeight="38.0" prefWidth="62.0" text="Editar" />
+                        <Button fx:id="btnNovo" mnemonicParsing="false" onAction="#handleButtonNovo" prefHeight="38.0" prefWidth="62.0" text="Novo" />
                      </children>
                   </Group>
                </children>

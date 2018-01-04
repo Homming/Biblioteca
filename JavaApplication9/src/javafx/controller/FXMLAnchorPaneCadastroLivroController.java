@@ -3,6 +3,7 @@ package javafx.controller;
 import dao.LivroDAO;
 import database.Database;
 import database.DatabaseFactory;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.List;
@@ -10,12 +11,17 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import vo.LivroVO;
 
 public class FXMLAnchorPaneCadastroLivroController implements Initializable {
@@ -131,6 +137,72 @@ public class FXMLAnchorPaneCadastroLivroController implements Initializable {
             lblLivroAno.setText("");
             lblLivroEdicao.setText("");
         }
+    }
+     
+     @FXML
+    public void handleButtonNovo() throws IOException {
+        LivroVO livro = new LivroVO(); // instancia novo livro 
+        boolean buttonConfirmarClicked = showFXMLAnchorPaneCadastroLivroDialog(livro); // abre a tela para inserção dos dados, se o usuário tiver clicado no botão
+        if(buttonConfirmarClicked){// se o botão confirmar for clicado
+            livroDAO.cadastrar(livro);// insere os dados cadastrados na tela
+            carregarTableViewLivro();
+        }
+    }
+    
+    @FXML
+    public void handleButtonEditar() throws IOException{
+        LivroVO livro = tblLivro.getSelectionModel().getSelectedItem();// puxa as informações do livro selecionado
+        if(livro != null){
+            boolean buttonConfirmarClicked = showFXMLAnchorPaneCadastroLivroDialog(livro);
+            if(buttonConfirmarClicked){
+                livroDAO.editarCad(livro);
+                carregarTableViewLivro();
+            }else{
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Por favor, escolha um livro na Tabela!");
+                alert.show();
+            }
+        }
+    }
+    
+    @FXML
+    public void handleButtonRemover() throws IOException{
+        LivroVO livro = tblLivro.getSelectionModel().getSelectedItem();
+        if(livro != null){
+            livroDAO.excluirCad(livro);
+            carregarTableViewLivro();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Por favor, escolha um livro na Tabela!");
+            alert.show();
+        }
+    }
+    
+    //Método para exibir a tela de cadastro (Dialog) 
+    public boolean showFXMLAnchorPaneCadastroLivroDialog(LivroVO livro) throws IOException{
+        
+       FXMLLoader loader = new FXMLLoader();
+       loader.setLocation(FXMLAnchorPaneCadastroLivroDialogController.class.getResource("/javafx/view/FXMLAnchorPaneCadastroLivroDialog.fxml"));
+        
+        AnchorPane page = (AnchorPane) loader.load(); //typecast para guardar em page a tela carregada.
+        
+        // Stage Dialog, para que seja visível ao usuário
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Cadastro de Livro");//exibido na parte superior da tela
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+        
+        // Setando livro no controller
+        FXMLAnchorPaneCadastroLivroDialogController controller = loader.getController(); // instancia do controller da tela dialog
+        //setando o stage e o usuário para o controller
+        controller.setDialogStage(dialogStage);
+        controller.setLivro(livro);
+        
+        // Mostra a tela e espera o usuário fechar
+        dialogStage.showAndWait();
+        
+        return controller.isButtonConfirmarClicked();
+        
     }
     
 }

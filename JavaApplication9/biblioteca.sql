@@ -34,6 +34,8 @@ CREATE TABLE livro(
 	edicao varchar(100)
 );
 
+-- alter table livro change column data_livro data_livro date; ALTERADO SOMENTE PARA TESTES, LEMBRAR DE REVERTER PARA NOT NULL
+
 CREATE TABLE alunos(
 	id_aluno int auto_increment not null primary key,
     nome varchar(100) not null,
