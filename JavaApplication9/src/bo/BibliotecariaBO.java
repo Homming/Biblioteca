@@ -1,12 +1,10 @@
 package bo;
 
 import dao.ILivroDAO;
-import dao.IAlunoDAO;
 import javafx.scene.control.Alert;
 
 public class BibliotecariaBO {
     private ILivroDAO livroDAO;
-    private IAlunoDAO usuarioDAO;
     private String senha;
     
     public BibliotecariaBO(){

@@ -152,7 +152,7 @@ public class LivroDAO implements ILivroDAO {
                 retorno.add(livro);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BibliotecariaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return retorno;
     }
@@ -167,8 +167,36 @@ public class LivroDAO implements ILivroDAO {
         return rs;
     }
     */
-    
 
-   
-    
-}
+    public LivroVO buscar(LivroVO livro) {
+        String sql = "SELECT * FROM livro WHERE Id_livro=?";
+        LivroVO retorno = new LivroVO();
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, livro.getId_livro());
+            ResultSet resultado = stmt.executeQuery();
+            if (resultado.next()) {
+                livro.setId_livro(resultado.getInt("id_livro"));
+                //livro.setData(resultado.getDate("data_livro").toLocalDate()); FALTA MUDAR O SET DE LIVRO PARA DATATYPE
+                livro.setCdd(resultado.getString("cdd"));
+                livro.setCutter(resultado.getString("cutter"));
+                livro.setComplemento(resultado.getString("complemento"));
+                livro.setAutor1(resultado.getString("autor1"));
+                livro.setAutor2(resultado.getString("autor2"));
+                livro.setAutor3(resultado.getString("autor3"));
+                livro.setTradutores(resultado.getString("tradutores"));
+                livro.setIlustradores(resultado.getString("ilustradores"));
+                livro.setAssunto(resultado.getString("assunto"));
+                livro.setLocal(resultado.getString("local_livro"));
+                livro.setEditora(resultado.getString("editora"));
+                livro.setAno(resultado.getString("ano"));
+                livro.setEdicao(resultado.getString("edicao"));
+                retorno = livro;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
+    }
+ 
+}// FIM DA CLASSE

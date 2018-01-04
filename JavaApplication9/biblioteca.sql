@@ -43,7 +43,7 @@ CREATE TABLE alunos(
 );
 
 CREATE TABLE aluguel(
-	id_venda int auto_increment not null primary key,
+	id_aluguel int auto_increment not null primary key,
     data_aluguel date not null,
     aluno_id int,
     livro_id int,
