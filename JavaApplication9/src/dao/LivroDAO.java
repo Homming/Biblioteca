@@ -177,6 +177,7 @@ public class LivroDAO implements ILivroDAO {
             ResultSet resultado = stmt.executeQuery();
             if (resultado.next()) {
                 livro.setId_livro(resultado.getInt("id_livro"));
+                livro.setTitulo(resultado.getString("titulo"));
                 //livro.setData(resultado.getDate("data_livro").toLocalDate()); FALTA MUDAR O SET DE LIVRO PARA DATATYPE
                 livro.setCdd(resultado.getString("cdd"));
                 livro.setCutter(resultado.getString("cutter"));

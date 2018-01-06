@@ -75,7 +75,7 @@ public class AluguelDAO implements IAluguelDAO{
         }
     }
     
-    /* PROTOTIPO DE LISTAGEM
+    //REVER
     public List<AluguelVO> listar() {
         String sql = "SELECT * FROM aluguel";
         List<AluguelVO> retorno = new ArrayList<>();
@@ -85,24 +85,16 @@ public class AluguelDAO implements IAluguelDAO{
             while (resultado.next()) {
                 AluguelVO aluguel = new AluguelVO();
                 LivroVO livro = new LivroVO();
-                List<ItemDeVenda> itensDeVenda = new ArrayList();
 
                 aluguel.setId_aluguel(resultado.getInt("id_aluguel"));
-                aluguel.setData(resultado.getDate("data_aluguel").toLocalDate());
-                livro.setAluno_id(resultado.getInt("aluno_id"));
+                aluguel.setData(resultado.getDate("data_aluguel").toLocalDate());;
 
                 //Obtendo os dados completos do Livro associado
                 LivroDAO livroDAO = new LivroDAO();
                 livroDAO.setConnection(conexao);
                 livro = livroDAO.buscar(livro);
 
-                //Obtendo os dados completos dos Alunos associados
-                AlunoDAO alunoDAO = new AlunoDAO();
-                alunoDAO.setConnection(conexao);
-                aluno = alunoDAO.listarPorAluguel(aluguel);
-
-                aluguel.setAlunoVO(aluno);
-                aluguel.setLivroVO(livro);
+                aluguel.setLivro(livro);
                 retorno.add(aluguel);
             }
         } catch (SQLException ex) {
@@ -110,7 +102,6 @@ public class AluguelDAO implements IAluguelDAO{
         }
         return retorno;
     }
-    */
     
     public AluguelVO buscarUltimoAluguel() {
         String sql = "SELECT max(Id_aluguel) FROM aluguel";

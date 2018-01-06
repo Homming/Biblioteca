@@ -42,6 +42,9 @@ CREATE TABLE alunos(
     telefone varchar(50)
 );
 
+insert into alunos (nome, telefone) values ('estevao gabriel','99999-9999');
+
+-- mudar alunoid e livro id para not null
 CREATE TABLE aluguel(
 	id_aluguel int auto_increment not null primary key,
     data_aluguel date not null,
@@ -51,9 +54,12 @@ CREATE TABLE aluguel(
     CONSTRAINT fk_aluguel_livro FOREIGN KEY (livro_id) REFERENCES  livro(id_livro)
 );
 
-select * from bibliotecaria;
+
+
+select * from aluguel;
 
 INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha)
 	VALUES ('Teste','999.999.999-99','82999999999','admin','admin');
 
 -- insert into livro(titulo, data_livro, cdd, cutter, autor1) values ('teste','2017/12/30','test','cutter','autor');
+-- insert into aluguel (data_aluguel, aluno_id, livro_id) values ('2018/01/06',1,3);

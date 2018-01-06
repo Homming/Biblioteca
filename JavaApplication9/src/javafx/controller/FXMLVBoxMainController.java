@@ -43,6 +43,14 @@ public class FXMLVBoxMainController implements Initializable {
         anchorPane.getChildren().setAll(x); // abertura da tela
     }
     
+    @FXML
+    public void handleMenuItemAlugarLivro() throws IOException{
+        AnchorPane y = (AnchorPane) FXMLLoader.load(getClass().getResource("/javafx/view/FXMLAnchorPaneAlugarLivro.fxml")); // load da tela 
+        anchorPane.getChildren().setAll(y); // abertura da tela
+    }
+    
+    
+    
     
             
             

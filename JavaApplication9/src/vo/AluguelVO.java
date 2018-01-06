@@ -8,6 +8,24 @@ public class AluguelVO implements Serializable{
     private LocalDate data;
     private int aluno_id;
     private int livro_id;
+    private LivroVO livro;
+    private AlunoVO aluno;
+
+    public AlunoVO getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(AlunoVO aluno) {
+        this.aluno = aluno;
+    }
+
+    public LivroVO getLivro() {
+        return livro;
+    }
+
+    public void setLivro(LivroVO livro) {
+        this.livro = livro;
+    }
     
     public AluguelVO(){
     
