@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,16 +13,15 @@ import javax.swing.JOptionPane;
 import vo.LivroVO;
 
 public class LivroDAO implements ILivroDAO {
-    
-   
+
     @Override
     public void cadastro(LivroVO livroVO) {
         //IMPLEMENTADO SOMENTE PARA CORRIGIR O ERRO DE CLASSE ABSTRATA.
     }
-    
+
     private ArrayList<LivroVO> livros;
     private Connection conexao;
-    
+
     public Connection getConnection() {
         return conexao;
     }
@@ -29,7 +29,7 @@ public class LivroDAO implements ILivroDAO {
     public void setConnection(Connection conexao) {
         this.conexao = conexao;
     }
-    
+
     /*
     public void cadastrar(LivroVO livro) throws SQLException{
         Statement stmt = this.conexao.createStatement();
@@ -37,72 +37,97 @@ public class LivroDAO implements ILivroDAO {
                 + "('"+livro.getTitulo()+"','"+livro.getData()+"','"+livro.getCdd()+"','"+livro.getCutter()+"','"+livro.getComplemento()+"','"+livro.getAutor1()+"','"+livro.getAutor2()+"','"+livro.getAutor3()+"','"+livro.getTradutores()+"','"+livro.getIlustradores()+"','"+livro.getAssunto()+"','"+livro.getLocal()+"','"+livro.getEditora()+"','"+livro.getAno()+"','"+livro.getEdicao()+"')");
         
     }*/
-    
-    public void cadastrar(LivroVO cad){
-        try{
-            String insertSQL =("INSERT INTO livro(titulo, data_livro, cdd, cutter, complemento, autor1, assunto, autor2, local_livro, autor3, editora, tradutores, ano, ilustradores, edicao) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            
-          PreparedStatement pstm = conexao.prepareStatement(insertSQL);
-          
-          pstm.setString(1, cad.getTitulo());
-          pstm.setString(2, cad.getData()); //ps.setDate(2, new Date(f.getDtanascimetno().getDate()));
-          pstm.setString(3, cad.getCdd());
-          pstm.setString(4, cad.getCutter());
-          pstm.setString(5, cad.getComplemento());
-          pstm.setString(6, cad.getAutor1());
-          pstm.setString(7, cad.getAssunto());
-          pstm.setString(8, cad.getAutor2());
-          pstm.setString(9, cad.getLocal());
-          pstm.setString(10, cad.getAutor3());
-          pstm.setString(11, cad.getEditora());
-          pstm.setString(12, cad.getTradutores());
-          pstm.setString(13, cad.getAno());
-          pstm.setString(14, cad.getIlustradores());
-          pstm.setString(15, cad.getEdicao());
-          
-          pstm.execute();
-          
-          pstm.close();
-        
-        }catch (Exception e){
-        JOptionPane.showMessageDialog(null, "Erro na inserção: " + e);
+
+    public boolean cadastrar(LivroVO cad) {
+        String sql = "INSERT INTO livro(titulo, data_livro, cdd, cutter, complemento, autor1, assunto, autor2, local_livro, autor3, editora, tradutores, ano, ilustradores, edicao) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement pstm = conexao.prepareStatement(sql);
+            pstm.setString(1, cad.getTitulo());
+            pstm.setDate(2, Date.valueOf(cad.getData()));
+            pstm.setString(3, cad.getCdd());
+            pstm.setString(4, cad.getCutter());
+            pstm.setString(5, cad.getComplemento());
+            pstm.setString(6, cad.getAutor1());
+            pstm.setString(7, cad.getAssunto());
+            pstm.setString(8, cad.getAutor2());
+            pstm.setString(9, cad.getLocal());
+            pstm.setString(10, cad.getAutor3());
+            pstm.setString(11, cad.getEditora());
+            pstm.setString(12, cad.getTradutores());
+            pstm.setString(13, cad.getAno());
+            pstm.setString(14, cad.getIlustradores());
+            pstm.setString(15, cad.getEdicao());
+            pstm.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
     }
-    
-    public void editarCad(LivroVO cad){
-         try{
-             String editaSQL = ("UPDATE livro SET titulo = ?, data_livro = ?, cdd = ?, cutter = ?, complemento = ?, autor1 = ?, assunto = ?, autor2 = ?, local_livro = ?, autor3 = ?, editora = ?, tradutores = ?, ano = ?, ilustradores = ?, edicao = ? WHERE id_livro = ?");
-             
-                PreparedStatement pstm = conexao.prepareStatement(editaSQL);
-          
-                pstm.setString(1, cad.getTitulo());
-                pstm.setString(2, cad.getData());
-                pstm.setString(3, cad.getCdd());
-                pstm.setString(4, cad.getCutter());
-                pstm.setString(5, cad.getComplemento());
-                pstm.setString(6, cad.getAutor1());
-                pstm.setString(7, cad.getAutor2());
-                pstm.setString(8, cad.getAutor3());
-                pstm.setString(9, cad.getTradutores());
-                pstm.setString(10, cad.getIlustradores());
-                pstm.setString(11, cad.getAssunto());  
-                pstm.setString(12, cad.getLocal());
-                pstm.setString(13, cad.getEditora());
-                pstm.setString(14, cad.getAno());
-                pstm.setString(15, cad.getEdicao());
-          
-          int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja modificar as informações", "Atenção", +JOptionPane.YES_NO_OPTION);
-          
-          if(confirma == JOptionPane.YES_NO_OPTION){
-              pstm.execute();
-              JOptionPane.showMessageDialog(null, "Livro editado com sucesso!");
-          }
-         }catch (SQLException ex){
-             JOptionPane.showMessageDialog(null, "Erro na edição!");
-         }
-     }//fim editar
+    /*
+    public void cadastrar(LivroVO cad) {
+        String insertSQL = "INSERT INTO livro(titulo, data_livro, cdd, cutter, complemento, autor1, assunto, autor2, local_livro, autor3, editora, tradutores, ano, ilustradores, edicao) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        
+        try {
+            PreparedStatement pstm = conexao.prepareStatement(insertSQL);
 
-     public void excluirCad(LivroVO cad) {
+            pstm.setString(1, cad.getTitulo());
+            pstm.setDate(2, Date.valueOf(cad.getData()));
+            pstm.setString(3, cad.getCdd());
+            pstm.setString(4, cad.getCutter());
+            pstm.setString(5, cad.getComplemento());
+            pstm.setString(6, cad.getAutor1());
+            pstm.setString(7, cad.getAssunto());
+            pstm.setString(8, cad.getAutor2());
+            pstm.setString(9, cad.getLocal());
+            pstm.setString(10, cad.getAutor3());
+            pstm.setString(11, cad.getEditora());
+            pstm.setString(12, cad.getTradutores());
+            pstm.setString(13, cad.getAno());
+            pstm.setString(14, cad.getIlustradores());
+            pstm.setString(15, cad.getEdicao());
+
+            pstm.execute();
+            pstm.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro na inserção: " + e);        
+        }
+    }
+    */
+    public void editarCad(LivroVO cad) {
+        try {
+            String editaSQL = ("UPDATE livro SET titulo = ?, data_livro = ?, cdd = ?, cutter = ?, complemento = ?, autor1 = ?, assunto = ?, autor2 = ?, local_livro = ?, autor3 = ?, editora = ?, tradutores = ?, ano = ?, ilustradores = ?, edicao = ? WHERE id_livro = ?");
+
+            PreparedStatement pstm = conexao.prepareStatement(editaSQL);
+
+            pstm.setString(1, cad.getTitulo());
+            pstm.setDate(2, Date.valueOf(cad.getData()));
+            pstm.setString(3, cad.getCdd());
+            pstm.setString(4, cad.getCutter());
+            pstm.setString(5, cad.getComplemento());
+            pstm.setString(6, cad.getAutor1());
+            pstm.setString(7, cad.getAutor2());
+            pstm.setString(8, cad.getAutor3());
+            pstm.setString(9, cad.getTradutores());
+            pstm.setString(10, cad.getIlustradores());
+            pstm.setString(11, cad.getAssunto());
+            pstm.setString(12, cad.getLocal());
+            pstm.setString(13, cad.getEditora());
+            pstm.setString(14, cad.getAno());
+            pstm.setString(15, cad.getEdicao());
+
+            int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja modificar as informações", "Atenção", +JOptionPane.YES_NO_OPTION);
+
+            if (confirma == JOptionPane.YES_NO_OPTION) {
+                pstm.execute();
+                JOptionPane.showMessageDialog(null, "Livro editado com sucesso!");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro na edição!");
+        }
+    }//fim editar
+
+    public void excluirCad(LivroVO cad) {
 
         try {
             String excluiSQL = ("DELETE FROM livro WHERE Id_livro = ?");
@@ -123,8 +148,8 @@ public class LivroDAO implements ILivroDAO {
 
         }
     }
-     
-     public List<LivroVO> listar() {
+
+    public List<LivroVO> listar() {
         String sql = "SELECT * FROM livro";
         List<LivroVO> retorno = new ArrayList<>();
         try {
@@ -134,7 +159,7 @@ public class LivroDAO implements ILivroDAO {
                 LivroVO livro = new LivroVO();
                 livro.setId_livro(resultado.getInt("id_livro"));
                 livro.setTitulo(resultado.getString("titulo"));
-                livro.setData(resultado.getString("data_livro"));
+                livro.setData(resultado.getDate("data_livro").toLocalDate());
                 livro.setCdd(resultado.getString("cdd"));
                 livro.setCutter(resultado.getString("cutter"));
                 livro.setComplemento(resultado.getString("complemento"));
@@ -148,7 +173,7 @@ public class LivroDAO implements ILivroDAO {
                 livro.setEditora(resultado.getString("editora"));
                 livro.setAno(resultado.getString("ano"));
                 livro.setEdicao(resultado.getString("edicao"));
-                  
+
                 retorno.add(livro);
             }
         } catch (SQLException ex) {
@@ -156,7 +181,7 @@ public class LivroDAO implements ILivroDAO {
         }
         return retorno;
     }
-    
+
     /*
     public ResultSet consultarLivroPorTitulo(String titulo) throws SQLException{
         Statement stmt = this.conexao.createStatement();
@@ -166,8 +191,7 @@ public class LivroDAO implements ILivroDAO {
         
         return rs;
     }
-    */
-
+     */
     public LivroVO buscar(LivroVO livro) {
         String sql = "SELECT * FROM livro WHERE Id_livro=?";
         LivroVO retorno = new LivroVO();
@@ -178,7 +202,7 @@ public class LivroDAO implements ILivroDAO {
             if (resultado.next()) {
                 livro.setId_livro(resultado.getInt("id_livro"));
                 livro.setTitulo(resultado.getString("titulo"));
-                //livro.setData(resultado.getDate("data_livro").toLocalDate()); FALTA MUDAR O SET DE LIVRO PARA DATATYPE
+                livro.setData(resultado.getDate("data_livro").toLocalDate());
                 livro.setCdd(resultado.getString("cdd"));
                 livro.setCutter(resultado.getString("cutter"));
                 livro.setComplemento(resultado.getString("complemento"));
@@ -199,5 +223,5 @@ public class LivroDAO implements ILivroDAO {
         }
         return retorno;
     }
- 
+
 }// FIM DA CLASSE

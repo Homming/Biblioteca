@@ -6,6 +6,7 @@ import database.DatabaseFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -104,8 +105,8 @@ public class FXMLAnchorPaneCadastroLivroController implements Initializable {
         //Preenchimento dos campos através do livro selecionado
         if(livro != null){
             lblLivroCod.setText(String.valueOf(livro.getId_livro()));
-            lblLivroTitulo.setText(livro.getTitulo());
-            lblLivroData.setText(livro.getData());
+            lblLivroTitulo.setText(livro.getTitulo());           
+            lblLivroData.setText(String.valueOf(livro.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
             lblLivroCDD.setText(livro.getCdd());
             lblLivroCutter.setText(livro.getCutter());
             lblLivroComplemento.setText(livro.getComplemento());
@@ -139,7 +140,7 @@ public class FXMLAnchorPaneCadastroLivroController implements Initializable {
         }
     }
      
-     @FXML
+    @FXML
     public void handleButtonNovo() throws IOException {
         LivroVO livro = new LivroVO(); // instancia novo livro 
         boolean buttonConfirmarClicked = showFXMLAnchorPaneCadastroLivroDialog(livro); // abre a tela para inserção dos dados, se o usuário tiver clicado no botão

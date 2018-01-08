@@ -11,9 +11,6 @@ CREATE TABLE bibliotecaria(
     senha varchar(10) not null,
     email varchar(100)
 );
-
-INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha)
-	VALUES ('Admnistrador','999.999.999-99','82999999999','admin','admin');
     
 CREATE TABLE livro(
 	id_livro int auto_increment not null primary key,
@@ -34,32 +31,28 @@ CREATE TABLE livro(
 	edicao varchar(100)
 );
 
--- alter table livro change column data_livro data_livro date; ALTERADO SOMENTE PARA TESTES, LEMBRAR DE REVERTER PARA NOT NULL
+-- alter table livro change column data_livro data_livro date; -- ALTERADO SOMENTE PARA TESTES, LEMBRAR DE REVERTER PARA NOT NULL
 
-CREATE TABLE alunos(
+CREATE TABLE aluno(
 	id_aluno int auto_increment not null primary key,
     nome varchar(100) not null,
     telefone varchar(50)
 );
 
-insert into alunos (nome, telefone) values ('estevao gabriel','99999-9999');
-
 -- mudar alunoid e livro id para not null
+
 CREATE TABLE aluguel(
 	id_aluguel int auto_increment not null primary key,
     data_aluguel date not null,
     aluno_id int,
     livro_id int,
-    CONSTRAINT fk_aluguel_alunos FOREIGN KEY (aluno_id) REFERENCES alunos(id_aluno),
+    data_devolucao date not null,
+    devolvido boolean not null,
+    CONSTRAINT fk_aluguel_aluno FOREIGN KEY (aluno_id) REFERENCES aluno(id_aluno),
     CONSTRAINT fk_aluguel_livro FOREIGN KEY (livro_id) REFERENCES  livro(id_livro)
 );
 
-
-
-select * from aluguel;
-
-INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha)
-	VALUES ('Teste','999.999.999-99','82999999999','admin','admin');
-
--- insert into livro(titulo, data_livro, cdd, cutter, autor1) values ('teste','2017/12/30','test','cutter','autor');
--- insert into aluguel (data_aluguel, aluno_id, livro_id) values ('2018/01/06',1,3);
+-- INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha) VALUES ('Admnistrador','999.999.999-99','82999999999','admin','admin');
+-- insert into livro(titulo, data_livro, cdd, cutter, autor1) values ('O Test','08/01/18','46456','456465','teste');
+-- insert into aluno (nome, telefone) values ('nicolas torres','99999-9999');
+-- insert into aluguel (data_aluguel, aluno_id, livro_id,data_devolucao,devolvido) values ('2018/01/08',1,1,'2018/01/10',false);

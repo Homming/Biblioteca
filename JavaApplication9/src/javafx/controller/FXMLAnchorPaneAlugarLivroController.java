@@ -1,9 +1,11 @@
 package javafx.controller;
 
 import dao.AluguelDAO;
+import dao.AlunoDAO;
 import dao.LivroDAO;
 import database.Database;
 import database.DatabaseFactory;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.time.LocalDate;
@@ -13,12 +15,16 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import vo.AluguelVO;
 
 public class FXMLAnchorPaneAlugarLivroController implements Initializable {
@@ -40,11 +46,15 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
     @FXML
     private Label lblCodigo;
     @FXML
-    private Label lblData;
+    private Label lblDataAluguel;
     @FXML
     private Label lblAluno;
     @FXML
     private Label lblLivro;
+    @FXML
+    private Label lblDevolvido;
+    @FXML
+    private Label lblDevolucao;
 
     private List<AluguelVO> listAlugueis; // pega a lista de alugueis retornada pelo BD
     private ObservableList<AluguelVO> observableListAlugueis; // seta os dados da list em um observable list
@@ -53,6 +63,7 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
     private final Connection connection = database.conectar();
     private final AluguelDAO aluguelDAO = new AluguelDAO();
     private final LivroDAO livroDAO = new LivroDAO();
+    private final AlunoDAO alunoDAO = new AlunoDAO();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -68,14 +79,18 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
         //Preenchimento dos campos através do livro selecionado
         if(aluguel != null){
             lblCodigo.setText(String.valueOf(aluguel.getId_aluguel()));
-            lblData.setText(aluguel.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            lblDataAluguel.setText(String.valueOf(aluguel.getData_aluguel().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
             lblAluno.setText(aluguel.getAluno().toString());
             lblLivro.setText(aluguel.getLivro().toString());
+            lblDevolucao.setText(String.valueOf(aluguel.getData_devolucao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+            lblDevolvido.setText(String.valueOf(aluguel.getDevolvido()));
         }else{
             lblCodigo.setText("");
-            lblData.setText("");
+            lblDataAluguel.setText("");
             lblAluno.setText("");
             lblLivro.setText("");
+            lblDevolucao.setText("");
+            lblDevolvido.setText("");
         }
     }
     
@@ -90,5 +105,43 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
         observableListAlugueis = FXCollections.observableArrayList(listAlugueis);
         tblAluguel.setItems(observableListAlugueis);
     }
+     
+    //Método para exibir a tela (Dialog) 
+    public boolean showFXMLAnchorPaneAlugarLivroDialog(AluguelVO aluguel) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(FXMLAnchorPaneAlugarLivroDialogController.class.getResource("/javafx/view/FXMLAnchorPaneAlugarLivroDialog.fxml"));
+
+        AnchorPane page = (AnchorPane) loader.load(); //typecast para guardar em page a tela carregada.
+
+        // Stage Dialog, para que seja visível ao usuário
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Registro de Aluguel");//exibido na parte superior da tela
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+        // Setando aluguel no controller
+        FXMLAnchorPaneAlugarLivroDialogController controller = loader.getController(); // instancia do controller da tela dialog
+        //setando para o controller
+        controller.setDialogStage(dialogStage);
+        controller.setAluguel(aluguel);
+
+        // Mostra a tela e espera o usuário fechar
+        dialogStage.showAndWait();
+
+        return controller.isButtonConfirmarClicked();
+
+    }
+    
+    @FXML
+    public void handleButtonNovo() throws IOException {
+        AluguelVO aluguel = new AluguelVO(); // instancia novo livro 
+        boolean buttonConfirmarClicked = showFXMLAnchorPaneAlugarLivroDialog(aluguel); // abre a tela para inserção dos dados, se o usuário tiver clicado no botão
+        if(buttonConfirmarClicked){// se o botão confirmar for clicado
+            aluguelDAO.cadastrar(aluguel);// insere os dados cadastrados na tela
+            carregarTableViewAlugueis();
+        }
+    }
+    
     
 }

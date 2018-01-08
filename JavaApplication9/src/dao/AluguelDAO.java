@@ -6,12 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import vo.AluguelVO;
+import vo.AlunoVO;
 import vo.LivroVO;
 
 public class AluguelDAO implements IAluguelDAO{
@@ -32,12 +31,14 @@ public class AluguelDAO implements IAluguelDAO{
     }
     
     public boolean cadastrar(AluguelVO aluguel) {
-        String sql = "INSERT INTO aluguel(data_aluguel, aluno_id, livro_id) VALUES(?,?,?)";
+        String sql = "INSERT INTO aluguel(data_aluguel, aluno_id, livro_id, data_devolucao, devolvido) VALUES(?,?,?,?,?)";
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setDate(1, Date.valueOf(aluguel.getData()));
+            stmt.setDate(1, Date.valueOf(aluguel.getData_aluguel()));
             stmt.setInt(2, aluguel.getAluno_id());
             stmt.setInt(3, aluguel.getLivro_id());
+            stmt.setDate(3, Date.valueOf(aluguel.getData_devolucao()));
+            stmt.setBoolean(4, aluguel.getDevolvido());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -50,7 +51,7 @@ public class AluguelDAO implements IAluguelDAO{
         String sql = "UPDATE aluguel SET data_aluguel=?, aluno_id=?, livro_id=? WHERE Id_aluguel=?";
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setDate(1, Date.valueOf(aluguel.getData()));
+            stmt.setDate(1, Date.valueOf(aluguel.getData_aluguel()));
             stmt.setInt(2, aluguel.getAluno_id());
             stmt.setInt(3, aluguel.getLivro_id());
             stmt.setInt(4, aluguel.getId_aluguel());
@@ -85,16 +86,27 @@ public class AluguelDAO implements IAluguelDAO{
             while (resultado.next()) {
                 AluguelVO aluguel = new AluguelVO();
                 LivroVO livro = new LivroVO();
+                AlunoVO aluno = new AlunoVO();
 
                 aluguel.setId_aluguel(resultado.getInt("id_aluguel"));
-                aluguel.setData(resultado.getDate("data_aluguel").toLocalDate());;
+                aluguel.setData_aluguel(resultado.getDate("data_aluguel").toLocalDate());
+                aluguel.setAluno_id(resultado.getInt("aluno_id"));
+                aluguel.setLivro_id(resultado.getInt("livro_id"));
+                aluguel.setData_devolucao(resultado.getDate("data_devolucao").toLocalDate());
+                aluguel.setDevolvido(resultado.getBoolean("devolvido"));
 
                 //Obtendo os dados completos do Livro associado
                 LivroDAO livroDAO = new LivroDAO();
                 livroDAO.setConnection(conexao);
                 livro = livroDAO.buscar(livro);
+                
+                //Obtendo os dados completos do Aluno associado
+                AlunoDAO alunoDAO = new AlunoDAO();
+                alunoDAO.setConnection(conexao);
+                aluno = alunoDAO.buscar(aluno);
 
                 aluguel.setLivro(livro);
+                aluguel.setAluno(aluno);
                 retorno.add(aluguel);
             }
         } catch (SQLException ex) {
