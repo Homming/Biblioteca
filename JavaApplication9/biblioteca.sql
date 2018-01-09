@@ -16,8 +16,8 @@ CREATE TABLE livro(
 	id_livro int auto_increment not null primary key,
 	titulo varchar(100) not null,
 	data_livro date not null,
-	cdd varchar(100) not null,
-	cutter varchar(100) not null,
+	cdd varchar(100),
+	cutter varchar(100),
 	complemento varchar(100),
 	autor1 varchar(100) not null,
 	autor2 varchar(100),
@@ -30,7 +30,6 @@ CREATE TABLE livro(
 	ano varchar(100),
 	edicao varchar(100)
 );
-
 -- alter table livro change column data_livro data_livro date; -- ALTERADO SOMENTE PARA TESTES, LEMBRAR DE REVERTER PARA NOT NULL
 
 CREATE TABLE aluno(
@@ -56,3 +55,4 @@ CREATE TABLE aluguel(
 -- insert into livro(titulo, data_livro, cdd, cutter, autor1) values ('O Test','08/01/18','46456','456465','teste');
 -- insert into aluno (nome, telefone) values ('nicolas torres','99999-9999');
 -- insert into aluguel (data_aluguel, aluno_id, livro_id,data_devolucao,devolvido) values ('2018/01/08',1,1,'2018/01/10',false);
+-- UPDATE livro SET titulo = 'teste', data_livro = '08/01/18', cdd = '515', cutter = '555', complemento = 'asdad', autor1 = 'sadsads', autor2 = 'asdsad', autor3 = 'asdsad', tradutores = 'sadsad', ilustradores = 'asdsa', assunto = 'asdsa', local_livro = 'asdsa', editora = 'asdsa', ano = 'asdsa', edicao = 'asdsa' WHERE id_livro = 1;

@@ -35,8 +35,8 @@ public class AluguelDAO implements IAluguelDAO{
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setDate(1, Date.valueOf(aluguel.getData_aluguel()));
-            stmt.setInt(2, aluguel.getAluno_id());
-            stmt.setInt(3, aluguel.getLivro_id());
+            stmt.setInt(2, aluguel.getAluno().getId_aluno());
+            stmt.setInt(3, aluguel.getLivro().getId_livro());
             stmt.setDate(3, Date.valueOf(aluguel.getData_devolucao()));
             stmt.setBoolean(4, aluguel.getDevolvido());
             stmt.execute();
@@ -52,8 +52,8 @@ public class AluguelDAO implements IAluguelDAO{
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setDate(1, Date.valueOf(aluguel.getData_aluguel()));
-            stmt.setInt(2, aluguel.getAluno_id());
-            stmt.setInt(3, aluguel.getLivro_id());
+            stmt.setInt(2, aluguel.getAluno().getId_aluno());
+            stmt.setInt(3, aluguel.getLivro().getId_livro());
             stmt.setInt(4, aluguel.getId_aluguel());
             stmt.execute();
             return true;

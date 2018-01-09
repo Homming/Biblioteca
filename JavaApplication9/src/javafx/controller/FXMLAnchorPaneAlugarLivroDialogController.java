@@ -1,5 +1,6 @@
 package javafx.controller;
 
+import bo.AluguelBO;
 import dao.AluguelDAO;
 import dao.AlunoDAO;
 import dao.LivroDAO;
@@ -13,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -116,7 +118,62 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
         this.txtEdicao.setText(livro.getEdicao());
          */
     }
-    
+
+    @FXML
+    public void handleButtonConfirmar() {
+        /*
+        String valNome = txtUserName.getText();// guardando o valor que deseja validar em uma variavel
+        String valEmail = txtUserEmail.getText();
+        String valUser = txtUserUser .getText();
+        String valPass = txtUserPass.getText();
+        String valConfPass = txtUserConfPass.getText();//NAO ESTA FUNCIONANDO
+
+        AluguelBO validar = new AluguelBO(); // instanciando a classe BO para chamar o método de validação
+
+        //if (validar.validarEntradaDeDados(valNome, valEmail, valUser, valPass)) {// se todos os campos estiverem ok
+         */
+        if (validarEntradaDeDados()) {
+            aluguel.setData_aluguel(dtpAluguel.getValue());
+            aluguel.setAluno((AlunoVO) cbxAluno.getSelectionModel().getSelectedItem());
+            aluguel.setLivro((LivroVO) cbxLivro.getSelectionModel().getSelectedItem());
+            aluguel.setData_devolucao(dtpDevolucao.getValue());
+            aluguel.setDevolvido(chbDevolvido.isSelected());
+
+            buttonConfirmarClicked = true;
+            dialogStage.close();
+        }
+    }
+
+    //VALIDAÇÃO DENTRO DA PROPRIA CLASSE AO INVES DO BO
+    private boolean validarEntradaDeDados() {
+        String errorMessage = "";
+
+        if (cbxAluno.getSelectionModel().getSelectedItem() == null) {
+            errorMessage += "Aluno inválido!\n";
+        }
+        if (cbxLivro.getSelectionModel().getSelectedItem() == null) {
+            errorMessage += "Livro inválido!\n";
+        }
+
+        if (dtpAluguel.getValue() == null) {
+            errorMessage += "Data de aluguel inválida!\n";
+        }
+
+        if (dtpDevolucao.getValue() == null) {
+            errorMessage += "Data de devolução inválida!\n";
+        }
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro no registro");
+            alert.setHeaderText("Campos inválidos, correção necessária...");
+            alert.setContentText(errorMessage);
+            alert.show();
+            return false;
+        }
+    }
+
     @FXML
     public void handleButtonCancelar() {
         dialogStage.close();

@@ -3,13 +3,29 @@ package vo;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class AluguelVO implements Serializable{
+public class AluguelVO implements Serializable {
+
     private int id_aluguel;
     private LocalDate data_aluguel;
     private int aluno_id;
     private int livro_id;
     private LocalDate data_devolucao;
     private boolean devolvido;
+    private LivroVO livro;
+    private AlunoVO aluno;
+    
+    public AluguelVO(){
+    
+    }
+    
+    public AluguelVO(int id_aluguel, LocalDate data_aluguel, int aluno_id, int livro_id, LocalDate data_devolucao, boolean devolvido) {
+        this.id_aluguel = id_aluguel;
+        this.data_aluguel = data_aluguel;
+        this.aluno_id = aluno_id;
+        this.livro_id = livro_id;
+        this.data_devolucao = data_devolucao;
+        this.devolvido = devolvido;
+    }
 
     public boolean getDevolvido() {
         return devolvido;
@@ -18,10 +34,6 @@ public class AluguelVO implements Serializable{
     public void setDevolvido(boolean devolvido) {
         this.devolvido = devolvido;
     }
-
-
-    private LivroVO livro;
-    private AlunoVO aluno;
 
     public int getId_aluguel() {
         return id_aluguel;
@@ -79,7 +91,4 @@ public class AluguelVO implements Serializable{
         this.aluno = aluno;
     }
 
-    
-    
-    
 }

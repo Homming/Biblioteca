@@ -8,6 +8,7 @@ import database.DatabaseFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -18,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -28,7 +30,7 @@ import javafx.stage.Stage;
 import vo.AluguelVO;
 
 public class FXMLAnchorPaneAlugarLivroController implements Initializable {
-    
+
     @FXML
     private TableView<AluguelVO> tblAluguel;
     @FXML
@@ -58,33 +60,33 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
 
     private List<AluguelVO> listAlugueis; // pega a lista de alugueis retornada pelo BD
     private ObservableList<AluguelVO> observableListAlugueis; // seta os dados da list em um observable list
-    
+
     private final Database database = DatabaseFactory.getDatabase("mysql");
     private final Connection connection = database.conectar();
     private final AluguelDAO aluguelDAO = new AluguelDAO();
     private final LivroDAO livroDAO = new LivroDAO();
     private final AlunoDAO alunoDAO = new AlunoDAO();
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         aluguelDAO.setConnection(connection);
         carregarTableViewAlugueis();
-        
+
         //Listener acionado na seleção da Tabela de Aluguel, chamando o método indicado
-        tblAluguel.getSelectionModel().selectedItemProperty().addListener( 
+        tblAluguel.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> selecionarItemTblAlugueis(newValue));
-    }    
-    
-    public void selecionarItemTblAlugueis(AluguelVO aluguel){
+    }
+
+    public void selecionarItemTblAlugueis(AluguelVO aluguel) {
         //Preenchimento dos campos através do livro selecionado
-        if(aluguel != null){
+        if (aluguel != null) {
             lblCodigo.setText(String.valueOf(aluguel.getId_aluguel()));
             lblDataAluguel.setText(String.valueOf(aluguel.getData_aluguel().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
             lblAluno.setText(aluguel.getAluno().toString());
             lblLivro.setText(aluguel.getLivro().toString());
             lblDevolucao.setText(String.valueOf(aluguel.getData_devolucao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
             lblDevolvido.setText(String.valueOf(aluguel.getDevolvido()));
-        }else{
+        } else {
             lblCodigo.setText("");
             lblDataAluguel.setText("");
             lblAluno.setText("");
@@ -93,19 +95,19 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
             lblDevolvido.setText("");
         }
     }
-    
-    public void carregarTableViewAlugueis(){
+
+    public void carregarTableViewAlugueis() {
         // configuração da tabela
         tblColumnCodigo.setCellValueFactory(new PropertyValueFactory<>("id_aluguel"));
         tblColumnData.setCellValueFactory(new PropertyValueFactory<>("data_aluguel"));
         tblColumnLivro.setCellValueFactory(new PropertyValueFactory<>("titulo"));
-        
+
         listAlugueis = aluguelDAO.listar();
-        
+
         observableListAlugueis = FXCollections.observableArrayList(listAlugueis);
         tblAluguel.setItems(observableListAlugueis);
     }
-     
+
     //Método para exibir a tela (Dialog) 
     public boolean showFXMLAnchorPaneAlugarLivroDialog(AluguelVO aluguel) throws IOException {
 
@@ -132,16 +134,55 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
         return controller.isButtonConfirmarClicked();
 
     }
-    
+
+    /*
     @FXML
     public void handleButtonNovo() throws IOException {
         AluguelVO aluguel = new AluguelVO(); // instancia novo livro 
         boolean buttonConfirmarClicked = showFXMLAnchorPaneAlugarLivroDialog(aluguel); // abre a tela para inserção dos dados, se o usuário tiver clicado no botão
-        if(buttonConfirmarClicked){// se o botão confirmar for clicado
+        if (buttonConfirmarClicked) {// se o botão confirmar for clicado
             aluguelDAO.cadastrar(aluguel);// insere os dados cadastrados na tela
             carregarTableViewAlugueis();
         }
     }
-    
-    
+     */
+    @FXML
+    public void handleButtonNovo() throws IOException, SQLException {
+        AluguelVO aluguel = new AluguelVO(); // instancia novo livro 
+        boolean buttonConfirmarClicked = showFXMLAnchorPaneAlugarLivroDialog(aluguel); // abre a tela para inserção dos dados, se o usuário tiver clicado no botão
+        if (buttonConfirmarClicked) {// se o botão confirmar for clicado
+            try {
+                connection.setAutoCommit(false);// desativando autocommit para só realizar a inserção quando eu desejar
+                aluguelDAO.setConnection(connection);
+                aluguelDAO.cadastrar(aluguel);
+                livroDAO.setConnection(connection);
+                alunoDAO.setConnection(connection);
+                connection.commit();
+                carregarTableViewAlugueis();
+            } catch (SQLException ex) {
+                try {
+                    connection.rollback();
+                } catch (SQLException e) {
+
+                }
+            }
+        }
+    }
+
+    @FXML
+    public void handleButtonRemover() throws IOException, SQLException {
+        AluguelVO aluguel = tblAluguel.getSelectionModel().getSelectedItem();
+        if (aluguel != null) {
+            connection.setAutoCommit(false);
+            livroDAO.setConnection(connection);
+            aluguelDAO.setConnection(connection);
+            aluguelDAO.remover(aluguel);
+            connection.commit();
+            carregarTableViewAlugueis();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Por favor, selecione um aluguel na tabela!");
+            alert.show();
+        }
+    }
 }

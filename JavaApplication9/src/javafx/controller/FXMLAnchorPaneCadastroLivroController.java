@@ -106,7 +106,7 @@ public class FXMLAnchorPaneCadastroLivroController implements Initializable {
         if(livro != null){
             lblLivroCod.setText(String.valueOf(livro.getId_livro()));
             lblLivroTitulo.setText(livro.getTitulo());           
-            lblLivroData.setText(String.valueOf(livro.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+            lblLivroData.setText(String.valueOf(livro.getData_livro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
             lblLivroCDD.setText(livro.getCdd());
             lblLivroCutter.setText(livro.getCutter());
             lblLivroComplemento.setText(livro.getComplemento());

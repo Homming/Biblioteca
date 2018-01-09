@@ -3,22 +3,23 @@ package vo;
 import java.time.LocalDate;
 
 public class LivroVO {
-     private int id_livro;
-     private String titulo;
-     private LocalDate data;
-     private String cdd;
-     private String cutter;
-     private String complemento;
-     private String autor1;
-     private String assunto;
-     private String autor2;
-     private String local;
-     private String autor3;
-     private String editora;
-     private String tradutores;
-     private String ano;
-     private String ilustradores;
-     private String edicao;
+
+    private int id_livro;
+    private String titulo;
+    private LocalDate data_livro;
+    private String cdd;
+    private String cutter;
+    private String complemento;
+    private String autor1;
+    private String assunto;
+    private String autor2;
+    private String local;
+    private String autor3;
+    private String editora;
+    private String tradutores;
+    private String ano;
+    private String ilustradores;
+    private String edicao;
 
     public int getId_livro() {
         return id_livro;
@@ -36,12 +37,12 @@ public class LivroVO {
         this.titulo = titulo;
     }
 
-    public LocalDate getData() {
-        return data;
+    public LocalDate getData_livro() {
+        return data_livro;
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
+    public void setData_livro(LocalDate data_livro) {
+        this.data_livro = data_livro;
     }
 
     public String getCdd() {
@@ -147,6 +148,5 @@ public class LivroVO {
     public void setEdicao(String edicao) {
         this.edicao = edicao;
     }
-    
-}
 
+}

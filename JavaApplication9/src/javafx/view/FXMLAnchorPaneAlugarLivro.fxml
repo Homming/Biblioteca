@@ -106,7 +106,7 @@
                      <children>
                         <Button fx:id="btnNovo" mnemonicParsing="false" onAction="#handleButtonNovo" prefHeight="39.0" prefWidth="83.0" text="Novo" />
                         <Button fx:id="btnEditar" layoutX="95.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="83.0" text="Editar" />
-                        <Button fx:id="btnRemover" layoutX="188.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="83.0" text="Remover" />
+                        <Button fx:id="btnRemover" layoutX="188.0" mnemonicParsing="false" onAction="#handleButtonRemover" prefHeight="39.0" prefWidth="83.0" text="Remover" />
                      </children>
                   </Group>
                </children>

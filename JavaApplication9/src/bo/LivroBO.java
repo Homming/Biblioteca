@@ -1,18 +1,21 @@
 package bo;
 
 import dao.ILivroDAO;
+import java.time.LocalDate;
 import javafx.scene.control.Alert;
 
 public class LivroBO {
+
     private ILivroDAO livroDAO;
-     
-    public LivroBO(ILivroDAO livroDAO){
+
+    public LivroBO(ILivroDAO livroDAO) {
         this.livroDAO = livroDAO;
     }
 
     public LivroBO() {
-       //Construtor requisitado
+        //Construtor requisitado
     }
+
     /*
     public void CadastroLivro(LivroVO livroVO) throws SQLException{
         if(livroVO.getTitulo().isEmpty() || livroVO.getTitulo()== null || livroVO.getData().isEmpty() || livroVO.getData()== null){
@@ -21,16 +24,24 @@ public class LivroBO {
             this.livroDAO.cadastro(livroVO);
         }
     }
-    */
-    
+     */
+
     //Validação da entrada dos dados de cadastro de Usuário
-    public boolean validarEntradaDeDados(String txtTitulo) {
+    public boolean validarEntradaDeDados(String txtTitulo, LocalDate dtpData, String txtAutor1) {
         String errorMessage = "";
-        
+
         if (txtTitulo == null || txtTitulo.length() == 0) {
             errorMessage += "Título Inválido!\n";
         }
-        
+
+        if (dtpData == null) {
+            errorMessage += "Data Inválida!\n";
+        }
+
+        if (txtAutor1 == null || txtAutor1.length() == 0) {
+            errorMessage += "Autor Principal inválido!\n";
+        }
+
         if (errorMessage.length() == 0) {
             return true;
         } else {
@@ -42,5 +53,5 @@ public class LivroBO {
             return false;
         }
     }
-    
+
 }

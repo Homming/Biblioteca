@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import vo.LivroVO;
 import bo.LivroBO;
+import java.time.LocalDate;
 
 public class FXMLAnchorPaneCadastroLivroDialogController implements Initializable {
 
@@ -38,7 +39,7 @@ public class FXMLAnchorPaneCadastroLivroDialogController implements Initializabl
         this.livro = livro;
         //Caso não seja um livro Novo, set os valores do livro existente
         this.txtTitulo.setText(livro.getTitulo());
-      //this.dtpData.setText(livro.getData());
+        this.dtpData.setValue(livro.getData_livro());
         this.txtCDD.setText(livro.getCdd());
         this.txtCutter.setText(livro.getCutter());
         this.txtComplemento.setText(livro.getComplemento());
@@ -57,12 +58,14 @@ public class FXMLAnchorPaneCadastroLivroDialogController implements Initializabl
     @FXML
     public void handleButtonConfirmar() {
         String valTitulo = txtTitulo.getText();// guardando o valor que deseja validar em uma variavel
+        LocalDate valData = dtpData.getValue();
+        String valAutor1 = txtAutor1.getText();
         LivroBO validar = new LivroBO(); // instanciando a classe BO para chamar o método de validação
         
-        if (validar.validarEntradaDeDados(valTitulo)) {// se todos os campos estiverem ok
+        if (validar.validarEntradaDeDados(valTitulo, valData, valAutor1)) {// se todos os campos estiverem ok
 
             livro.setTitulo(txtTitulo.getText());
-            //livro.setData(dtpData.getText()); ENCONTRAR SOLUÇÃO PARA DATA
+            livro.setData_livro(dtpData.getValue());
             livro.setCdd(txtCDD.getText());
             livro.setCutter(txtCutter.getText());
             livro.setComplemento(txtComplemento.getText());
