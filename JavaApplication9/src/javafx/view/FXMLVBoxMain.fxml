@@ -21,6 +21,11 @@
               <MenuItem fx:id="menuItemAlugarLivro" mnemonicParsing="false" onAction="#handleMenuItemAlugarLivro" text="Livro" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Gráficos">
+               <items>
+                  <MenuItem fx:id="menuItemSobre1" mnemonicParsing="false" onAction="#handleMenuItemGraficosAlugueisPorMes" text="Aluguéis por Mês" />
+               </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Sobre">
             <items>
               <MenuItem fx:id="menuItemSobre" mnemonicParsing="false" text="Sobre" />

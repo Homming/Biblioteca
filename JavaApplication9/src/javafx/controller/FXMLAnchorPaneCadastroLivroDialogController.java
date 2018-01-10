@@ -62,6 +62,7 @@ public class FXMLAnchorPaneCadastroLivroDialogController implements Initializabl
         String valAutor1 = txtAutor1.getText();
         LivroBO validar = new LivroBO(); // instanciando a classe BO para chamar o método de validação
         
+        //Lembrar de Experimentar enviar o objeto livro inteiro para validação no BO e a partir de lá efetuar o insert 
         if (validar.validarEntradaDeDados(valTitulo, valData, valAutor1)) {// se todos os campos estiverem ok
 
             livro.setTitulo(txtTitulo.getText());

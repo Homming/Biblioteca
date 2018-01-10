@@ -6,22 +6,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import vo.AluguelVO;
 import vo.AlunoVO;
 import vo.LivroVO;
 
-public class AluguelDAO implements IAluguelDAO{
+public class AluguelDAO implements IAluguelDAO {
 
     @Override
     public void cadastro(AluguelVO aluguelVO) throws SQLException {
         //IMPLEMENTADO SOMENTE PARA CORRIGIR O ERRO DE CLASSE ABSTRATA.
     }
-    
+
     private Connection conexao;
-    
+
     public Connection getConnection() {
         return conexao;
     }
@@ -29,7 +31,7 @@ public class AluguelDAO implements IAluguelDAO{
     public void setConnection(Connection conexao) {
         this.conexao = conexao;
     }
-    
+
     public boolean cadastrar(AluguelVO aluguel) {
         String sql = "INSERT INTO aluguel(data_aluguel, aluno_id, livro_id, data_devolucao, devolvido) VALUES(?,?,?,?,?)";
         try {
@@ -46,7 +48,7 @@ public class AluguelDAO implements IAluguelDAO{
             return false;
         }
     }
-    
+
     public boolean alterar(AluguelVO aluguel) {
         String sql = "UPDATE aluguel SET data_aluguel=?, aluno_id=?, livro_id=? WHERE Id_aluguel=?";
         try {
@@ -62,7 +64,7 @@ public class AluguelDAO implements IAluguelDAO{
             return false;
         }
     }
-    
+
     public boolean remover(AluguelVO aluguel) {
         String sql = "DELETE FROM aluguel WHERE Id_aluguel=?";
         try {
@@ -75,7 +77,7 @@ public class AluguelDAO implements IAluguelDAO{
             return false;
         }
     }
-    
+
     //REVER
     public List<AluguelVO> listar() {
         String sql = "SELECT * FROM aluguel";
@@ -99,7 +101,7 @@ public class AluguelDAO implements IAluguelDAO{
                 LivroDAO livroDAO = new LivroDAO();
                 livroDAO.setConnection(conexao);
                 livro = livroDAO.buscar(livro);
-                
+
                 //Obtendo os dados completos do Aluno associado
                 AlunoDAO alunoDAO = new AlunoDAO();
                 alunoDAO.setConnection(conexao);
@@ -114,7 +116,7 @@ public class AluguelDAO implements IAluguelDAO{
         }
         return retorno;
     }
-    
+
     public AluguelVO buscarUltimoAluguel() {
         String sql = "SELECT max(Id_aluguel) FROM aluguel";
         AluguelVO retorno = new AluguelVO();
@@ -131,24 +133,24 @@ public class AluguelDAO implements IAluguelDAO{
         }
         return retorno;
     }
-    
-    /* PROTOTIPO DE LISTAGEM DE ALUGUEL (CÓDIGO DE RAFAEL MESQUITA)
-    public Map<Integer, ArrayList> listarQuantidadeAlugueisPorMes() {
+
+    //Map<Chave, Valor> No nosso caso : <Ano, arraylist de meses e a qtd de alugueis em cada mes>
+    public Map<Integer, ArrayList> listarAlugueisPorMes() {
+        //esta caindo no exception com o erro  Column 'count' not found. ??????
         String sql = "select count(Id_aluguel), extract(year from data_aluguel) as ano, extract(month from data_aluguel) as mes from aluguel group by ano, mes order by ano, mes";
         Map<Integer, ArrayList> retorno = new HashMap();
-        
+
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             ResultSet resultado = stmt.executeQuery();
 
             while (resultado.next()) {
                 ArrayList linha = new ArrayList();
-                if (!retorno.containsKey(resultado.getInt("ano")))
-                {
+                if (!retorno.containsKey(resultado.getInt("ano"))) {
                     linha.add(resultado.getInt("mes"));
                     linha.add(resultado.getInt("count"));
                     retorno.put(resultado.getInt("ano"), linha);
-                }else{
+                } else {
                     ArrayList linhaNova = retorno.get(resultado.getInt("ano"));
                     linhaNova.add(resultado.getInt("mes"));
                     linhaNova.add(resultado.getInt("count"));
@@ -160,6 +162,5 @@ public class AluguelDAO implements IAluguelDAO{
         }
         return retorno;
     }
-    */
-    
+
 }
