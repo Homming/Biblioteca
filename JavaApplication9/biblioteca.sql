@@ -55,7 +55,6 @@ CREATE TABLE aluguel(
     CONSTRAINT fk_aluguel_aluno FOREIGN KEY (aluno_id) REFERENCES aluno(id_aluno) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT fk_aluguel_livro FOREIGN KEY (livro_id) REFERENCES  livro(id_livro) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 -- INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha) VALUES ('Admnistrador','999.999.999-99','82999999999','admin','admin');
 -- insert into livro(titulo, data_livro, quantidade_livro, cdd, cutter, autor1) values ('O Teste3','01/01/10',4,'555','454','voce');
 -- insert into aluno (nome, telefone) values ('estevao gabriel','99999-9999');

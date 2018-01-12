@@ -12,10 +12,12 @@ import javax.swing.JOptionPane;
 import vo.BibliotecariaVO;
 
 public class BibliotecariaDAO implements IBibliotecariaDAO {
-    
+
     private ArrayList<BibliotecariaVO> biblio;
     private Connection conexao;
+    ResultSet rs = null;
     
+
     public Connection getConnection() {
         return conexao;
     }
@@ -23,7 +25,7 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
     public void setConnection(Connection conexao) {
         this.conexao = conexao;
     }
-    
+
     public boolean cadastrar(BibliotecariaVO bibliotecaria) {
         String sql = "INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha, email) values (?,?,?,?,?,?)";
         try {
@@ -41,32 +43,32 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
             return false;
         }
     }
-    
-    public void editar(BibliotecariaVO cad){
-         try{
-             String editaSQL = ("UPDATE bibliotecaria SET nome = ?, cpf = ?, cel = ?, usuario = ?, senha = ?, email = ? WHERE id_usuario = ?");
-             
-             PreparedStatement pstm = conexao.prepareStatement(editaSQL);
-          
-          pstm.setString(1, cad.getNome());
-          pstm.setString(2, cad.getCpf());
-          pstm.setString(3, cad.getCel());
-          pstm.setString(4, cad.getUsuario());
-          pstm.setString(5, cad.getSenha());
-          pstm.setString(6, cad.getEmail());
-          pstm.setInt(7, cad.getId_usuario());
-          
-          int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja modificar as informações", "Atenção", +JOptionPane.YES_NO_OPTION);
-          
-          if(confirma == JOptionPane.YES_NO_OPTION){
-              pstm.execute();
-              JOptionPane.showMessageDialog(null, "Usuário editado com sucesso!");
-          }
-         }catch (SQLException ex){
-             JOptionPane.showMessageDialog(null, "Erro na edição!");
-         }// fim try
-     }//fim editar
-    
+
+    public void editar(BibliotecariaVO cad) {
+        try {
+            String editaSQL = ("UPDATE bibliotecaria SET nome = ?, cpf = ?, cel = ?, usuario = ?, senha = ?, email = ? WHERE id_usuario = ?");
+
+            PreparedStatement pstm = conexao.prepareStatement(editaSQL);
+
+            pstm.setString(1, cad.getNome());
+            pstm.setString(2, cad.getCpf());
+            pstm.setString(3, cad.getCel());
+            pstm.setString(4, cad.getUsuario());
+            pstm.setString(5, cad.getSenha());
+            pstm.setString(6, cad.getEmail());
+            pstm.setInt(7, cad.getId_usuario());
+
+            int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja modificar as informações", "Atenção", +JOptionPane.YES_NO_OPTION);
+
+            if (confirma == JOptionPane.YES_NO_OPTION) {
+                pstm.execute();
+                JOptionPane.showMessageDialog(null, "Usuário editado com sucesso!");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro na edição!");
+        }// fim try
+    }//fim editar
+
     public void excluirCad(BibliotecariaVO cad) {
 
         try {
@@ -88,7 +90,28 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
 
         }
     }
-    
+
+    public void logar(BibliotecariaVO cad) {
+        String sql = "SELECT * FROM bibliotecaria where usuario = ? and senha = ?";
+
+        try {
+            PreparedStatement pstm = conexao.prepareStatement(sql);
+            pstm.setString(1, cad.getUsuario());
+            pstm.setString(2, cad.getSenha());
+            
+            rs = pstm.executeQuery();
+            
+            if(rs.next()){
+                System.out.println("Bem Vindo(a)");
+            }else{
+                System.out.println("Usuário e/ou senha inválido(s)");
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
     public List<BibliotecariaVO> listar() {
         String sql = "SELECT * FROM bibliotecaria";
         List<BibliotecariaVO> retorno = new ArrayList<>();
@@ -110,5 +133,5 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
         }
         return retorno;
     }
-    
+
 }

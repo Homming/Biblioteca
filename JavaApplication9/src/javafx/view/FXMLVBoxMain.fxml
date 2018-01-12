@@ -33,7 +33,7 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Opções">
               <items>
-                <MenuItem fx:id="menuItemOpcaoLogout" mnemonicParsing="false" text="Logout" />
+                <MenuItem fx:id="menuItemOpcaoLogout" mnemonicParsing="false" onAction="#handleMenuItemOpcoesLogout" text="Logout" />
                   <MenuItem fx:id="menuItemOpcaoSair" mnemonicParsing="false" text="Sair" />
               </items>
             </Menu>

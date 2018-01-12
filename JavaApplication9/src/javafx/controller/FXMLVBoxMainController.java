@@ -55,6 +55,12 @@ public class FXMLVBoxMainController implements Initializable {
         anchorPane.getChildren().setAll(z);
     }
     
+    @FXML
+    public void handleMenuItemOpcoesLogout() throws IOException{
+        AnchorPane h = (AnchorPane) FXMLLoader.load(getClass().getResource("/javafx/view/FXMLAnchorPaneLogin.fxml"));
+        anchorPane.getChildren().setAll(h);
+    }
+    
     
     
             
