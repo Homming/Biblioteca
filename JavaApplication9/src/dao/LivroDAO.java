@@ -38,24 +38,25 @@ public class LivroDAO implements ILivroDAO {
         
     }*/
     public boolean cadastrar(LivroVO cad) {
-        String sql = "INSERT INTO livro(titulo, data_livro, cdd, cutter, complemento, autor1, autor2, autor3, tradutores, ilustradores, assunto, local_livro, editora, ano, edicao) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO livro(titulo, data_livro, quantidade_livro, cdd, cutter, complemento, autor1, autor2, autor3, tradutores, ilustradores, assunto, local_livro, editora, ano, edicao) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setString(1, cad.getTitulo());
             pstm.setDate(2, Date.valueOf(cad.getData_livro()));
-            pstm.setString(3, cad.getCdd());
-            pstm.setString(4, cad.getCutter());
-            pstm.setString(5, cad.getComplemento());
-            pstm.setString(6, cad.getAutor1());
-            pstm.setString(7, cad.getAssunto());
-            pstm.setString(8, cad.getAutor2());
-            pstm.setString(9, cad.getLocal());
-            pstm.setString(10, cad.getAutor3());
-            pstm.setString(11, cad.getEditora());
-            pstm.setString(12, cad.getTradutores());
-            pstm.setString(13, cad.getAno());
-            pstm.setString(14, cad.getIlustradores());
-            pstm.setString(15, cad.getEdicao());
+            pstm.setInt(3, cad.getQuantidade_livro());
+            pstm.setString(4, cad.getCdd());
+            pstm.setString(5, cad.getCutter());
+            pstm.setString(6, cad.getComplemento());
+            pstm.setString(7, cad.getAutor1());
+            pstm.setString(8, cad.getAssunto());
+            pstm.setString(9, cad.getAutor2());
+            pstm.setString(10, cad.getLocal());
+            pstm.setString(11, cad.getAutor3());
+            pstm.setString(12, cad.getEditora());
+            pstm.setString(13, cad.getTradutores());
+            pstm.setString(14, cad.getAno());
+            pstm.setString(15, cad.getIlustradores());
+            pstm.setString(16, cad.getEdicao());
             pstm.execute();
             return true;
         } catch (SQLException ex) {
@@ -65,25 +66,26 @@ public class LivroDAO implements ILivroDAO {
     }
 
     public boolean editarCad(LivroVO cad) {
-        String sql = "UPDATE livro SET titulo = ?, data_livro = ?, cdd = ?, cutter = ?, complemento = ?, autor1 = ?, autor2 = ?, autor3 = ?, tradutores = ?, ilustradores = ?, assunto = ?, local_livro = ?, editora = ?, ano = ?, edicao = ? WHERE id_livro = ?";
+        String sql = "UPDATE livro SET titulo = ?, data_livro = ?, quantidade_livro = ?, cdd = ?, cutter = ?, complemento = ?, autor1 = ?, autor2 = ?, autor3 = ?, tradutores = ?, ilustradores = ?, assunto = ?, local_livro = ?, editora = ?, ano = ?, edicao = ? WHERE id_livro = ?";
         try {
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setString(1, cad.getTitulo());
             pstm.setDate(2, Date.valueOf(cad.getData_livro()));
-            pstm.setString(3, cad.getCdd());
-            pstm.setString(4, cad.getCutter());
-            pstm.setString(5, cad.getComplemento());
-            pstm.setString(6, cad.getAutor1());
-            pstm.setString(7, cad.getAutor2());
-            pstm.setString(8, cad.getAutor3());
-            pstm.setString(9, cad.getTradutores());
-            pstm.setString(10, cad.getIlustradores());
-            pstm.setString(11, cad.getAssunto());
-            pstm.setString(12, cad.getLocal());
-            pstm.setString(13, cad.getEditora());
-            pstm.setString(14, cad.getAno());
-            pstm.setString(15, cad.getEdicao());
-            pstm.setInt(16, cad.getId_livro());
+            pstm.setInt(3, cad.getQuantidade_livro());
+            pstm.setString(4, cad.getCdd());
+            pstm.setString(5, cad.getCutter());
+            pstm.setString(6, cad.getComplemento());
+            pstm.setString(7, cad.getAutor1());
+            pstm.setString(8, cad.getAutor2());
+            pstm.setString(9, cad.getAutor3());
+            pstm.setString(10, cad.getTradutores());
+            pstm.setString(11, cad.getIlustradores());
+            pstm.setString(12, cad.getAssunto());
+            pstm.setString(13, cad.getLocal());
+            pstm.setString(14, cad.getEditora());
+            pstm.setString(15, cad.getAno());
+            pstm.setString(16, cad.getEdicao());
+            pstm.setInt(17, cad.getId_livro());
 
             int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja modificar as informações", "Atenção", +JOptionPane.YES_NO_OPTION);
 
@@ -107,7 +109,7 @@ public class LivroDAO implements ILivroDAO {
             PreparedStatement pstm = conexao.prepareStatement(excluiSQL);
             pstm.setInt(1, cad.getId_livro());
 
-            int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja excluir o livro?", "Atenção",
+            int confirma = JOptionPane.showConfirmDialog(null, "OBS: AO DELETAR O LIVRO TODOS OS ALUGUÉIS RELACIONADOS AO LIVRO SERÃO REMOVIDOS, Tem certeza de que deseja excluir o livro?", "Atenção",
                     +JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (confirma == JOptionPane.YES_NO_OPTION) {
@@ -133,6 +135,7 @@ public class LivroDAO implements ILivroDAO {
                 livro.setId_livro(resultado.getInt("id_livro"));
                 livro.setTitulo(resultado.getString("titulo"));
                 livro.setData_livro(resultado.getDate("data_livro").toLocalDate());
+                livro.setQuantidade_livro(resultado.getInt("quantidade_livro"));
                 livro.setCdd(resultado.getString("cdd"));
                 livro.setCutter(resultado.getString("cutter"));
                 livro.setComplemento(resultado.getString("complemento"));

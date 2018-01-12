@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import vo.AluguelVO;
 import vo.AlunoVO;
 import vo.LivroVO;
@@ -70,7 +71,16 @@ public class AluguelDAO implements IAluguelDAO {
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, aluguel.getId_aluguel());
-            stmt.execute();
+            
+            int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja excluir o registro do aluguel?", "Atenção",
+                    +JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);         
+
+            if (confirma == JOptionPane.YES_NO_OPTION) {
+                stmt.execute();
+                JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
+
+            }
+            
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(AluguelDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -92,8 +102,8 @@ public class AluguelDAO implements IAluguelDAO {
 
                 aluguel.setId_aluguel(resultado.getInt("id_aluguel"));
                 aluguel.setData_aluguel(resultado.getDate("data_aluguel").toLocalDate());
-                aluguel.setAluno_id(resultado.getInt("aluno_id"));
-                aluguel.setLivro_id(resultado.getInt("livro_id"));
+                //aluguel.setAluno_id(resultado.getInt("aluno_id"));
+                //aluguel.setLivro_id(resultado.getInt("livro_id"));
                 aluguel.setData_devolucao(resultado.getDate("data_devolucao").toLocalDate());
                 aluguel.setDevolvido(resultado.getBoolean("devolvido"));
 

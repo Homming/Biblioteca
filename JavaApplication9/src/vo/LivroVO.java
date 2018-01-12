@@ -7,6 +7,7 @@ public class LivroVO {
     private int id_livro;
     private String titulo;
     private LocalDate data_livro;
+    private int quantidade_livro;
     private String cdd;
     private String cutter;
     private String complemento;
@@ -43,6 +44,14 @@ public class LivroVO {
 
     public void setData_livro(LocalDate data_livro) {
         this.data_livro = data_livro;
+    }
+
+    public int getQuantidade_livro() {
+        return quantidade_livro;
+    }
+
+    public void setQuantidade_livro(int quantidade_livro) {
+        this.quantidade_livro = quantidade_livro;
     }
 
     public String getCdd() {

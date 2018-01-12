@@ -58,6 +58,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label text="Código">
@@ -65,7 +66,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Assunto" GridPane.rowIndex="11">
+                        <Label text="Assunto" GridPane.rowIndex="12">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -80,62 +81,62 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="CDD" GridPane.rowIndex="3">
+                        <Label text="CDD" GridPane.rowIndex="4">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Cutter" GridPane.rowIndex="4">
+                        <Label text="Cutter" GridPane.rowIndex="5">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Complemento" GridPane.rowIndex="5">
+                        <Label text="Complemento" GridPane.rowIndex="6">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Autor 1" GridPane.rowIndex="6">
+                        <Label text="Autor 1" GridPane.rowIndex="7">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Autor 2" GridPane.rowIndex="7">
+                        <Label text="Autor 2" GridPane.rowIndex="8">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Autor 3" GridPane.rowIndex="8">
+                        <Label text="Autor 3" GridPane.rowIndex="9">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Ilustradores" GridPane.rowIndex="10">
+                        <Label text="Ilustradores" GridPane.rowIndex="11">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Tradutores" GridPane.rowIndex="9">
+                        <Label text="Tradutores" GridPane.rowIndex="10">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Local" GridPane.rowIndex="12">
+                        <Label text="Local" GridPane.rowIndex="13">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Editora" GridPane.rowIndex="13">
+                        <Label text="Editora" GridPane.rowIndex="14">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Ano" GridPane.rowIndex="14">
+                        <Label text="Ano" GridPane.rowIndex="15">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Edição" GridPane.rowIndex="15">
+                        <Label text="Edição" GridPane.rowIndex="16">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -155,71 +156,77 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblLivroCDD" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <Label fx:id="lblLivroCDD" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblLivroCutter" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <Label fx:id="lblLivroCutter" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblLivroComplemento" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <Label fx:id="lblLivroComplemento" GridPane.columnIndex="1" GridPane.rowIndex="6">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblLivroAutor1" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                        <Label fx:id="lblLivroAutor1" GridPane.columnIndex="1" GridPane.rowIndex="7">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblLivroAutor2" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                        <Label fx:id="lblLivroAutor2" GridPane.columnIndex="1" GridPane.rowIndex="8">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblLivroAutor3" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                        <Label fx:id="lblLivroAutor3" GridPane.columnIndex="1" GridPane.rowIndex="9">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblLivroTradutor" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                        <Label fx:id="lblLivroTradutor" GridPane.columnIndex="1" GridPane.rowIndex="10">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblLivroIlustrador" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                        <Label fx:id="lblLivroIlustrador" GridPane.columnIndex="1" GridPane.rowIndex="11">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblLivroAssunto" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                        <Label fx:id="lblLivroAssunto" GridPane.columnIndex="1" GridPane.rowIndex="12">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblLivroLocal" GridPane.columnIndex="1" GridPane.rowIndex="12">
+                        <Label fx:id="lblLivroLocal" GridPane.columnIndex="1" GridPane.rowIndex="13">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblLivroEditora" GridPane.columnIndex="1" GridPane.rowIndex="13">
+                        <Label fx:id="lblLivroEditora" GridPane.columnIndex="1" GridPane.rowIndex="14">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblLivroAno" GridPane.columnIndex="1" GridPane.rowIndex="14">
+                        <Label fx:id="lblLivroAno" GridPane.columnIndex="1" GridPane.rowIndex="15">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblLivroEdicao" GridPane.columnIndex="1" GridPane.rowIndex="15">
+                        <Label fx:id="lblLivroEdicao" GridPane.columnIndex="1" GridPane.rowIndex="16">
                            <font>
                               <Font size="16.0" />
                            </font>
                         </Label>
+                        <Label text="Qtd em Estoque" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblLivroEstq" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                   <Group layoutX="115.0" layoutY="567.0">

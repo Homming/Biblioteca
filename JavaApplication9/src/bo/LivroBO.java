@@ -27,7 +27,7 @@ public class LivroBO {
      */
 
     //Validação da entrada dos dados de cadastro de Usuário
-    public boolean validarEntradaDeDados(String txtTitulo, LocalDate dtpData, String txtAutor1) {
+    public boolean validarEntradaDeDados(String txtTitulo, LocalDate dtpData, String txtAutor1, String txtQtd) {
         String errorMessage = "";
 
         if (txtTitulo == null || txtTitulo.length() == 0) {
@@ -42,6 +42,10 @@ public class LivroBO {
             errorMessage += "Autor Principal inválido!\n";
         }
 
+        if (txtQtd == null || txtQtd.length() == 0){
+            errorMessage += "Quantidade de livros inválida!\n";
+        }
+        
         if (errorMessage.length() == 0) {
             return true;
         } else {

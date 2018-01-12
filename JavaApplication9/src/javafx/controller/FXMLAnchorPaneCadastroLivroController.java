@@ -46,6 +46,8 @@ public class FXMLAnchorPaneCadastroLivroController implements Initializable {
     @FXML
     private Label lblLivroData;
     @FXML
+    private Label lblLivroEstq;
+    @FXML
     private Label lblLivroCDD;
     @FXML
     private Label lblLivroCutter;
@@ -71,42 +73,42 @@ public class FXMLAnchorPaneCadastroLivroController implements Initializable {
     private Label lblLivroAno;
     @FXML
     private Label lblLivroEdicao;
-    
+
     private List<LivroVO> listLivros; // pega a lista de livros retornada pelo BD
     private ObservableList<LivroVO> observableListLivros; // seta os dados da list em um observable list
-    
-    
+
     //Manipulação do BD
     private final Database database = DatabaseFactory.getDatabase("mysql");
     private final Connection connection = database.conectar();
     private final LivroDAO livroDAO = new LivroDAO();
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         livroDAO.setConnection(connection);
         carregarTableViewLivro();
-        
+
         //Listen acionado na seleção da Tabela de Livros, chamando o método indicado
-        tblLivro.getSelectionModel().selectedItemProperty().addListener( 
+        tblLivro.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> selecionarItemTblLivros(newValue));
-    }    
-    
-    public void carregarTableViewLivro(){
+    }
+
+    public void carregarTableViewLivro() {
         tblColumnLivroTitulo.setCellValueFactory(new PropertyValueFactory<>("titulo"));
         tblColumnLivroCod.setCellValueFactory(new PropertyValueFactory<>("id_livro"));
-        
+
         listLivros = livroDAO.listar();
-        
+
         observableListLivros = FXCollections.observableArrayList(listLivros);
         tblLivro.setItems(observableListLivros);
     }
-    
-     public void selecionarItemTblLivros(LivroVO livro){
+
+    public void selecionarItemTblLivros(LivroVO livro) {
         //Preenchimento dos campos através do livro selecionado
-        if(livro != null){
+        if (livro != null) {
             lblLivroCod.setText(String.valueOf(livro.getId_livro()));
-            lblLivroTitulo.setText(livro.getTitulo());           
+            lblLivroTitulo.setText(livro.getTitulo());
             lblLivroData.setText(String.valueOf(livro.getData_livro().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+            lblLivroEstq.setText(String.valueOf(livro.getQuantidade_livro()));
             lblLivroCDD.setText(livro.getCdd());
             lblLivroCutter.setText(livro.getCutter());
             lblLivroComplemento.setText(livro.getComplemento());
@@ -120,10 +122,11 @@ public class FXMLAnchorPaneCadastroLivroController implements Initializable {
             lblLivroEditora.setText(livro.getEditora());
             lblLivroAno.setText(livro.getAno());
             lblLivroEdicao.setText(livro.getEdicao());
-        }else{
+        } else {
             lblLivroCod.setText("");
             lblLivroTitulo.setText("");
             lblLivroData.setText("");
+            lblLivroEstq.setText("");
             lblLivroCDD.setText("");
             lblLivroCutter.setText("");
             lblLivroComplemento.setText("");
@@ -139,71 +142,71 @@ public class FXMLAnchorPaneCadastroLivroController implements Initializable {
             lblLivroEdicao.setText("");
         }
     }
-     
+
     @FXML
     public void handleButtonNovo() throws IOException {
         LivroVO livro = new LivroVO(); // instancia novo livro 
         boolean buttonConfirmarClicked = showFXMLAnchorPaneCadastroLivroDialog(livro); // abre a tela para inserção dos dados, se o usuário tiver clicado no botão
-        if(buttonConfirmarClicked){// se o botão confirmar for clicado
+        if (buttonConfirmarClicked) {// se o botão confirmar for clicado
             livroDAO.cadastrar(livro);// insere os dados cadastrados na tela
             carregarTableViewLivro();
         }
     }
-    
+
     @FXML
-    public void handleButtonEditar() throws IOException{
+    public void handleButtonEditar() throws IOException {
         LivroVO livro = tblLivro.getSelectionModel().getSelectedItem();// puxa as informações do livro selecionado
-        if(livro != null){
+        if (livro != null) {
             boolean buttonConfirmarClicked = showFXMLAnchorPaneCadastroLivroDialog(livro);
-            if(buttonConfirmarClicked){
+            if (buttonConfirmarClicked) {
                 livroDAO.editarCad(livro);
                 carregarTableViewLivro();
-            }else{
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Por favor, escolha um livro na Tabela!");
                 alert.show();
             }
         }
     }
-    
+
     @FXML
-    public void handleButtonRemover() throws IOException{
+    public void handleButtonRemover() throws IOException {
         LivroVO livro = tblLivro.getSelectionModel().getSelectedItem();
-        if(livro != null){
+        if (livro != null) {
             livroDAO.excluirCad(livro);
             carregarTableViewLivro();
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Por favor, escolha um livro na Tabela!");
             alert.show();
         }
     }
-    
+
     //Método para exibir a tela de cadastro (Dialog) 
-    public boolean showFXMLAnchorPaneCadastroLivroDialog(LivroVO livro) throws IOException{
-        
-       FXMLLoader loader = new FXMLLoader();
-       loader.setLocation(FXMLAnchorPaneCadastroLivroDialogController.class.getResource("/javafx/view/FXMLAnchorPaneCadastroLivroDialog.fxml"));
-        
+    public boolean showFXMLAnchorPaneCadastroLivroDialog(LivroVO livro) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(FXMLAnchorPaneCadastroLivroDialogController.class.getResource("/javafx/view/FXMLAnchorPaneCadastroLivroDialog.fxml"));
+
         AnchorPane page = (AnchorPane) loader.load(); //typecast para guardar em page a tela carregada.
-        
+
         // Stage Dialog, para que seja visível ao usuário
         Stage dialogStage = new Stage();
         dialogStage.setTitle("Cadastro de Livro");//exibido na parte superior da tela
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
-        
+
         // Setando livro no controller
         FXMLAnchorPaneCadastroLivroDialogController controller = loader.getController(); // instancia do controller da tela dialog
         //setando o stage e o usuário para o controller
         controller.setDialogStage(dialogStage);
         controller.setLivro(livro);
-        
+
         // Mostra a tela e espera o usuário fechar
         dialogStage.showAndWait();
-        
+
         return controller.isButtonConfirmarClicked();
-        
+
     }
-    
+
 }

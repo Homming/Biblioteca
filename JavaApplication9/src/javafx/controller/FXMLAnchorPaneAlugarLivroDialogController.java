@@ -1,6 +1,5 @@
 package javafx.controller;
 
-import bo.AluguelBO;
 import dao.AluguelDAO;
 import dao.AlunoDAO;
 import dao.LivroDAO;
@@ -98,25 +97,15 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
     }
 
     public void setAluguel(AluguelVO aluguel) {
-        /*
-        this.livro = livro;
-        //Caso não seja um livro Novo, set os valores do livro existente
-        this.txtTitulo.setText(livro.getTitulo());
-      //this.dtpData.setText(livro.getData());
-        this.txtCDD.setText(livro.getCdd());
-        this.txtCutter.setText(livro.getCutter());
-        this.txtComplemento.setText(livro.getComplemento());
-        this.txtAutor1.setText(livro.getAutor1());
-        this.txtAutor2.setText(livro.getAutor2());
-        this.txtAutor3.setText(livro.getAutor3());
-        this.txtTradut.setText(livro.getTradutores());
-        this.txtIlustrad.setText(livro.getIlustradores());
-        this.txtAssunto.setText(livro.getAssunto());
-        this.txtLocal.setText(livro.getLocal());
-        this.txtEditora.setText(livro.getEditora());
-        this.txtAno.setText(livro.getAno());
-        this.txtEdicao.setText(livro.getEdicao());
-         */
+        this.aluguel = aluguel;
+        //Caso não seja um aluguel Novo, set os valores do aluguel existente
+
+        //this.txtCDD.setText(livro.getCdd()); // dtpAluguel dtpDevolucao chbDevolvido
+        this.cbxAluno.getSelectionModel().getSelectedItem();
+        this.cbxLivro.getSelectionModel().getSelectedItem();
+        //this.dtpAluguel.get;
+        //this.dtpDevolucao.get;
+        //this.chbDevolvido.get;
     }
 
     @FXML

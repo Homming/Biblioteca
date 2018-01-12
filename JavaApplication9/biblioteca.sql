@@ -16,6 +16,7 @@ CREATE TABLE livro(
 	id_livro int auto_increment not null primary key,
 	titulo varchar(100) not null,
 	data_livro date not null,
+    quantidade_livro int not null,
 	cdd varchar(100),
 	cutter varchar(100),
 	complemento varchar(100),
@@ -30,12 +31,16 @@ CREATE TABLE livro(
 	ano varchar(100),
 	edicao varchar(100)
 );
--- alter table livro change column data_livro data_livro date; -- ALTERADO SOMENTE PARA TESTES, LEMBRAR DE REVERTER PARA NOT NULL
 
 CREATE TABLE aluno(
 	id_aluno int auto_increment not null primary key,
     nome varchar(100) not null,
-    telefone varchar(50)
+    quantidade_alocados int,
+    telefone varchar(50),
+    email varchar(100),
+    complemento varchar(100),
+    matricula varchar(50),
+    turma varchar(50)
 );
 
 -- mudar alunoid e livro id para not null
@@ -47,13 +52,13 @@ CREATE TABLE aluguel(
     livro_id int,
     data_devolucao date not null,
     devolvido boolean not null,
-    CONSTRAINT fk_aluguel_aluno FOREIGN KEY (aluno_id) REFERENCES aluno(id_aluno),
-    CONSTRAINT fk_aluguel_livro FOREIGN KEY (livro_id) REFERENCES  livro(id_livro)
+    CONSTRAINT fk_aluguel_aluno FOREIGN KEY (aluno_id) REFERENCES aluno(id_aluno) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_aluguel_livro FOREIGN KEY (livro_id) REFERENCES  livro(id_livro) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha) VALUES ('Admnistrador','999.999.999-99','82999999999','admin','admin');
--- insert into livro(titulo, data_livro, cdd, cutter, autor1) values ('O Test','08/01/18','46456','456465','teste');
--- insert into aluno (nome, telefone) values ('nicolas torres','99999-9999');
--- insert into aluguel (data_aluguel, aluno_id, livro_id,data_devolucao,devolvido) values ('2018/01/08',1,1,'2018/01/10',false);
--- UPDATE livro SET titulo = 'teste', data_livro = '08/01/18', cdd = '515', cutter = '555', complemento = 'asdad', autor1 = 'sadsads', autor2 = 'asdsad', autor3 = 'asdsad', tradutores = 'sadsad', ilustradores = 'asdsa', assunto = 'asdsa', local_livro = 'asdsa', editora = 'asdsa', ano = 'asdsa', edicao = 'asdsa' WHERE id_livro = 1;
+-- insert into livro(titulo, data_livro, quantidade_livro, cdd, cutter, autor1) values ('O Teste3','01/01/10',4,'555','454','voce');
+-- insert into aluno (nome, telefone) values ('estevao gabriel','99999-9999');
+-- insert into aluguel (data_aluguel, aluno_id, livro_id,data_devolucao,devolvido) values ('2018/01/08',1,1,'2018/01/10',true);
+
 -- select count(id_aluguel), extract(year from data_aluguel) as ano, extract(month from data_aluguel) as mes from aluguel group by ano, mes order by ano, mes;

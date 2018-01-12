@@ -79,6 +79,7 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
 
     public void selecionarItemTblAlugueis(AluguelVO aluguel) {
         //Preenchimento dos campos através do livro selecionado
+        // ESTA LISTANDO SOMENTE O ID PQ A VIDA É SOFRIDA
         if (aluguel != null) {
             lblCodigo.setText(String.valueOf(aluguel.getId_aluguel()));
             lblDataAluguel.setText(String.valueOf(aluguel.getData_aluguel().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
@@ -146,9 +147,12 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
         }
     }
      */
+    
+    
+    // NAO ESTA ABRINDO
     @FXML
     public void handleButtonNovo() throws IOException, SQLException {
-        AluguelVO aluguel = new AluguelVO(); // instancia novo livro 
+        AluguelVO aluguel = new AluguelVO(); // instancia novo aluguel 
         boolean buttonConfirmarClicked = showFXMLAnchorPaneAlugarLivroDialog(aluguel); // abre a tela para inserção dos dados, se o usuário tiver clicado no botão
         if (buttonConfirmarClicked) {// se o botão confirmar for clicado
             try {
