@@ -40,7 +40,12 @@ public class AlunoDAO implements IAlunoDAO{
                 AlunoVO aluno = new AlunoVO();
                 aluno.setId_aluno(resultado.getInt("id_aluno"));
                 aluno.setNome(resultado.getString("nome"));
+                aluno.setQuantidade_alocados(resultado.getInt("quantidade_alocados"));
                 aluno.setTelefone(resultado.getString("telefone"));
+                aluno.setEmail(resultado.getString("email"));
+                aluno.setComplemento(resultado.getString("complemento"));
+                aluno.setMatricula(resultado.getString("matricula"));
+                aluno.setTurma(resultado.getString("turma"));
                   
                 retorno.add(aluno);
             }
@@ -49,7 +54,7 @@ public class AlunoDAO implements IAlunoDAO{
         }
         return retorno;
     }
-    
+    /*
     public AlunoVO buscar(AlunoVO aluno) {
         String sql = "SELECT * FROM aluno WHERE Id_aluno=?";
         AlunoVO retorno = new AlunoVO();
@@ -65,6 +70,30 @@ public class AlunoDAO implements IAlunoDAO{
             }
         } catch (SQLException ex) {
             Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
+    }
+    */
+    public AlunoVO buscar(AlunoVO aluno) {
+        String sql = "SELECT * FROM aluno WHERE id_aluno=?";
+        AlunoVO retorno = new AlunoVO();
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, aluno.getId_aluno());
+            ResultSet resultado = stmt.executeQuery();
+            if (resultado.next()) {
+                aluno.setNome(resultado.getString("nome"));
+                aluno.setQuantidade_alocados(resultado.getInt("quantidade_alocados"));
+                aluno.setTelefone(resultado.getString("telefone"));
+                aluno.setEmail(resultado.getString("email"));
+                aluno.setComplemento(resultado.getString("complemento"));
+                aluno.setMatricula(resultado.getString("matricula"));
+                aluno.setTurma(resultado.getString("turma"));
+                
+                retorno = aluno;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return retorno;
     }

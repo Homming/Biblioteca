@@ -1,6 +1,5 @@
 package javafx.controller;
 
-import dao.AluguelDAO;
 import dao.AlunoDAO;
 import dao.LivroDAO;
 import database.Database;
@@ -18,9 +17,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import vo.AluguelVO;
 import vo.AlunoVO;
+import vo.ItemDeAluguelVO;
 import vo.LivroVO;
 
 public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable {
@@ -39,17 +43,27 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
     private DatePicker dtpDevolucao;
     @FXML
     private CheckBox chbDevolvido;
+    @FXML
+    private TextField txtItemDeAluguelQtd;
+    @FXML
+    private Button btnAdicionar;
+    @FXML
+    private TableView tblItensdeAluguel;
+    @FXML
+    private TableColumn<ItemDeAluguelVO, LivroVO> tblColumnLivro;
+    @FXML
+    private TableColumn<ItemDeAluguelVO, Integer> tblColumnQtd;
 
     private List<AlunoVO> listAlunos;
     private List<LivroVO> listLivros;
     private ObservableList<AlunoVO> observableListAlunos;
     private ObservableList<LivroVO> observableListLivros;
+    private ObservableList<ItemDeAluguelVO> observableListItensDeAluguel;
 
     private final Database database = DatabaseFactory.getDatabase("mysql");
     private final Connection connection = database.conectar();
-    private final AluguelDAO aluguelDAO = new AluguelDAO();
-    private final LivroDAO livroDAO = new LivroDAO();
     private final AlunoDAO alunoDAO = new AlunoDAO();
+    private final LivroDAO livroDAO = new LivroDAO();
 
     private Stage dialogStage; //Atributo que representa a tela
     private boolean buttonConfirmarClicked = false; //Para saber em qual botão o usuário clicou , Confirmar/Cancelar
@@ -61,6 +75,34 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
         livroDAO.setConnection(connection);
         carregarComboBoxAlunos();
         carregarComboBoxLivros();
+        tblColumnLivro.setCellValueFactory(new PropertyValueFactory<>("livro"));
+        tblColumnQtd.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+
+    }
+
+    //Getters e Setters
+    public Stage getDialogStage() {
+        return dialogStage;
+    }
+
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
+    }
+
+    public AluguelVO getAluguel() {
+        return aluguel;
+    }
+
+    public void setAluguelVO(AluguelVO aluguel) {
+        this.aluguel = aluguel;
+    }
+
+    public boolean isButtonConfirmarClicked() {
+        return buttonConfirmarClicked;
+    }
+
+    public void setButtonConfirmarClicked(boolean buttonConfirmarClicked) {
+        this.buttonConfirmarClicked = buttonConfirmarClicked;
     }
 
     public void carregarComboBoxAlunos() {
@@ -75,62 +117,23 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
         cbxLivro.setItems(observableListLivros);
     }
 
-    //Getters e Setters
-    public Stage getDialogStage() {
-        return dialogStage;
-    }
+    @FXML
+    public void handleButtonConfirmar() {
+        if (validarEntradaDeDados()) {
+            //setar o aluguel com as informações necessárias
+            aluguel.setAluno((AlunoVO) cbxAluno.getSelectionModel().getSelectedItem());
+            aluguel.setDevolvido(chbDevolvido.isSelected());
+            aluguel.setData_aluguel(dtpAluguel.getValue());
+            aluguel.setData_devolucao(dtpDevolucao.getValue());
 
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
-
-    public boolean isButtonConfirmarClicked() {
-        return buttonConfirmarClicked;
-    }
-
-    public void setButtonConfirmarClicked(boolean buttonConfirmarClicked) {
-        this.buttonConfirmarClicked = buttonConfirmarClicked;
-    }
-
-    public AluguelVO getAluguel() {
-        return aluguel;
-    }
-
-    public void setAluguel(AluguelVO aluguel) {
-        this.aluguel = aluguel;
-        //Caso não seja um aluguel Novo, set os valores do aluguel existente
-
-        //this.txtCDD.setText(livro.getCdd()); // dtpAluguel dtpDevolucao chbDevolvido
-        this.cbxAluno.getSelectionModel().getSelectedItem();
-        this.cbxLivro.getSelectionModel().getSelectedItem();
-        //this.dtpAluguel.get;
-        //this.dtpDevolucao.get;
-        //this.chbDevolvido.get;
+            buttonConfirmarClicked = true;//confirmação do botão
+            dialogStage.close();//fechamento da tela Dialog
+        }
     }
 
     @FXML
-    public void handleButtonConfirmar() {
-        /*
-        String valNome = txtUserName.getText();// guardando o valor que deseja validar em uma variavel
-        String valEmail = txtUserEmail.getText();
-        String valUser = txtUserUser .getText();
-        String valPass = txtUserPass.getText();
-        String valConfPass = txtUserConfPass.getText();//NAO ESTA FUNCIONANDO
-
-        AluguelBO validar = new AluguelBO(); // instanciando a classe BO para chamar o método de validação
-
-        //if (validar.validarEntradaDeDados(valNome, valEmail, valUser, valPass)) {// se todos os campos estiverem ok
-         */
-        if (validarEntradaDeDados()) {
-            aluguel.setData_aluguel(dtpAluguel.getValue());
-            aluguel.setAluno((AlunoVO) cbxAluno.getSelectionModel().getSelectedItem());
-            aluguel.setLivro((LivroVO) cbxLivro.getSelectionModel().getSelectedItem());
-            aluguel.setData_devolucao(dtpDevolucao.getValue());
-            aluguel.setDevolvido(chbDevolvido.isSelected());
-
-            buttonConfirmarClicked = true;
-            dialogStage.close();
-        }
+    public void handleButtonCancelar() {
+        dialogStage.close();
     }
 
     //VALIDAÇÃO DENTRO DA PROPRIA CLASSE AO INVES DO BO
@@ -142,6 +145,10 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
         }
         if (cbxLivro.getSelectionModel().getSelectedItem() == null) {
             errorMessage += "Livro inválido!\n";
+        }
+
+        if (observableListItensDeAluguel == null) {
+            errorMessage += "Itens de Aluguel inválidos!\n";
         }
 
         if (dtpAluguel.getValue() == null) {
@@ -164,8 +171,32 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
     }
 
     @FXML
-    public void handleButtonCancelar() {
-        dialogStage.close();
+    public void handleButtonAdicionar() {
+        LivroVO livro;
+        //instanciar um novo item de venda
+        ItemDeAluguelVO itemDeAluguel = new ItemDeAluguelVO();
+
+        if (cbxLivro.getSelectionModel().getSelectedItem() != null) {//obter o produto selecionado no combo box, se nao for nulo
+            livro = (LivroVO) cbxLivro.getSelectionModel().getSelectedItem();//guarda o produto selecionado
+
+            //verifica se a quantidade solicitada é maior que a quantidade existente no estoque
+            if (livro.getQuantidade_livro() >= Integer.parseInt(txtItemDeAluguelQtd.getText())) {
+                //Set nos campos de item de aluguel
+                itemDeAluguel.setLivro((LivroVO) cbxLivro.getSelectionModel().getSelectedItem());
+                itemDeAluguel.setQuantidade(Integer.parseInt(txtItemDeAluguelQtd.getText()));
+
+                aluguel.getItensDeAluguel().add(itemDeAluguel);//formando um item de aluguel
+
+                observableListItensDeAluguel = FXCollections.observableArrayList(aluguel.getItensDeAluguel());//pega todos os itens de aluguel
+                tblItensdeAluguel.setItems(observableListItensDeAluguel);//exibindo os itens na observableList
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Problemas na escolha do livro!");
+                alert.setContentText("Não existe a quantidade de livros disponíveis no estoque!");
+                alert.show();
+            }
+        }
     }
 
 }

@@ -1,7 +1,7 @@
 package javafx.controller;
 
 import dao.AluguelDAO;
-import dao.AlunoDAO;
+import dao.ItemDeAluguelDAO;
 import dao.LivroDAO;
 import database.Database;
 import database.DatabaseFactory;
@@ -11,8 +11,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,6 +31,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import vo.AluguelVO;
+import vo.ItemDeAluguelVO;
+import vo.LivroVO;
 
 public class FXMLAnchorPaneAlugarLivroController implements Initializable {
 
@@ -38,7 +43,7 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
     @FXML
     private TableColumn<AluguelVO, LocalDate> tblColumnData;
     @FXML
-    private TableColumn<AluguelVO, AluguelVO> tblColumnLivro;
+    private TableColumn<AluguelVO, AluguelVO> tblColumnAluno;
     @FXML
     private Button btnNovo;
     @FXML
@@ -64,13 +69,15 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
     private final Database database = DatabaseFactory.getDatabase("mysql");
     private final Connection connection = database.conectar();
     private final AluguelDAO aluguelDAO = new AluguelDAO();
+    private final ItemDeAluguelDAO itemDeAluguelDAO = new ItemDeAluguelDAO();
     private final LivroDAO livroDAO = new LivroDAO();
-    private final AlunoDAO alunoDAO = new AlunoDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         aluguelDAO.setConnection(connection);
         carregarTableViewAlugueis();
+
+        selecionarItemTblAlugueis(null);
 
         //Listener acionado na seleção da Tabela de Aluguel, chamando o método indicado
         tblAluguel.getSelectionModel().selectedItemProperty().addListener(
@@ -79,7 +86,6 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
 
     public void selecionarItemTblAlugueis(AluguelVO aluguel) {
         //Preenchimento dos campos através do livro selecionado
-        // ESTA LISTANDO SOMENTE O ID PQ A VIDA É SOFRIDA
         if (aluguel != null) {
             lblCodigo.setText(String.valueOf(aluguel.getId_aluguel()));
             lblDataAluguel.setText(String.valueOf(aluguel.getData_aluguel().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
@@ -101,7 +107,7 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
         // configuração da tabela
         tblColumnCodigo.setCellValueFactory(new PropertyValueFactory<>("id_aluguel"));
         tblColumnData.setCellValueFactory(new PropertyValueFactory<>("data_aluguel"));
-        tblColumnLivro.setCellValueFactory(new PropertyValueFactory<>("titulo"));
+        tblColumnAluno.setCellValueFactory(new PropertyValueFactory<>("aluno"));
 
         listAlugueis = aluguelDAO.listar();
 
@@ -109,12 +115,43 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
         tblAluguel.setItems(observableListAlugueis);
     }
 
+    @FXML
+    public void handleButtonNovo() throws IOException, SQLException {
+        AluguelVO aluguel = new AluguelVO();
+        List<ItemDeAluguelVO> listItensDeAluguel = new ArrayList<>();
+        aluguel.setItensDeAluguel(listItensDeAluguel);
+        boolean buttonConfirmarClicked = showFXMLAnchorPaneAlugarLivroDialog(aluguel);
+        if (buttonConfirmarClicked) {
+            try {
+                connection.setAutoCommit(false);//Ao cadastrar um aluguel, não será cadastrado de imediato, pois só deve inserir se todos os itens de aluguel passarem
+                aluguelDAO.setConnection(connection);
+                aluguelDAO.cadastrar(aluguel);
+                itemDeAluguelDAO.setConnection(connection);
+                livroDAO.setConnection(connection);//para atualizar a quantidade do livro em estoque
+                for (ItemDeAluguelVO listItemDeAluguelVO : aluguel.getItensDeAluguel()) {// para cada item de aluguel, cadastre
+                    LivroVO livro = listItemDeAluguelVO.getLivro();
+                    listItemDeAluguelVO.setAluguel(aluguelDAO.buscarUltimoAluguel());
+                    itemDeAluguelDAO.inserir(listItemDeAluguelVO);//inserção
+                    livro.setQuantidade_livro(livro.getQuantidade_livro() - listItemDeAluguelVO.getQuantidade());
+                    livroDAO.editarCad(livro);
+                }
+                connection.commit();//se nao tiver ocorrido nenhum problema, efetue o cadastro
+                carregarTableViewAlugueis();
+            } catch (SQLException ex) {
+                try {
+                    connection.rollback();
+                } catch (SQLException ex1) {
+                    Logger.getLogger(FXMLAnchorPaneAlugarLivroController.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+                Logger.getLogger(FXMLAnchorPaneAlugarLivroController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     //Método para exibir a tela (Dialog) 
     public boolean showFXMLAnchorPaneAlugarLivroDialog(AluguelVO aluguel) throws IOException {
-
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(FXMLAnchorPaneAlugarLivroDialogController.class.getResource("/javafx/view/FXMLAnchorPaneAlugarLivroDialog.fxml"));
-
         AnchorPane page = (AnchorPane) loader.load(); //typecast para guardar em page a tela carregada.
 
         // Stage Dialog, para que seja visível ao usuário
@@ -127,65 +164,34 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
         FXMLAnchorPaneAlugarLivroDialogController controller = loader.getController(); // instancia do controller da tela dialog
         //setando para o controller
         controller.setDialogStage(dialogStage);
-        controller.setAluguel(aluguel);
+        controller.setAluguelVO(aluguel);
 
         // Mostra a tela e espera o usuário fechar
         dialogStage.showAndWait();
 
-        return controller.isButtonConfirmarClicked();
-
-    }
-
-    /*
-    @FXML
-    public void handleButtonNovo() throws IOException {
-        AluguelVO aluguel = new AluguelVO(); // instancia novo livro 
-        boolean buttonConfirmarClicked = showFXMLAnchorPaneAlugarLivroDialog(aluguel); // abre a tela para inserção dos dados, se o usuário tiver clicado no botão
-        if (buttonConfirmarClicked) {// se o botão confirmar for clicado
-            aluguelDAO.cadastrar(aluguel);// insere os dados cadastrados na tela
-            carregarTableViewAlugueis();
-        }
-    }
-     */
-    
-    
-    // NAO ESTA ABRINDO
-    @FXML
-    public void handleButtonNovo() throws IOException, SQLException {
-        AluguelVO aluguel = new AluguelVO(); // instancia novo aluguel 
-        boolean buttonConfirmarClicked = showFXMLAnchorPaneAlugarLivroDialog(aluguel); // abre a tela para inserção dos dados, se o usuário tiver clicado no botão
-        if (buttonConfirmarClicked) {// se o botão confirmar for clicado
-            try {
-                connection.setAutoCommit(false);// desativando autocommit para só realizar a inserção quando eu desejar
-                aluguelDAO.setConnection(connection);
-                aluguelDAO.cadastrar(aluguel);
-                livroDAO.setConnection(connection);
-                alunoDAO.setConnection(connection);
-                connection.commit();
-                carregarTableViewAlugueis();
-            } catch (SQLException ex) {
-                try {
-                    connection.rollback();
-                } catch (SQLException e) {
-
-                }
-            }
-        }
+        return controller.isButtonConfirmarClicked();//handleButtonConfirmar retorna verdadeiro para handleButtonNovo se o usuário clicar em confirmar no dialog.
     }
 
     @FXML
     public void handleButtonRemover() throws IOException, SQLException {
-        AluguelVO aluguel = tblAluguel.getSelectionModel().getSelectedItem();
+        AluguelVO aluguel = tblAluguel.getSelectionModel().getSelectedItem();// pega venda selecionada
         if (aluguel != null) {
-            connection.setAutoCommit(false);
-            livroDAO.setConnection(connection);
+            connection.setAutoCommit(false);// Ao remover um aluguel, não será removido de imediato, pois só deve remover se todos os itens de aluguel passarem
             aluguelDAO.setConnection(connection);
-            aluguelDAO.remover(aluguel);
-            connection.commit();
+            itemDeAluguelDAO.setConnection(connection);
+            livroDAO.setConnection(connection);
+            for (ItemDeAluguelVO listItemDeAluguelVO : aluguel.getItensDeAluguel()) {//deleta os itens de aluguel e depois o aluguel.
+                LivroVO livro = listItemDeAluguelVO.getLivro();
+                livro.setQuantidade_livro(livro.getQuantidade_livro() + listItemDeAluguelVO.getQuantidade());
+                livroDAO.editarCad(livro);//editar o livro pois deve aumentar a quantidade novamente
+                itemDeAluguelDAO.remover(listItemDeAluguelVO);//remove todos os itens de aluguel
+            }
+            aluguelDAO.remover(aluguel);//remove o aluguel escolhido
+            connection.commit();//efetua as modificações
             carregarTableViewAlugueis();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Por favor, selecione um aluguel na tabela!");
+            alert.setContentText("Por favor, escolha um aluguel na Tabela!");
             alert.show();
         }
     }

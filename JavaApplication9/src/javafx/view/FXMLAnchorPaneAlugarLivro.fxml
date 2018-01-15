@@ -22,7 +22,7 @@
                     <columns>
                       <TableColumn fx:id="tblColumnCodigo" prefWidth="49.0" text="Código" />
                       <TableColumn fx:id="tblColumnData" prefWidth="117.0" text="Data" />
-                        <TableColumn fx:id="tblColumnLivro" prefWidth="229.0" text="Livro" />
+                        <TableColumn fx:id="tblColumnAluno" prefWidth="229.0" text="Aluno" />
                     </columns>
                   </TableView>
                </children>
@@ -53,42 +53,22 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Data do Aluguel" GridPane.rowIndex="3">
+                        <Label text="Data do Aluguel" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Aluno" GridPane.rowIndex="1">
+                        <Label text="Aluno" GridPane.rowIndex="2">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Livro" GridPane.rowIndex="2">
+                        <Label text="Livro" GridPane.rowIndex="3">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCodigo" GridPane.columnIndex="1">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="lblData" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="lblAluno" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="lblLivro" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label text="Data da Devolução" GridPane.rowIndex="4">
+                        <Label text="Data Para Devolução" GridPane.rowIndex="4">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -98,8 +78,12 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblDevolucao" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label fx:id="lblDevolvido" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label fx:id="lblCodigo" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="lblDataAluguel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lblAluno" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lblLivro" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="lblDevolucao" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="lblDevolvido" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                      </children>
                   </GridPane>
                   <Group layoutX="90.0" layoutY="567.0">

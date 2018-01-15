@@ -2,6 +2,7 @@ package vo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 public class AluguelVO implements Serializable {
 
@@ -11,6 +12,7 @@ public class AluguelVO implements Serializable {
     private int livro_id;
     private LocalDate data_devolucao;
     private boolean devolvido;
+    private List<ItemDeAluguelVO> itensDeAluguel;
     private LivroVO livro;
     private AlunoVO aluno;
     
@@ -91,4 +93,12 @@ public class AluguelVO implements Serializable {
         this.aluno = aluno;
     }
 
+    public List<ItemDeAluguelVO> getItensDeAluguel() {
+        return itensDeAluguel;
+    }
+
+    public void setItensDeAluguel(List<ItemDeAluguelVO> itensDeAluguel) {
+        this.itensDeAluguel = itensDeAluguel;
+    }
+   
 }

@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import vo.AluguelVO;
 import vo.AlunoVO;
+import vo.ItemDeAluguelVO;
 import vo.LivroVO;
 
 public class AluguelDAO implements IAluguelDAO {
@@ -71,16 +72,16 @@ public class AluguelDAO implements IAluguelDAO {
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, aluguel.getId_aluguel());
-            
+
             int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja excluir o registro do aluguel?", "Atenção",
-                    +JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);         
+                    +JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (confirma == JOptionPane.YES_NO_OPTION) {
                 stmt.execute();
                 JOptionPane.showMessageDialog(null, "Registro excluído com sucesso!");
 
             }
-            
+
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(AluguelDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,7 +89,6 @@ public class AluguelDAO implements IAluguelDAO {
         }
     }
 
-    //REVER
     public List<AluguelVO> listar() {
         String sql = "SELECT * FROM aluguel";
         List<AluguelVO> retorno = new ArrayList<>();
@@ -97,29 +97,59 @@ public class AluguelDAO implements IAluguelDAO {
             ResultSet resultado = stmt.executeQuery();
             while (resultado.next()) {
                 AluguelVO aluguel = new AluguelVO();
-                LivroVO livro = new LivroVO();
                 AlunoVO aluno = new AlunoVO();
+                LivroVO livro = new LivroVO();
+                List<ItemDeAluguelVO> itensDeAluguel = new ArrayList();
 
                 aluguel.setId_aluguel(resultado.getInt("id_aluguel"));
                 aluguel.setData_aluguel(resultado.getDate("data_aluguel").toLocalDate());
-                //aluguel.setAluno_id(resultado.getInt("aluno_id"));
-                //aluguel.setLivro_id(resultado.getInt("livro_id"));
+                aluno.setId_aluno(resultado.getInt("aluno_id"));
+                livro.setId_livro(resultado.getInt("livro_id"));
                 aluguel.setData_devolucao(resultado.getDate("data_devolucao").toLocalDate());
                 aluguel.setDevolvido(resultado.getBoolean("devolvido"));
-
-                //Obtendo os dados completos do Livro associado
-                LivroDAO livroDAO = new LivroDAO();
-                livroDAO.setConnection(conexao);
-                livro = livroDAO.buscar(livro);
 
                 //Obtendo os dados completos do Aluno associado
                 AlunoDAO alunoDAO = new AlunoDAO();
                 alunoDAO.setConnection(conexao);
                 aluno = alunoDAO.buscar(aluno);
 
-                aluguel.setLivro(livro);
+                //Obtendo os dados completos dos Itens de Venda associados à Venda
+                ItemDeAluguelDAO itemDeAluguelDAO = new ItemDeAluguelDAO();
+                itemDeAluguelDAO.setConnection(conexao);
+                itensDeAluguel = itemDeAluguelDAO.listarPorVenda(aluguel);
+
+                //Obtendo os dados completos do Livro associado
+                LivroDAO livroDAO = new LivroDAO();
+                livroDAO.setConnection(conexao);
+                livro = livroDAO.buscar(livro);
+
                 aluguel.setAluno(aluno);
+                aluguel.setItensDeAluguel(itensDeAluguel);
+                aluguel.setLivro(livro);
                 retorno.add(aluguel);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AluguelDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
+    }
+
+    public AluguelVO buscar(AluguelVO aluguel) {
+        String sql = "SELECT * FROM aluguel WHERE id_aluguel=?";
+        AluguelVO retorno = new AluguelVO();
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, aluguel.getId_aluguel());
+            ResultSet resultado = stmt.executeQuery();
+            if (resultado.next()) {
+                AlunoVO aluno = new AlunoVO();
+                aluguel.setId_aluguel(resultado.getInt("id_aluguel"));
+                aluguel.setData_aluguel(resultado.getDate("data_aluguel").toLocalDate());
+                aluno.setId_aluno(resultado.getInt("aluno_id"));
+                // livro ?
+                aluguel.setDevolvido(resultado.getBoolean("devolvido"));
+                aluguel.setAluno(aluno);
+                retorno = aluguel;
             }
         } catch (SQLException ex) {
             Logger.getLogger(AluguelDAO.class.getName()).log(Level.SEVERE, null, ex);
