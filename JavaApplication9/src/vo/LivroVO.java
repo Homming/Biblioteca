@@ -157,5 +157,9 @@ public class LivroVO {
     public void setEdicao(String edicao) {
         this.edicao = edicao;
     }
+    
+    public String toString(){
+        return this.titulo;
+    }
 
 }

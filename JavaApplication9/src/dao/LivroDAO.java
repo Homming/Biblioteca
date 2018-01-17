@@ -14,11 +14,6 @@ import vo.LivroVO;
 
 public class LivroDAO implements ILivroDAO {
 
-    @Override
-    public void cadastro(LivroVO livroVO) {
-        //IMPLEMENTADO SOMENTE PARA CORRIGIR O ERRO DE CLASSE ABSTRATA.
-    }
-
     private ArrayList<LivroVO> livros;
     private Connection conexao;
 
@@ -37,7 +32,8 @@ public class LivroDAO implements ILivroDAO {
                 + "('"+livro.getTitulo()+"','"+livro.getData()+"','"+livro.getCdd()+"','"+livro.getCutter()+"','"+livro.getComplemento()+"','"+livro.getAutor1()+"','"+livro.getAutor2()+"','"+livro.getAutor3()+"','"+livro.getTradutores()+"','"+livro.getIlustradores()+"','"+livro.getAssunto()+"','"+livro.getLocal()+"','"+livro.getEditora()+"','"+livro.getAno()+"','"+livro.getEdicao()+"')");
         
     }*/
-    public boolean cadastrar(LivroVO cad) {
+    @Override
+    public boolean cadastrar(LivroVO cad) throws SQLException {
         String sql = "INSERT INTO livro(titulo, data_livro, quantidade_livro, cdd, cutter, complemento, autor1, autor2, autor3, tradutores, ilustradores, assunto, local_livro, editora, ano, edicao) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement pstm = conexao.prepareStatement(sql);

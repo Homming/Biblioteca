@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import vo.LivroVO;
         
 public interface ILivroDAO {
-    public void cadastro(LivroVO livroVO) throws SQLException;
-
+    public boolean cadastrar(LivroVO livroVO) throws SQLException;
+    
    }
+

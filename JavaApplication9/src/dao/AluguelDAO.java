@@ -19,11 +19,6 @@ import vo.LivroVO;
 
 public class AluguelDAO implements IAluguelDAO {
 
-    @Override
-    public void cadastro(AluguelVO aluguelVO) throws SQLException {
-        //IMPLEMENTADO SOMENTE PARA CORRIGIR O ERRO DE CLASSE ABSTRATA.
-    }
-
     private Connection conexao;
 
     public Connection getConnection() {
@@ -34,15 +29,16 @@ public class AluguelDAO implements IAluguelDAO {
         this.conexao = conexao;
     }
 
-    public boolean cadastrar(AluguelVO aluguel) {
+    @Override
+    public boolean cadastrar(AluguelVO aluguel) throws SQLException{
         String sql = "INSERT INTO aluguel(data_aluguel, aluno_id, livro_id, data_devolucao, devolvido) VALUES(?,?,?,?,?)";
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setDate(1, Date.valueOf(aluguel.getData_aluguel()));
             stmt.setInt(2, aluguel.getAluno().getId_aluno());
             stmt.setInt(3, aluguel.getLivro().getId_livro());
-            stmt.setDate(3, Date.valueOf(aluguel.getData_devolucao()));
-            stmt.setBoolean(4, aluguel.getDevolvido());
+            stmt.setDate(4, Date.valueOf(aluguel.getData_devolucao()));
+            stmt.setBoolean(5, aluguel.getDevolvido());
             stmt.execute();
             return true;
         } catch (SQLException ex) {

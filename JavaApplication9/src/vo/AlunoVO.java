@@ -95,6 +95,8 @@ public class AlunoVO {
         this.livros_alocados = livros_alocados;
     }
     
-    
+    public String toString(){
+        return this.nome;
+    }
 
 }

@@ -70,7 +70,6 @@ CREATE TABLE itensdealuguel(
 select * from aluguel;
 -- INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha) VALUES ('Admnistrador','999.999.999-99','82999999999','admin','admin');
 -- insert into livro(titulo, data_livro, quantidade_livro, cdd, cutter, autor1) values ('O Teste3','01/01/10',4,'555','454','voce');
--- insert into aluno (nome, telefone) values ('estevao gabriel','99999-9999');
--- insert into aluguel (data_aluguel, aluno_id, livro_id,data_devolucao,devolvido) values ('2018/01/08',1,1,'2018/01/10',true);
-
+insert into aluno (nome, telefone) values ('gabriel','99999-9999');
+insert into aluguel (data_aluguel, aluno_id, livro_id,data_devolucao,devolvido) values ('2018/01/08',1,1,'2018/01/10',true);
 -- select count(id_aluguel), extract(year from data_aluguel) as ano, extract(month from data_aluguel) as mes from aluguel group by ano, mes order by ano, mes;

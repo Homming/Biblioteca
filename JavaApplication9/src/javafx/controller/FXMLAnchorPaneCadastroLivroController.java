@@ -1,11 +1,13 @@
 package javafx.controller;
 
+import bo.LivroBO;
 import dao.LivroDAO;
 import database.Database;
 import database.DatabaseFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -144,9 +146,9 @@ public class FXMLAnchorPaneCadastroLivroController implements Initializable {
     }
 
     @FXML
-    public void handleButtonNovo() throws IOException {
-        LivroVO livro = new LivroVO(); // instancia novo livro 
-        boolean buttonConfirmarClicked = showFXMLAnchorPaneCadastroLivroDialog(livro); // abre a tela para inserção dos dados, se o usuário tiver clicado no botão
+    public void handleButtonNovo() throws IOException, SQLException {
+        LivroVO livro = new LivroVO(); // instancia novo livro
+        boolean buttonConfirmarClicked = showFXMLAnchorPaneCadastroLivroDialog(livro); // abre a tela para inserção dos dados, se o usuário tiver clicado no botão       
         if (buttonConfirmarClicked) {// se o botão confirmar for clicado
             livroDAO.cadastrar(livro);// insere os dados cadastrados na tela
             carregarTableViewLivro();
