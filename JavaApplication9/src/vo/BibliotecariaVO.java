@@ -1,7 +1,7 @@
 package vo;
 
 public class BibliotecariaVO {
-    
+     private static int quantidade_possivel;
      private int id_usuario;
      private String nome;
      private String cpf;
@@ -11,7 +11,16 @@ public class BibliotecariaVO {
      private String senha;
      private String conf_senha;
      private String email;
-
+     
+    public int getQuantidade_possivel(){
+        return quantidade_possivel;
+    }
+    
+    public void setQuantidade_possivel(int qntd_possivel){
+        //define a quantidade maxima de livros que o aluno pode alocar
+        quantidade_possivel = qntd_possivel;
+    }
+     
     public int getId_usuario() {
         return id_usuario;
     }

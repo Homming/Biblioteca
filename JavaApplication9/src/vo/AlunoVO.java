@@ -3,22 +3,17 @@ package vo;
 import java.util.ArrayList;
 
 public class AlunoVO {
-    private int id_usuario;
+    private int id_aluno;
     private String nome;
     private String fone;
     private String email;
     private String complemento;
     private String matricula;
     private String turma;
-    private int qtd_permitido;
-    private ArrayList<LivroVO> livros_alocados = new ArrayList<LivroVO>();
+    private int quantidade_alocados = 0;
 
-    public int getId_usuario() {
-        return id_usuario;
-    }
-
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public int getId_aluno() {
+        return id_aluno;
     }
 
     public String getNome() {
@@ -69,21 +64,15 @@ public class AlunoVO {
         this.turma = turma;
     }
 
-    public int getQtd_permitido() {
-        return qtd_permitido;
+    public int getQuantidade_alocados() {
+        return quantidade_alocados;
     }
 
-    public void setQtd_permitido(int qtd_permitido) {
-        this.qtd_permitido = qtd_permitido;
+    public void setQuantidade_alocados() {
+        // irá adicionar +1 cada vez que alocar o livro
+        this.quantidade_alocados += 1;
     }
 
-    public ArrayList<LivroVO> getLivros_alocados() {
-        return livros_alocados;
-    }
-
-    public void setLivros_alocados(LivroVO livro) {
-        this.livros_alocados.add(livro);
-    }
     
     
 }

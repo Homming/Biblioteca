@@ -2,6 +2,7 @@ package vo;
 
 public class LivroVO {
      private int id_livro;
+     private int quantidade_livros;
      private String titulo;
      private String data;
      private String cdd;
@@ -24,6 +25,14 @@ public class LivroVO {
 
     public void setId_livro(int id_livro) {
         this.id_livro = id_livro;
+    }
+    
+    public int getQuantidade_livros() {
+        return quantidade_livros;
+    }
+
+    public void setQuantidade_livros(int quantidade_livros) {
+        this.quantidade_livros = quantidade_livros;
     }
 
     public String getTitulo() {

@@ -64,6 +64,7 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
          }// fim try
      }//fim editar
     
+    @Override
     public void excluirCad(BibliotecariaVO cad) {
 
         try {
