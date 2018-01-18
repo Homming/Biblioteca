@@ -10,16 +10,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import vo.AlunoVO;
 
-public class AlunoDAO implements IAlunoDAO{
+public class AlunoDAO implements IAlunoDAO {
 
     @Override
     public void cadastro(AlunoVO alunoVO) {
         //Implementado para corrigir o erro de classe abstrata
-    }  
-    
+    }
+
     private ArrayList<AlunoVO> alunos;
     private Connection conexao;
-    
+
     public Connection getConnection() {
         return conexao;
     }
@@ -27,8 +27,7 @@ public class AlunoDAO implements IAlunoDAO{
     public void setConnection(Connection conexao) {
         this.conexao = conexao;
     }
-    
-    
+
     public List<AlunoVO> listar() {
         String sql = "SELECT * FROM aluno";
         List<AlunoVO> retorno = new ArrayList<>();
@@ -45,7 +44,7 @@ public class AlunoDAO implements IAlunoDAO{
                 aluno.setComplemento(resultado.getString("complemento"));
                 aluno.setMatricula(resultado.getString("matricula"));
                 aluno.setTurma(resultado.getString("turma"));
-                  
+
                 retorno.add(aluno);
             }
         } catch (SQLException ex) {
@@ -53,26 +52,7 @@ public class AlunoDAO implements IAlunoDAO{
         }
         return retorno;
     }
-    /*
-    public AlunoVO buscar(AlunoVO aluno) {
-        String sql = "SELECT * FROM aluno WHERE Id_aluno=?";
-        AlunoVO retorno = new AlunoVO();
-        try {
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setInt(1, aluno.getId_aluno());
-            ResultSet resultado = stmt.executeQuery();
-            if (resultado.next()) {
-                aluno.setId_aluno(resultado.getInt("id_aluno"));
-                aluno.setNome(resultado.getString("nome"));
-                aluno.setTelefone(resultado.getString("telefone"));
-                retorno = aluno;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return retorno;
-    }
-    */
+
     public AlunoVO buscar(AlunoVO aluno) {
         String sql = "SELECT * FROM aluno WHERE id_aluno=?";
         AlunoVO retorno = new AlunoVO();
@@ -88,7 +68,7 @@ public class AlunoDAO implements IAlunoDAO{
                 aluno.setComplemento(resultado.getString("complemento"));
                 aluno.setMatricula(resultado.getString("matricula"));
                 aluno.setTurma(resultado.getString("turma"));
-                
+
                 retorno = aluno;
             }
         } catch (SQLException ex) {

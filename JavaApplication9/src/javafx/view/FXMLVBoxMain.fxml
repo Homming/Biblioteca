@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.FXMLVBoxMainController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="Gerenciar">
+            <items>
+              <MenuItem fx:id="menuItemGerenciarUsuario" mnemonicParsing="false" onAction="#handleMenuItemGerenciarUsuario" text="Usuário" />
+                  <MenuItem fx:id="menuItemGerenciarLivro" mnemonicParsing="false" onAction="#handleMenuItemGerenciarLivro" text="Livro" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Alugar">
+            <items>
+              <MenuItem fx:id="menuItemAlugarLivro" mnemonicParsing="false" onAction="#handleMenuItemAlugarLivro" text="Livro" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Gráficos">
+               <items>
+                  <MenuItem fx:id="menuItemSobre1" mnemonicParsing="false" onAction="#handleMenuItemGraficosAlugueisPorMes" text="Aluguéis por Mês" />
+               </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Sobre">
+            <items>
+              <MenuItem fx:id="menuItemSobre" mnemonicParsing="false" text="Sobre" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Opções">
+              <items>
+                <MenuItem fx:id="menuItemOpcaoLogout" mnemonicParsing="false" onAction="#handleMenuItemOpcoesLogout" text="Logout" />
+                  <MenuItem fx:id="menuItemOpcaoSair" mnemonicParsing="false" text="Sair" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane fx:id="anchorPane" prefHeight="571.0" prefWidth="737.0" />
+   </children>
+</VBox>

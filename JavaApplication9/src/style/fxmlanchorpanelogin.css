@@ -1,0 +1,17 @@
+/*
+ * CSS DA TELA DE LOGIN
+ */
+
+.mainFxmlClass {
+    -fx-background-image:url('../imagens/backgroundLogin.png');
+
+}
+
+.flowpane {
+    -fx-background-color:#eee;
+}
+
+.pane{
+    -fx-background-color:#ddd;
+}
+

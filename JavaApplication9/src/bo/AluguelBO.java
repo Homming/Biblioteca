@@ -1,4 +1,3 @@
-/*
 package bo;
 
 import dao.IAluguelDAO;
@@ -44,5 +43,4 @@ public class AluguelBO {
             this.aluguelDAO.cadastrar(aluguelVo);
         }
     }
-}
-*/
+}//NICOLAS

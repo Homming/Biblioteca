@@ -1,8 +1,6 @@
-/* COMMENT 1
 package bo;
 
 import dao.IAlunoDAO;
-import java.sql.SQLException;
 import vo.AlunoVO;
 import vo.BibliotecariaVO;
 
@@ -28,7 +26,7 @@ public class AlunoBO {
     }
 
     public boolean validarCadastroDeTelefone() {
-        if (this.alunoVo.getFone().length() > 8 && !this.alunoVo.getFone().isEmpty() && alunoVo.getFone() != null) {
+        if (this.alunoVo.getTelefone().length() > 8 && !this.alunoVo.getTelefone().isEmpty() && alunoVo.getTelefone() != null) {
             return true;
         } else {
             return false;
@@ -46,7 +44,6 @@ public class AlunoBO {
     public boolean validarCadastroDeMatricula() {
         /* Ideia para que o objeto Bibliotecaria tenha todas as matricuals dos alunos, 
             e verifique num foreach se uma das matriculas bate com a fornecida*/
-/*COMMENT 2
         if (this.alunoVo.getMatricula().length() > 5 && !this.alunoVo.getMatricula().isEmpty() && alunoVo.getMatricula() != null) {
             return true;
         } else {
@@ -54,14 +51,17 @@ public class AlunoBO {
         }
     }
 
+    /* FALTA IMPLEMENTAR alunoVO
+    
     public boolean validarAlocaçãoDeLivro() {
         //incompleto
-        if (this.alunoVo.getQuantidade_alocados() < this.bibliotecariaVo.getQuantidade_possivel()) {
+        if (this.alunoVo.getQuantidade_alocados() < this.alunoVo.getQuantidade_possivel()) {
             return true;
         } else {
             return false;
         }
     }
+    
 
     public void cadastrarAluno() throws SQLException {
         if (!validarCadastroDeNome()) {
@@ -69,7 +69,7 @@ public class AlunoBO {
         } else {
             this.alunoDAO.cadastrar(this.alunoVo);
         }
-
     }
-}
-*/
+
+     */
+}// NICOLAS
