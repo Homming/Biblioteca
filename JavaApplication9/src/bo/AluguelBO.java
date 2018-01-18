@@ -1,3 +1,4 @@
+/*
 package bo;
 
 import dao.IAluguelDAO;
@@ -44,3 +45,4 @@ public class AluguelBO {
         }
     }
 }
+*/

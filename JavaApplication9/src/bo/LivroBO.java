@@ -1,3 +1,5 @@
+/* COMMENT 1
+
 package bo;
 
 import dao.ILivroDAO;
@@ -46,6 +48,7 @@ public class LivroBO {
     public boolean validarAlocaçãoDeLivro(AlunoVO alunoVo){
         /*necessario ainda adicionar um parametro para verificar se o
         aluno ja alocou o mesmo livro e ainda nao devolveu*/
+/* COMMENT 2
         if(this.livroVo.getQuantidade_livros() > 1)
             return true;
         else
@@ -61,3 +64,5 @@ public class LivroBO {
     }
     
 }
+
+*/

@@ -1,3 +1,4 @@
+/* COMMENT 1
 package bo;
 
 import dao.IAlunoDAO;
@@ -41,6 +42,7 @@ public class AlunoBO {
     public boolean validarCadastroDeMatricula(){
         /* Ideia para que o objeto Bibliotecaria tenha todas as matricuals dos alunos, 
             e verifique num foreach se uma das matriculas bate com a fornecida*/
+/*COMMENT 2
         if(this.alunoVo.getMatricula().length() > 5 && !this.alunoVo.getMatricula().isEmpty() && alunoVo.getMatricula()!= null)
             return true;
         else
@@ -63,3 +65,5 @@ public class AlunoBO {
                 
     }
 }
+
+*/

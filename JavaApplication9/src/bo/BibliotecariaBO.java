@@ -1,3 +1,5 @@
+/*
+
 package bo;
 
 import dao.ILivroDAO;
@@ -52,3 +54,5 @@ public class BibliotecariaBO {
             this.bibliotecariaDAO.cadastrar(this.bibliotecariaVo);
     }
 }
+
+*/
