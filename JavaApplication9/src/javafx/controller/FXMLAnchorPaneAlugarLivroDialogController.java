@@ -95,6 +95,15 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
 
     public void setAluguelVO(AluguelVO aluguel) {
         this.aluguel = aluguel;
+        //Caso não seja um aluguel Novo, set os valores do aluguel existente
+        /*
+        this.cbxAluno.setText(aluguel.getAluno().getId_aluno());
+        this.cbxLivro.setText(aluguel.getLivro().getId_livro());
+        this.dtpAluguel.setText();
+        this.dtpDevolucao.setText();
+        this.chbDevolvido.setText();
+         */
+
     }
 
     public boolean isButtonConfirmarClicked() {
@@ -153,8 +162,7 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
         if (observableListItensDeAluguel == null) {
             errorMessage += "Itens de Aluguel inválidos!\n";
         }
-        */
-
+         */
         if (dtpAluguel.getValue() == null) {
             errorMessage += "Data de aluguel inválida!\n";
         }

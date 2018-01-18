@@ -12,26 +12,6 @@ import bo.BibliotecariaBO;
 
 public class FXMLAnchorPaneCadastroUsuarioDialogController implements Initializable {
 
-/* ACREDITO QUE AS LABELS NAO SAO NECESSARIAS NO CONTROLLER
-    @FXML
-    private Button btnConfirmar;
-    @FXML
-    private Button btnCancelar;
-    @FXML
-    private Label lblUserName;
-    @FXML
-    private Label lblUserCPF;
-    @FXML
-    private Label lblUserEmail;
-    @FXML
-    private Label lblUserUser;
-    @FXML
-    private Label lblUserPass;
-    @FXML
-    private Label lblUserConfPass;
-    @FXML
-    private Label lblUserTel;
-*/
     @FXML
     private TextField txtUserName;
     @FXML
@@ -53,7 +33,7 @@ public class FXMLAnchorPaneCadastroUsuarioDialogController implements Initializa
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
     }
 
     //Getters e Setters de Stage buttonConfirmar e bibliotecaria
@@ -92,11 +72,11 @@ public class FXMLAnchorPaneCadastroUsuarioDialogController implements Initializa
     public void handleButtonConfirmar() {
         String valNome = txtUserName.getText();// guardando o valor que deseja validar em uma variavel
         String valEmail = txtUserEmail.getText();
-        String valUser = txtUserUser .getText();
+        String valUser = txtUserUser.getText();
         String valPass = txtUserPass.getText();
         String valConfPass = txtUserConfPass.getText();//NAO ESTA FUNCIONANDO
         BibliotecariaBO validar = new BibliotecariaBO(); // instanciando a classe BO para chamar o método de validação
-        
+
         if (validar.validarEntradaDeDados(valNome, valEmail, valUser, valPass)) {// se todos os campos estiverem ok
 
             bibliotecaria.setNome(txtUserName.getText());

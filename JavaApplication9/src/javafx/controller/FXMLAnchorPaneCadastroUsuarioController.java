@@ -52,44 +52,44 @@ public class FXMLAnchorPaneCadastroUsuarioController implements Initializable {
     private Label lblUserConfPass;
     @FXML
     private Label lblUserTel;
-    
+
     private List<BibliotecariaVO> listUsuarios;
     private ObservableList<BibliotecariaVO> observableListUsuarios;
-    
+
     private final Database database = DatabaseFactory.getDatabase("mysql");
     private final Connection connection = database.conectar();
     private final BibliotecariaDAO bibliotecariaDAO = new BibliotecariaDAO();
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         bibliotecariaDAO.setConnection(connection);
         carregarTableViewUsuario();
-        
+
         //Ação de clicar no nome do usuário exibido
-        tblViewUsuarios.getSelectionModel().selectedItemProperty().addListener( 
+        tblViewUsuarios.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> selecionarItemTblViewUsuarios(newValue));
-    }    
-    
-    public void carregarTableViewUsuario(){
+    }
+
+    public void carregarTableViewUsuario() {
         tblColumnUsuarioNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         tblColumnUsuarioCodigo.setCellValueFactory(new PropertyValueFactory<>("id_usuario"));
-        
+
         listUsuarios = bibliotecariaDAO.listar();
-        
+
         observableListUsuarios = FXCollections.observableArrayList(listUsuarios);
         tblViewUsuarios.setItems(observableListUsuarios);
     }
-    
-    public void selecionarItemTblViewUsuarios(BibliotecariaVO usuario){
+
+    public void selecionarItemTblViewUsuarios(BibliotecariaVO usuario) {
         //Preenchimento dos campos através do usuário selecionado
-        if(usuario != null){
+        if (usuario != null) {
             lblUserCod.setText(String.valueOf(usuario.getId_usuario()));
             lblUserName.setText(usuario.getNome());
             lblUserCPF.setText(usuario.getCpf());
             lblUserEmail.setText(usuario.getEmail());
             lblUserUser.setText(usuario.getUsuario());
             lblUserTel.setText(usuario.getCel());
-        }else{
+        } else {
             lblUserCod.setText("");
             lblUserName.setText("");
             lblUserCPF.setText("");
@@ -98,72 +98,71 @@ public class FXMLAnchorPaneCadastroUsuarioController implements Initializable {
             lblUserTel.setText("");
         }
     }
-    
-    
+
     @FXML
     public void handleButtonNovo() throws IOException {
         BibliotecariaVO bibliotecaria = new BibliotecariaVO(); // instancia nova bibliotecaria 
         boolean buttonConfirmarClicked = showFXMLAnchorPaneCadastroUsuarioDialog(bibliotecaria); // abre a tela para inserção dos dados
-        if(buttonConfirmarClicked){// se o botão confirmar for clicado
+        if (buttonConfirmarClicked) {// se o botão confirmar for clicado
             bibliotecariaDAO.cadastrar(bibliotecaria);// insere os dados cadastrados na tela
             carregarTableViewUsuario();
         }
     }
-    
+
     @FXML
-    public void handleButtonEditar() throws IOException{
+    public void handleButtonEditar() throws IOException {
         BibliotecariaVO bibliotecaria = tblViewUsuarios.getSelectionModel().getSelectedItem();// puxa as informações da bibliotecaria/usuário selecionado
-        if(bibliotecaria != null){
+        if (bibliotecaria != null) {
             boolean buttonConfirmarClicked = showFXMLAnchorPaneCadastroUsuarioDialog(bibliotecaria);
-            if(buttonConfirmarClicked){
+            if (buttonConfirmarClicked) {
                 bibliotecariaDAO.editar(bibliotecaria);
                 carregarTableViewUsuario();
-            }else{
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Por favor, escolha um usuário na Tabela!");
                 alert.show();
             }
         }
     }
-    
+
     @FXML
-    public void handleButtonRemover() throws IOException{
+    public void handleButtonRemover() throws IOException {
         BibliotecariaVO bibliotecaria = tblViewUsuarios.getSelectionModel().getSelectedItem();
-        if(bibliotecaria != null){
+        if (bibliotecaria != null) {
             bibliotecariaDAO.excluirCad(bibliotecaria);
             carregarTableViewUsuario();
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Por favor, escolha um usuário na Tabela!");
             alert.show();
         }
     }
-    
+
     //Método para exibir a tela de cadastro (Dialog) 
-    public boolean showFXMLAnchorPaneCadastroUsuarioDialog(BibliotecariaVO bibliotecariaVO) throws IOException{
-        
-       FXMLLoader loader = new FXMLLoader();
-       loader.setLocation(FXMLAnchorPaneCadastroUsuarioDialogController.class.getResource("/javafx/view/FXMLAnchorPaneCadastroUsuarioDialog.fxml"));
-        
+    public boolean showFXMLAnchorPaneCadastroUsuarioDialog(BibliotecariaVO bibliotecariaVO) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(FXMLAnchorPaneCadastroUsuarioDialogController.class.getResource("/javafx/view/FXMLAnchorPaneCadastroUsuarioDialog.fxml"));
+
         AnchorPane page = (AnchorPane) loader.load(); //typecast para guardar em page a tela carregada.
-        
+
         // Stage Dialog, para que seja visível ao usuário
         Stage dialogStage = new Stage();
         dialogStage.setTitle("Cadastro de Usuário");//exibido na parte superior da tela
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
-        
+
         // Usuário no controller
         FXMLAnchorPaneCadastroUsuarioDialogController controller = loader.getController(); // instancia do controller da tela dialog
         //setando o stage e o usuário para o controller
         controller.setDialogStage(dialogStage);
         controller.setBibliotecaria(bibliotecariaVO);
-        
+
         // Mostra a tela e espera o usuário fechar
         dialogStage.showAndWait();
-        
+
         return controller.isButtonConfirmarClicked();
-        
+
     }
-    
+
 }

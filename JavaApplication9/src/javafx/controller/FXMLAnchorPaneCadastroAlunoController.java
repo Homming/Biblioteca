@@ -108,73 +108,72 @@ public class FXMLAnchorPaneCadastroAlunoController implements Initializable {
 
         }
     }
-    
+
     //****************************Botões e Tela Dialog**********************************
-    
     @FXML
     public void handleButtonNovo() throws IOException, SQLException {
         AlunoVO aluno = new AlunoVO(); // instancia nova aluno 
         boolean buttonConfirmarClicked = showFXMLAnchorPaneCadastroAlunoDialog(aluno); // abre a tela para inserção dos dados
-        if(buttonConfirmarClicked){// se o botão confirmar for clicado
+        if (buttonConfirmarClicked) {// se o botão confirmar for clicado
             alunoDAO.cadastrar(aluno);// insere os dados cadastrados na tela
             carregarTableViewAluno();
         }
     }
-    
+
     @FXML
-    public void handleButtonEditar() throws IOException, SQLException{
+    public void handleButtonEditar() throws IOException, SQLException {
         AlunoVO aluno = tblViewAlunos.getSelectionModel().getSelectedItem();// puxa as informações da aluno selecionado
-        if(aluno != null){
+        if (aluno != null) {
             boolean buttonConfirmarClicked = showFXMLAnchorPaneCadastroAlunoDialog(aluno);
-            if(buttonConfirmarClicked){
+            if (buttonConfirmarClicked) {
                 alunoDAO.editar(aluno);
                 carregarTableViewAluno();
-            }else{
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Por favor, escolha um aluno na Tabela!");
                 alert.show();
             }
         }
     }
-    
+
     @FXML
-    public void handleButtonRemover() throws IOException, SQLException{
+    public void handleButtonRemover() throws IOException, SQLException {
         AlunoVO aluno = tblViewAlunos.getSelectionModel().getSelectedItem();
-        if(aluno != null){
+        if (aluno != null) {
             alunoDAO.remover(aluno);
             carregarTableViewAluno();
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Por favor, escolha um aluno na Tabela!");
             alert.show();
         }
     }
-    
+
     //Método para exibir a tela de cadastro (Dialog) 
-    public boolean showFXMLAnchorPaneCadastroAlunoDialog(AlunoVO AlunoVO) throws IOException{
-        
-       FXMLLoader loader = new FXMLLoader();
-       loader.setLocation(FXMLAnchorPaneCadastroUsuarioDialogController.class.getResource("/javafx/view/FXMLAnchorPaneCadastroAlunoDialog.fxml"));
-        
+    public boolean showFXMLAnchorPaneCadastroAlunoDialog(AlunoVO AlunoVO) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(FXMLAnchorPaneCadastroAlunoDialogController.class.getResource("/javafx/view/FXMLAnchorPaneCadastroAlunoDialog.fxml"));
+
         AnchorPane page = (AnchorPane) loader.load(); //typecast para guardar em page a tela carregada.
-        
+
         // Stage Dialog, para que seja visível ao aluno
         Stage dialogStage = new Stage();
         dialogStage.setTitle("Cadastro de aluno");//exibido na parte superior da tela
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
-        
+
         // aluno no controller
-        FXMLAnchorPaneCadastroUsuarioDialogController controller = loader.getController(); // instancia do controller da tela dialog
+        FXMLAnchorPaneCadastroAlunoDialogController controller = loader.getController(); // instancia do controller da tela dialog
         //setando o stage e o aluno para o controller
         controller.setDialogStage(dialogStage);
         controller.setAluno(AlunoVO);
-        
+
         // Mostra a tela e espera o aluno fechar
         dialogStage.showAndWait();
-        
+
         return controller.isButtonConfirmarClicked();
-        
+
     }
 
 }
