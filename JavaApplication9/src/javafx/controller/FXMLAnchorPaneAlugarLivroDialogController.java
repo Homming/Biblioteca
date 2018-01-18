@@ -123,7 +123,7 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
             //setar o aluguel com as informações necessárias
             aluguel.setAluno((AlunoVO) cbxAluno.getSelectionModel().getSelectedItem());
             //SOLUÇÃO TEMPORARIA, PEGANDO APENAS O LIVRO SELECIONADO E NAO A LISTA DE LIVROS
-            //aluguel.setLivro((LivroVO) cbxLivro.getSelectionModel().getSelectedItem());
+            aluguel.setLivro((LivroVO) cbxLivro.getSelectionModel().getSelectedItem());
             aluguel.setDevolvido(chbDevolvido.isSelected());
             aluguel.setData_aluguel(dtpAluguel.getValue());
             aluguel.setData_devolucao(dtpDevolucao.getValue());
@@ -149,9 +149,11 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
             errorMessage += "Livro inválido!\n";
         }
 
+        /*
         if (observableListItensDeAluguel == null) {
             errorMessage += "Itens de Aluguel inválidos!\n";
         }
+        */
 
         if (dtpAluguel.getValue() == null) {
             errorMessage += "Data de aluguel inválida!\n";
