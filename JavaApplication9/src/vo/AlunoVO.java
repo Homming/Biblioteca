@@ -7,12 +7,12 @@ public class AlunoVO {
     private int id_aluno;
     private String nome;
     private int quantidade_alocados;
+    private int qtd_maxlivro;
     private String telefone;
     private String email;
     private String complemento;
     private String matricula;
     private String turma;
-    private int qtd_permitido;
     private ArrayList<LivroVO> livros_alocados = new ArrayList<LivroVO>();
 
     public int getId_aluno() {
@@ -79,12 +79,12 @@ public class AlunoVO {
         this.turma = turma;
     }
 
-    public int getQtd_permitido() {
-        return qtd_permitido;
+    public int getQtd_maxlivro() {
+        return qtd_maxlivro;
     }
 
-    public void setQtd_permitido(int qtd_permitido) {
-        this.qtd_permitido = qtd_permitido;
+    public void setQtd_maxlivro(int qtd_maxlivro) {
+        this.qtd_maxlivro = qtd_maxlivro;
     }
 
     public ArrayList<LivroVO> getLivros_alocados() {
@@ -94,8 +94,8 @@ public class AlunoVO {
     public void setLivros_alocados(ArrayList<LivroVO> livros_alocados) {
         this.livros_alocados = livros_alocados;
     }
-    
-    public String toString(){
+
+    public String toString() {
         return this.nome;
     }
 

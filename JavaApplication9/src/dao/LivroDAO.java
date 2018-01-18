@@ -25,13 +25,6 @@ public class LivroDAO implements ILivroDAO {
         this.conexao = conexao;
     }
 
-    /*
-    public void cadastrar(LivroVO livro) throws SQLException{
-        Statement stmt = this.conexao.createStatement();
-        stmt.executeUpdate("INSERT INTO livro(titulo, data_livro, cdd, cutter, complemento, autor1, assunto, autor2, local_livro, autor3, editora, tradutores, ano, ilustradores, edicao) VALUES "
-                + "('"+livro.getTitulo()+"','"+livro.getData()+"','"+livro.getCdd()+"','"+livro.getCutter()+"','"+livro.getComplemento()+"','"+livro.getAutor1()+"','"+livro.getAutor2()+"','"+livro.getAutor3()+"','"+livro.getTradutores()+"','"+livro.getIlustradores()+"','"+livro.getAssunto()+"','"+livro.getLocal()+"','"+livro.getEditora()+"','"+livro.getAno()+"','"+livro.getEdicao()+"')");
-        
-    }*/
     @Override
     public boolean cadastrar(LivroVO cad) throws SQLException {
         String sql = "INSERT INTO livro(titulo, data_livro, quantidade_livro, cdd, cutter, complemento, autor1, autor2, autor3, tradutores, ilustradores, assunto, local_livro, editora, ano, edicao) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -61,6 +54,7 @@ public class LivroDAO implements ILivroDAO {
         }
     }
 
+    @Override
     public boolean editarCad(LivroVO cad) {
         String sql = "UPDATE livro SET titulo = ?, data_livro = ?, quantidade_livro = ?, cdd = ?, cutter = ?, complemento = ?, autor1 = ?, autor2 = ?, autor3 = ?, tradutores = ?, ilustradores = ?, assunto = ?, local_livro = ?, editora = ?, ano = ?, edicao = ? WHERE id_livro = ?";
         try {
@@ -98,7 +92,8 @@ public class LivroDAO implements ILivroDAO {
         }
     }
 
-    public void excluirCad(LivroVO cad) {
+    @Override
+    public boolean excluirCad(LivroVO cad) {
 
         try {
             String excluiSQL = ("DELETE FROM livro WHERE Id_livro = ?");
@@ -116,8 +111,9 @@ public class LivroDAO implements ILivroDAO {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro na exclusão do livro!" + ex);
-
+            return false;
         }
+        return true;
     }
 
     public List<LivroVO> listar() {

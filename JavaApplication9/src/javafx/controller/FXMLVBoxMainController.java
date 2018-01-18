@@ -16,6 +16,8 @@ public class FXMLVBoxMainController implements Initializable {
     @FXML
     private MenuItem menuItemGerenciarLivro;
     @FXML
+    private MenuItem menuItemGerenciarAluno;
+    @FXML
     private MenuItem menuItemAlugarLivro;
     @FXML
     private MenuItem menuItemSobre;
@@ -25,45 +27,46 @@ public class FXMLVBoxMainController implements Initializable {
     private MenuItem menuItemOpcaoSair;
     @FXML
     private AnchorPane anchorPane;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
-    
+
+    }
+
     @FXML
-    public void handleMenuItemGerenciarUsuario() throws IOException{
+    public void handleMenuItemGerenciarUsuario() throws IOException {
         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/javafx/view/FXMLAnchorPaneCadastroUsuario.fxml"));
         anchorPane.getChildren().setAll(a);
     }
-    
+
     @FXML
-    public void handleMenuItemGerenciarLivro() throws IOException{
+    public void handleMenuItemGerenciarLivro() throws IOException {
         AnchorPane x = (AnchorPane) FXMLLoader.load(getClass().getResource("/javafx/view/FXMLAnchorPaneCadastroLivro.fxml")); // load da tela 
         anchorPane.getChildren().setAll(x); // abertura da tela
     }
-    
+
     @FXML
-    public void handleMenuItemAlugarLivro() throws IOException{
+    public void handleMenuItemAlugarLivro() throws IOException {
         AnchorPane y = (AnchorPane) FXMLLoader.load(getClass().getResource("/javafx/view/FXMLAnchorPaneAlugarLivro.fxml")); // load da tela 
         anchorPane.getChildren().setAll(y); // abertura da tela
     }
-    
+
     @FXML
-    public void handleMenuItemGraficosAlugueisPorMes() throws IOException{
+    public void handleMenuItemGraficosAlugueisPorMes() throws IOException {
         AnchorPane z = (AnchorPane) FXMLLoader.load(getClass().getResource("/javafx/view/FXMLAnchorPaneGraficosAlugueisPorMes.fxml"));
         anchorPane.getChildren().setAll(z);
     }
-    
+
     @FXML
-    public void handleMenuItemOpcoesLogout() throws IOException{
+    public void handleMenuItemOpcoesLogout() throws IOException {
         AnchorPane h = (AnchorPane) FXMLLoader.load(getClass().getResource("/javafx/view/FXMLAnchorPaneLogin.fxml"));
         anchorPane.getChildren().setAll(h);
     }
-    
-    
-    
-            
-            
-    
+
+    @FXML
+    public void handleMenuItemGerenciarAluno() throws IOException {
+        AnchorPane b = (AnchorPane) FXMLLoader.load(getClass().getResource("/javafx/view/FXMLAnchorPaneCadastroAluno.fxml"));
+        anchorPane.getChildren().setAll(b);
+    }
+
 }

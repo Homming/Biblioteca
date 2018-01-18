@@ -36,14 +36,13 @@ CREATE TABLE aluno(
 	id_aluno int auto_increment not null primary key,
     nome varchar(100) not null,
     quantidade_alocados int,
+    qtd_maxlivro int,
     telefone varchar(50),
     email varchar(100),
     complemento varchar(100),
     matricula varchar(50),
     turma varchar(50)
 );
-
--- colocar qtd_maxlivro
 -- mudar alunoid e livro id para not null
 
 CREATE TABLE aluguel(

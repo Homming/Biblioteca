@@ -16,7 +16,6 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
     private ArrayList<BibliotecariaVO> biblio;
     private Connection conexao;
     ResultSet rs = null;
-    
 
     public Connection getConnection() {
         return conexao;
@@ -26,6 +25,7 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
         this.conexao = conexao;
     }
 
+    @Override
     public boolean cadastrar(BibliotecariaVO bibliotecaria) {
         String sql = "INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha, email) values (?,?,?,?,?,?)";
         try {
@@ -44,7 +44,8 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
         }
     }
 
-    public void editar(BibliotecariaVO cad) {
+    @Override
+    public boolean editar(BibliotecariaVO cad) {
         try {
             String editaSQL = ("UPDATE bibliotecaria SET nome = ?, cpf = ?, cel = ?, usuario = ?, senha = ?, email = ? WHERE id_usuario = ?");
 
@@ -63,13 +64,17 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
             if (confirma == JOptionPane.YES_NO_OPTION) {
                 pstm.execute();
                 JOptionPane.showMessageDialog(null, "Usuário editado com sucesso!");
+
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro na edição!");
+            return false;
         }// fim try
+        return true;
     }//fim editar
 
-    public void excluirCad(BibliotecariaVO cad) {
+    @Override
+    public boolean excluirCad(BibliotecariaVO cad) {
 
         try {
             String excluiSQL = ("DELETE FROM bibliotecaria where Id_usuario = ?");
@@ -87,8 +92,9 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro na exclusão do usuário!" + ex);
-
+            return false;
         }
+        return true;
     }
 
     public void logar(BibliotecariaVO cad) {
@@ -98,15 +104,15 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
             PreparedStatement pstm = conexao.prepareStatement(sql);
             pstm.setString(1, cad.getUsuario());
             pstm.setString(2, cad.getSenha());
-            
+
             rs = pstm.executeQuery();
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 System.out.println("Bem Vindo(a)");
-            }else{
+            } else {
                 System.out.println("Usuário e/ou senha inválido(s)");
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }

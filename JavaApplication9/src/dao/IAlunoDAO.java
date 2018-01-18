@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import vo.AlunoVO;
 
 public interface IAlunoDAO {
-    public void cadastro(AlunoVO alunoVO) throws SQLException;
+    public boolean cadastrar(AlunoVO alunoVO) throws SQLException;
+    public boolean editar(AlunoVO alunoVO) throws SQLException;
+    public boolean remover(AlunoVO alunoVO) throws SQLException;
     
 }

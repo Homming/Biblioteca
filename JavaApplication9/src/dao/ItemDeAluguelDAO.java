@@ -24,6 +24,7 @@ public class ItemDeAluguelDAO implements IItemDeAluguelDAO {
         this.conexao = connection;
     }
 
+    @Override
     public boolean inserir(ItemDeAluguelVO itemDeAluguel) {
         String sql = "INSERT INTO itensdealuguel(quantidade, livro_id, aluguel_id) VALUES(?,?,?)";
         try {
@@ -40,10 +41,12 @@ public class ItemDeAluguelDAO implements IItemDeAluguelDAO {
         }
     }
 
+    @Override
     public boolean alterar(ItemDeAluguelVO itemDeAluguel) {
         return true;
     }
 
+    @Override
     public boolean remover(ItemDeAluguelVO itemDeAluguel) {
         String sql = "DELETE FROM itensdealuguel WHERE id_itemdealuguel = ?";
         try {
