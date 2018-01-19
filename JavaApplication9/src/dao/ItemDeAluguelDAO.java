@@ -30,8 +30,8 @@ public class ItemDeAluguelDAO implements IItemDeAluguelDAO {
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, itemDeAluguel.getQuantidade());
-            stmt.setInt(3, itemDeAluguel.getLivro().getId_livro());
-            stmt.setInt(4, itemDeAluguel.getAluguel().getId_aluguel());
+            stmt.setInt(2, itemDeAluguel.getLivro().getId_livro());
+            stmt.setInt(3, itemDeAluguel.getAluguel().getId_aluguel());
 
             stmt.execute();
             return true;

@@ -90,7 +90,7 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
             lblCodigo.setText(String.valueOf(aluguel.getId_aluguel()));
             lblDataAluguel.setText(String.valueOf(aluguel.getData_aluguel().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
             lblAluno.setText(aluguel.getAluno().toString());
-            lblLivro.setText(aluguel.getLivro().toString());
+            lblLivro.setText(aluguel.getLivro().toString());//pegar o id dos livros locados
             lblDevolucao.setText(String.valueOf(aluguel.getData_devolucao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
             lblDevolvido.setText(String.valueOf(aluguel.getDevolvido()));
         } else {

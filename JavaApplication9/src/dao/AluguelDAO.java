@@ -30,15 +30,14 @@ public class AluguelDAO implements IAluguelDAO {
     }
 
     @Override
-    public boolean cadastrar(AluguelVO aluguel) throws SQLException{
-        String sql = "INSERT INTO aluguel(data_aluguel, aluno_id, livro_id, data_devolucao, devolvido) VALUES(?,?,?,?,?)";
+    public boolean cadastrar(AluguelVO aluguel) throws SQLException {
+        String sql = "INSERT INTO aluguel(data_aluguel, aluno_id, data_devolucao, devolvido) VALUES(?,?,?,?)";
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setDate(1, Date.valueOf(aluguel.getData_aluguel()));
             stmt.setInt(2, aluguel.getAluno().getId_aluno());
-            stmt.setInt(3, aluguel.getLivro().getId_livro());
-            stmt.setDate(4, Date.valueOf(aluguel.getData_devolucao()));
-            stmt.setBoolean(5, aluguel.getDevolvido());
+            stmt.setDate(3, Date.valueOf(aluguel.getData_devolucao()));
+            stmt.setBoolean(4, aluguel.getDevolvido());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -47,6 +46,7 @@ public class AluguelDAO implements IAluguelDAO {
         }
     }
 
+    @Override
     public boolean alterar(AluguelVO aluguel) {
         String sql = "UPDATE aluguel SET data_aluguel=?, aluno_id=?, livro_id=? WHERE Id_aluguel=?";
         try {
@@ -63,6 +63,7 @@ public class AluguelDAO implements IAluguelDAO {
         }
     }
 
+    @Override
     public boolean remover(AluguelVO aluguel) {
         String sql = "DELETE FROM aluguel WHERE Id_aluguel=?";
         try {
@@ -154,14 +155,14 @@ public class AluguelDAO implements IAluguelDAO {
     }
 
     public AluguelVO buscarUltimoAluguel() {
-        String sql = "SELECT max(Id_aluguel) FROM aluguel";
+        String sql = "SELECT MAX(Id_aluguel) as id_aluguel FROM aluguel";
         AluguelVO retorno = new AluguelVO();
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             ResultSet resultado = stmt.executeQuery();
 
             if (resultado.next()) {
-                retorno.setId_aluguel(resultado.getInt("max"));
+                retorno.setId_aluguel(resultado.getInt("id_aluguel"));
                 return retorno;
             }
         } catch (SQLException ex) {
@@ -173,7 +174,7 @@ public class AluguelDAO implements IAluguelDAO {
     //Map<Chave, Valor> No nosso caso : <Ano, arraylist de meses e a qtd de alugueis em cada mes>
     public Map<Integer, ArrayList> listarAlugueisPorMes() {
         //esta caindo no exception com o erro  Column 'count' not found. ??????
-        String sql = "select count(Id_aluguel), extract(year from data_aluguel) as ano, extract(month from data_aluguel) as mes from aluguel group by ano, mes order by ano, mes";
+        String sql = "SELECT COUNT(Id_aluguel) as id_aluguel, extract(year from data_aluguel) as ano, extract(month from data_aluguel) as mes from aluguel group by ano, mes order by ano, mes";
         Map<Integer, ArrayList> retorno = new HashMap();
 
         try {
@@ -184,12 +185,12 @@ public class AluguelDAO implements IAluguelDAO {
                 ArrayList linha = new ArrayList();
                 if (!retorno.containsKey(resultado.getInt("ano"))) {
                     linha.add(resultado.getInt("mes"));
-                    linha.add(resultado.getInt("count"));
+                    linha.add(resultado.getInt("id_aluguel"));
                     retorno.put(resultado.getInt("ano"), linha);
                 } else {
                     ArrayList linhaNova = retorno.get(resultado.getInt("ano"));
                     linhaNova.add(resultado.getInt("mes"));
-                    linhaNova.add(resultado.getInt("count"));
+                    linhaNova.add(resultado.getInt("id_aluguel"));
                 }
             }
             return retorno;

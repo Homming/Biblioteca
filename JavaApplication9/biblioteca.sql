@@ -65,9 +65,9 @@ CREATE TABLE itensdealuguel(
    CONSTRAINT fk_itensdealuguel_aluguel FOREIGN KEY(aluguel_id) REFERENCES aluguel(id_aluguel)
 );
 
--- INSERT INTO itensdealuguel(quantidade, livro_id, aluguel_id) VALUES('1', '1', '2');
+select * from livro;
 
-select * from aluguel;
+-- INSERT INTO itensdealuguel(quantidade, livro_id, aluguel_id) VALUES('1', '1', '2');
 -- INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha) VALUES ('Admnistrador','999.999.999-99','82999999999','admin','admin');
 -- insert into livro(titulo, data_livro, quantidade_livro, cdd, cutter, autor1) values ('O Teste3','01/01/10',4,'555','454','voce');
 -- insert into aluno (nome, telefone) values ('gabriel','99999-9999');

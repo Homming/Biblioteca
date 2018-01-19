@@ -89,20 +89,20 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblNome" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="lblQtdLocados" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="lblQtdMax" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label fx:id="lblTelefone" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label fx:id="lblEmail" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Label fx:id="lblComplemento" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Label fx:id="lblMatricula" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <Label fx:id="lblTurma" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <Label fx:id="lblNome" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lblQtdLocados" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="lblQtdMax" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="lblTelefone" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="lblEmail" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label fx:id="lblComplemento" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label fx:id="lblMatricula" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label fx:id="lblTurma" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <Label text="Código">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblCodigo" text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="lblCodigo" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                   <Label layoutX="160.0" layoutY="14.0" text="Gerenciar Aluno">

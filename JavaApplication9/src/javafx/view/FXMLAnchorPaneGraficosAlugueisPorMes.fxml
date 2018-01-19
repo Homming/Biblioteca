@@ -3,12 +3,13 @@
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="443.0" prefWidth="690.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="javafx.controller.FXMLAnchorPaneGraficosAlugueisPorMesController">
+<AnchorPane id="AnchorPane" prefHeight="622.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.FXMLAnchorPaneGraficosAlugueisPorMesController">
    <children>
-      <BarChart fx:id="barChart" layoutX="95.0" layoutY="14.0" title="Aluguéis por Mês">
+      <BarChart fx:id="barChart" layoutX="43.0" layoutY="50.0" prefHeight="622.0" prefWidth="730.0" title=" " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <xAxis>
           <CategoryAxis fx:id="ctgAxis" side="BOTTOM" />
         </xAxis>
@@ -16,5 +17,15 @@
           <NumberAxis fx:id="nmbAxis" side="LEFT" />
         </yAxis>
       </BarChart>
+      <Label layoutX="14.0" layoutY="5.0" text="Qtd">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="291.0" layoutY="9.0" text="Aluguéis por Mês">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

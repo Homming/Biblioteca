@@ -77,12 +77,14 @@ public class LivroDAO implements ILivroDAO {
             pstm.setString(16, cad.getEdicao());
             pstm.setInt(17, cad.getId_livro());
 
+            /*
             int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja modificar as informações", "Atenção", +JOptionPane.YES_NO_OPTION);
 
             if (confirma == JOptionPane.YES_NO_OPTION) {
                 pstm.execute();
                 JOptionPane.showMessageDialog(null, "Livro editado com sucesso!");
             }
+            */
 
             return true;
         } catch (SQLException ex) {
