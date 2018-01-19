@@ -8,12 +8,12 @@ public class AlunoBO {
 
     private AlunoVO alunoVo;
     private IAlunoDAO alunoDAO;
-    private BibliotecariaVO bibliotecariaVo;
+   // private BibliotecariaVO bibliotecariaVo; colocar apenas quando decidirmos onde as matriculas serao checadas pra nao haver dois cadastros do mesmo aluno
 
-    public AlunoBO(AlunoVO alunoVo, IAlunoDAO alunoDAO, BibliotecariaVO bibliotecariaVo) {
+    public AlunoBO(AlunoVO alunoVo, IAlunoDAO alunoDAO/*, BibliotecariaVO bibliotecariaVo*/) {
         this.alunoVo = alunoVo;
         this.alunoDAO = alunoDAO;
-        this.bibliotecariaVo = bibliotecariaVo;
+        /*this.bibliotecariaVo = bibliotecariaVo;*/
 
     }
 

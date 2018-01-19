@@ -1,14 +1,59 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package testes;
 
-/**
- *
- * @author Nicholas Torres
- */
-public class AluguelBOTest {
+import bo.AluguelBO;
+import dao.IAluguelDAO;
+import dao.IAlunoDAO;
+import java.time.LocalDate;
+import junit.framework.TestCase;
+import vo.AluguelVO;
+import vo.LivroVO;
+
+public class AluguelBOTest extends TestCase {
+    private AluguelVO aluguelVO;
+    private IAluguelDAO aluguelDAOMock;
+    
+    
+    protected void setUp() throws Exception{
+        IAluguelDAO aluguelDAOMock = new AluguelDAOMock();
+        LocalDate teste = LocalDate.now();
+        AluguelVO aluguelVO = new AluguelVO(12345,teste,12345,12345,teste,false);
+        
+        this.aluguelDAOMock = aluguelDAOMock;
+        this.aluguelVO = aluguelVO;
+    }
+    /* teste futuro pra quando o tevonha fazer o DAOMockAluguel
+    
+    public void testDeveriaCadastrarAluguelPassandoAlunoELivro() throws Exception{
+        AluguelBO aluguelBO = new AluguelBO(this.aluguelVO,this.aluguelDAOMock);
+        
+        try{
+            aluguelBO.CadastroAluguel();
+        }catch(Exception e){
+            fail("Deveria ter cadastrado");
+        }
+        
+    }*/
+    
+    public void testDeveriaValidarIdAluno(){
+        AluguelBO aluguelBO = new AluguelBO(this.aluguelVO,this.aluguelDAOMock);
+        assertTrue(aluguelBO.inserindoAluno());
+    }
+    
+    public void testeNaoDeveriaValidarIdAluno(){
+        this.aluguelVO.setAluno_id(0);
+        AluguelBO aluguelBO = new AluguelBO(this.aluguelVO,this.aluguelDAOMock);
+        assertFalse(aluguelBO.inserindoAluno());
+    }
+    
+    public void testDeveriaValidarIdLivro(){
+        AluguelBO aluguelBO = new AluguelBO(this.aluguelVO,this.aluguelDAOMock);
+        assertTrue(aluguelBO.inserindoLivro());
+    }
+    
+    public void testeNaoDeveriaValidarIdLivro(){
+        this.aluguelVO.setLivro_id(0);
+        AluguelBO aluguelBO = new AluguelBO(this.aluguelVO,this.aluguelDAOMock);
+        assertFalse(aluguelBO.inserindoLivro());
+    }
     
 }

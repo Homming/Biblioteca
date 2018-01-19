@@ -7,40 +7,37 @@ import vo.AlunoVO;
 import vo.LivroVO;
 
 public class AluguelBO {
+    //fiz alguamas mudanças no BO pra ficar tudo bem com seu VO
 
-    private AlunoVO alunoVo;
-    private LivroVO livroVo;
+    private AluguelVO aluguelVO;
     private IAluguelDAO aluguelDAO;
 
-    public AluguelBO(AlunoVO alunoVo, LivroVO livroVo, IAluguelDAO aluguelDAO) {
-        this.alunoVo = alunoVo;
-        this.livroVo = livroVo;
+    public AluguelBO(AluguelVO aluguelVO, IAluguelDAO aluguelDAO) {
+        this.aluguelVO = aluguelVO;
         this.aluguelDAO = aluguelDAO;
     }
 
-    public boolean inserindoAluno(AluguelVO aluguelVo) {
-        if (this.alunoVo != null) {
-            aluguelVo.setAluno_id(this.alunoVo.getId_aluno());
+    public boolean inserindoAluno() {
+        if (this.aluguelVO.getAluno_id() > 0) {
             return true;
         } else {
             return false;
         }
     }
 
-    public boolean inserindoLivro(AluguelVO aluguelVo) {
-        if (this.livroVo != null) {
-            aluguelVo.setAluno_id(this.livroVo.getId_livro());
+    public boolean inserindoLivro() {
+        if (this.aluguelVO.getLivro_id() > 0) {
             return true;
         } else {
             return false;
         }
     }
 
-    public void CadastroAluguel(AluguelVO aluguelVo) throws SQLException {
-        if (!inserindoLivro(aluguelVo) && !inserindoAluno(aluguelVo)) {
+    public void CadastroAluguel() throws SQLException {
+        if (!inserindoLivro() && !inserindoAluno()) {
             throw new IllegalArgumentException("Erro ao cadastrar aluguel, aluno ou livro com problemas ");
         } else {
-            this.aluguelDAO.cadastrar(aluguelVo);
+            this.aluguelDAO.cadastrar(this.aluguelVO);
         }
     }
 }//NICOLAS
