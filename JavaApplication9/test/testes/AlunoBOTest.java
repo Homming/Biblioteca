@@ -27,7 +27,7 @@ public class AlunoBOTest extends TestCase {
        
     }
     
-     /* teste futuro pra quando o tevonha fazer o DAOMockAluguel
+     /* teste futuro pra quando o tevonha fazer o DAOMockAluno
     
     public void testDeveriaCadastrarAluno() throws Exception{
         AlunoBO alunoBO = new AlunoBO(this.alunoVO,this.alunoDAOMock);
@@ -82,6 +82,17 @@ public class AlunoBOTest extends TestCase {
         this.alunoVO.setMatricula("teste");
         AlunoBO alunoBO = new AlunoBO(this.alunoVO,this.alunoDAOMock);
         assertFalse(alunoBO.validarCadastroDeMatricula());
+    }
+    
+    public void testDeveriaValidarAlocacaoLivro(){
+        AlunoBO alunoBO = new AlunoBO(this.alunoVO,this.alunoDAOMock);
+        assertTrue(alunoBO.validarAlocaçãoDeLivro());
+    }
+    
+     public void testNaoDeveriaValidarAlocacaoLivro(){
+        this.alunoVO.setQuantidade_alocados(3);
+        AlunoBO alunoBO = new AlunoBO(this.alunoVO,this.alunoDAOMock);
+        assertFalse(alunoBO.validarAlocaçãoDeLivro());
     }
     
 }

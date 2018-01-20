@@ -5,10 +5,29 @@
  */
 package testes;
 
+import dao.ILivroDAO;
+import java.sql.SQLException;
+import vo.LivroVO;
+
 /**
  *
  * @author nicholas1994
  */
-public class LivroDAOMock {
+public class LivroDAOMock implements ILivroDAO {
+
+    @Override
+    public boolean cadastrar(LivroVO livroVO) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean editarCad(LivroVO livroVO) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean excluirCad(LivroVO livroVO) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

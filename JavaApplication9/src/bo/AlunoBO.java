@@ -1,6 +1,7 @@
 package bo;
 
 import dao.IAlunoDAO;
+import java.sql.SQLException;
 import vo.AlunoVO;
 import vo.BibliotecariaVO;
 
@@ -51,11 +52,11 @@ public class AlunoBO {
         }
     }
 
-    /* FALTA IMPLEMENTAR alunoVO
+    
     
     public boolean validarAlocaçãoDeLivro() {
         //incompleto
-        if (this.alunoVo.getQuantidade_alocados() < this.alunoVo.getQuantidade_possivel()) {
+        if (this.alunoVo.getQuantidade_alocados() < this.alunoVo.getQtd_maxlivro()) {
             return true;
         } else {
             return false;
@@ -71,5 +72,5 @@ public class AlunoBO {
         }
     }
 
-     */
+     
 }// NICOLAS

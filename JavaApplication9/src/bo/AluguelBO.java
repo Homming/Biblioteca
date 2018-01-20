@@ -40,4 +40,4 @@ public class AluguelBO {
             this.aluguelDAO.cadastrar(this.aluguelVO);
         }
     }
-}//NICOLAS
+}

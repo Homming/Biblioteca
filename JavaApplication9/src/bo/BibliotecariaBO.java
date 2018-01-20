@@ -1,5 +1,3 @@
-/*
-
 package bo;
 
 import dao.ILivroDAO;
@@ -7,12 +5,19 @@ import dao.IAlunoDAO;
 import dao.IBibliotecariaDAO;
 import java.sql.SQLException;
 import vo.BibliotecariaVO;
+import javafx.scene.control.Alert;
 
 public class BibliotecariaBO {
     private ILivroDAO livroDAO;
+    private String senha;
     private IAlunoDAO usuarioDAO;
     private IBibliotecariaDAO bibliotecariaDAO;
     private BibliotecariaVO bibliotecariaVo;
+    
+    public BibliotecariaBO(){
+        
+    }
+    
     
     public BibliotecariaBO(IBibliotecariaDAO bibliotecariaDAO, BibliotecariaVO bibliotecariaVo){
         this.bibliotecariaDAO = bibliotecariaDAO;
@@ -52,22 +57,6 @@ public class BibliotecariaBO {
             throw new IllegalArgumentException("Senha ou Usuario de bibliotecaria invalido");
         else
             this.bibliotecariaDAO.cadastrar(this.bibliotecariaVo);
-    }
-}
-NICOLAS
-*/
-
-package bo;
-
-import dao.ILivroDAO;
-import javafx.scene.control.Alert;
-
-public class BibliotecariaBO {
-    private ILivroDAO livroDAO;
-    private String senha;
-    
-    public BibliotecariaBO(){
-        
     }
     
     //Validação da entrada dos dados de cadastro de Usuário
