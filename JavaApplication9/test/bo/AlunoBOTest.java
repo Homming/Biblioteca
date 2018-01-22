@@ -1,8 +1,9 @@
-package testes;
+package bo;
 
 import bo.AlunoBO;
 import dao.IAlunoDAO;
 import junit.framework.TestCase;
+import dao.AlunoDAOMock;
 import static org.junit.Assert.*;
 import vo.AlunoVO;
 

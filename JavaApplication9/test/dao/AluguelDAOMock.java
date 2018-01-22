@@ -3,33 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testes;
+package dao;
 
-import dao.IAlunoDAO;
+import dao.IAluguelDAO;
 import java.sql.SQLException;
-import vo.AlunoVO;
+import vo.AluguelVO;
 
 /**
  *
- * @author nicholas1994
+ * @author Nicholas Torres
  */
-public class AlunoDAOMock implements IAlunoDAO {
+public class AluguelDAOMock implements IAluguelDAO{
 
     @Override
-    public boolean cadastrar(AlunoVO alunoVO) throws SQLException {
+    public boolean cadastrar(AluguelVO aluguelVO) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean editar(AlunoVO alunoVO) throws SQLException {
+    public boolean alterar(AluguelVO aluguelVO) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean remover(AlunoVO alunoVO) throws SQLException {
+    public boolean remover(AluguelVO aluguelVO) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-   
     
 }

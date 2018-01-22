@@ -1,9 +1,10 @@
 
-package testes;
+package bo;
 
 import bo.BibliotecariaBO;
 import dao.IBibliotecariaDAO;
 import junit.framework.TestCase;
+import dao.BibliotecariaDAOMock;
 import static org.junit.Assert.*;
 import vo.BibliotecariaVO;
 

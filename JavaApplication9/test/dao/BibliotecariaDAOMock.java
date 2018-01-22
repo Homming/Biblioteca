@@ -3,30 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package testes;
+package dao;
 
-import dao.ILivroDAO;
+import dao.IBibliotecariaDAO;
 import java.sql.SQLException;
-import vo.LivroVO;
+import vo.BibliotecariaVO;
 
 /**
  *
  * @author nicholas1994
  */
-public class LivroDAOMock implements ILivroDAO {
+public class BibliotecariaDAOMock implements IBibliotecariaDAO {
 
     @Override
-    public boolean cadastrar(LivroVO livroVO) throws SQLException {
+    public boolean cadastrar(BibliotecariaVO bibliotecariaVO) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean editarCad(LivroVO livroVO) throws SQLException {
+    public boolean editar(BibliotecariaVO bibliotecariaVO) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean excluirCad(LivroVO livroVO) throws SQLException {
+    public boolean excluirCad(BibliotecariaVO bibliotecariaVO) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -1,10 +1,11 @@
-package testes;
+package bo;
 
 import bo.AluguelBO;
 import dao.IAluguelDAO;
 import dao.IAlunoDAO;
 import java.time.LocalDate;
 import junit.framework.TestCase;
+import dao.AluguelDAOMock;
 import vo.AluguelVO;
 import vo.LivroVO;
 

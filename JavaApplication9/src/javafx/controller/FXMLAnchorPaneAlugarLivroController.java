@@ -90,9 +90,11 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
             lblCodigo.setText(String.valueOf(aluguel.getId_aluguel()));
             lblDataAluguel.setText(String.valueOf(aluguel.getData_aluguel().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
             lblAluno.setText(aluguel.getAluno().toString());
-            lblLivro.setText(aluguel.getLivro().toString());//pegar o id dos livros locados
+            lblLivro.setText(aluguel.getLivro().toString());//ESTA EXIBINDO APENAS UM LIVRO, SE HOUVER MAIS NAO EXIBE
+            //lblLivro.setText(LivrosLocados(aluguel.getItensDeAluguel()));
             lblDevolucao.setText(String.valueOf(aluguel.getData_devolucao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
-            lblDevolvido.setText(String.valueOf(aluguel.getDevolvido()));
+            //lblDevolvido.setText(String.valueOf(aluguel.getDevolvido())); retorna a string true ou false
+            lblDevolvido.setText(Devolvido(aluguel.getDevolvido()));
         } else {
             lblCodigo.setText("");
             lblDataAluguel.setText("");
@@ -101,6 +103,20 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
             lblDevolucao.setText("");
             lblDevolvido.setText("");
         }
+    }
+
+    public String LivrosLocados(List<ItemDeAluguelVO> livro) {
+        //FAZER COM QUE EXIBA OS LIVROS LOCADOS
+        return null;
+    }
+
+    public String Devolvido(boolean dev) {
+        if (dev == true) {
+            return "Sim";
+        } else {
+            return "Não";
+        }
+
     }
 
     public void carregarTableViewAlugueis() {

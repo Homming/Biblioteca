@@ -43,7 +43,7 @@ CREATE TABLE aluno(
     matricula varchar(50),
     turma varchar(50)
 );
--- mudar alunoid e livro id para not null
+-- mudar alunoid e livro id, qtd_maxlivro para not null
 
 CREATE TABLE aluguel(
 	id_aluguel int auto_increment not null primary key,
@@ -65,11 +65,21 @@ CREATE TABLE itensdealuguel(
    CONSTRAINT fk_itensdealuguel_aluguel FOREIGN KEY(aluguel_id) REFERENCES aluguel(id_aluguel)
 );
 
-select * from livro;
+select * from aluno;
 
--- INSERT INTO itensdealuguel(quantidade, livro_id, aluguel_id) VALUES('1', '1', '2');
--- INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha) VALUES ('Admnistrador','999.999.999-99','82999999999','admin','admin');
--- insert into livro(titulo, data_livro, quantidade_livro, cdd, cutter, autor1) values ('O Teste3','01/01/10',4,'555','454','voce');
--- insert into aluno (nome, telefone) values ('gabriel','99999-9999');
--- insert into aluguel (data_aluguel, aluno_id, livro_id,data_devolucao,devolvido) values ('2018/01/08',1,1,'2018/01/10',true);
+INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha) 
+VALUES ('Admnistrador','999.999.999-99','82999999999','admin','admin');
+
+INSERT INTO livro(titulo, data_livro, quantidade_livro, cdd, cutter, autor1)
+VALUES ('NomeDoLivro','01/01/10',5,'Exemplo','Exemplo','Exemplo');
+
+INSERT INTO aluno (nome, telefone, qtd_maxlivro) 
+VALUES ('AlunoExemplo','99999-9999', 2);
+
+INSERT INTO aluguel (data_aluguel, aluno_id, livro_id,data_devolucao,devolvido) 
+VALUES ('2018/01/10',1,1,'2018/01/12',false);
+
+INSERT INTO itensdealuguel(quantidade, livro_id, aluguel_id) 
+VALUES('1', '1', '1');
+
 -- select count(id_aluguel), extract(year from data_aluguel) as ano, extract(month from data_aluguel) as mes from aluguel group by ano, mes order by ano, mes;

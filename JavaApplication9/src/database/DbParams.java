@@ -6,17 +6,17 @@ import java.util.Properties;
 
 public class DbParams {
 
-	public static Properties getProp() {
-		try {
-                    Properties props = new Properties();
-                    FileInputStream file = new FileInputStream("./database.properties");
+    public static Properties getProp() {
+        try {
+            Properties props = new Properties();
+            FileInputStream file = new FileInputStream("src/database/database.properties");
 
-                    props.load(file);
+            props.load(file);
 
-                    return props;
-		} catch (IOException e) {
-                    System.out.println(e);
-                    return null;
-		}
-	}
+            return props;
+        } catch (IOException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
 }
