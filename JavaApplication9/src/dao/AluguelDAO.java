@@ -173,7 +173,6 @@ public class AluguelDAO implements IAluguelDAO {
 
     //Map<Chave, Valor> No nosso caso : <Ano, arraylist de meses e a qtd de alugueis em cada mes>
     public Map<Integer, ArrayList> listarAlugueisPorMes() {
-        //esta caindo no exception com o erro  Column 'count' not found. ??????
         String sql = "SELECT COUNT(Id_aluguel) as id_aluguel, extract(year from data_aluguel) as ano, extract(month from data_aluguel) as mes from aluguel group by ano, mes order by ano, mes";
         Map<Integer, ArrayList> retorno = new HashMap();
 

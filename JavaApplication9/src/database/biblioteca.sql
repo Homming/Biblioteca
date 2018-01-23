@@ -65,7 +65,7 @@ CREATE TABLE itensdealuguel(
    CONSTRAINT fk_itensdealuguel_aluguel FOREIGN KEY(aluguel_id) REFERENCES aluguel(id_aluguel)
 );
 
-select * from aluno;
+select * from bibliotecaria;
 
 INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha) 
 VALUES ('Admnistrador','999.999.999-99','82999999999','admin','admin');
