@@ -9,7 +9,7 @@ public class DbParams {
     public static Properties getProp() {
         try {
             Properties props = new Properties();
-            FileInputStream file = new FileInputStream("src/database/database.properties");
+            FileInputStream file = new FileInputStream("src/database/arquivos/database.properties");
 
             props.load(file);
 

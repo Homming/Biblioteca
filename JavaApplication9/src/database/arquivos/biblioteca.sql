@@ -36,20 +36,19 @@ CREATE TABLE aluno(
 	id_aluno int auto_increment not null primary key,
     nome varchar(100) not null,
     quantidade_alocados int,
-    qtd_maxlivro int,
-    telefone varchar(50),
+    qtd_maxlivro int not null,
+    telefone varchar(50) not null,
     email varchar(100),
     complemento varchar(100),
     matricula varchar(50),
     turma varchar(50)
 );
--- mudar alunoid e livro id, qtd_maxlivro para not null
 
 CREATE TABLE aluguel(
 	id_aluguel int auto_increment not null primary key,
     data_aluguel date not null,
-    aluno_id int,
-    livro_id int,
+    aluno_id int not null,
+    livro_id int not null,
     data_devolucao date not null,
     devolvido boolean not null,
     CONSTRAINT fk_aluguel_aluno FOREIGN KEY (aluno_id) REFERENCES aluno(id_aluno) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -58,14 +57,12 @@ CREATE TABLE aluguel(
 
 CREATE TABLE itensdealuguel(
    id_itemdealuguel int auto_increment not null primary key,
-   quantidade int NOT NULL,
-   livro_id int,
-   aluguel_id int,
+   quantidade int not null,
+   livro_id int not null,
+   aluguel_id int not null,
    CONSTRAINT fk_itensdealuguel_livro FOREIGN KEY(livro_id) REFERENCES livro(id_livro),
    CONSTRAINT fk_itensdealuguel_aluguel FOREIGN KEY(aluguel_id) REFERENCES aluguel(id_aluguel)
 );
-
-select * from bibliotecaria;
 
 INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha) 
 VALUES ('Admnistrador','999.999.999-99','82999999999','admin','admin');
@@ -81,5 +78,7 @@ VALUES ('2018/01/10',1,1,'2018/01/12',false);
 
 INSERT INTO itensdealuguel(quantidade, livro_id, aluguel_id) 
 VALUES('1', '1', '1');
+
+-- select * from bibliotecaria;
 
 -- select count(id_aluguel), extract(year from data_aluguel) as ano, extract(month from data_aluguel) as mes from aluguel group by ano, mes order by ano, mes;
