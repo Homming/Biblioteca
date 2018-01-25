@@ -1,6 +1,7 @@
 package javafx.controller;
 
 import dao.AluguelDAO;
+import dao.AlunoDAO;
 import dao.ItemDeAluguelDAO;
 import dao.LivroDAO;
 import database.Database;
@@ -71,6 +72,7 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
     private final AluguelDAO aluguelDAO = new AluguelDAO();
     private final ItemDeAluguelDAO itemDeAluguelDAO = new ItemDeAluguelDAO();
     private final LivroDAO livroDAO = new LivroDAO();
+    private final AlunoDAO alunoDAO = new AlunoDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -144,6 +146,7 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
                 aluguelDAO.cadastrar(aluguel);
                 itemDeAluguelDAO.setConnection(connection);
                 livroDAO.setConnection(connection);//para atualizar a quantidade do livro em estoque
+                alunoDAO.setConnection(connection);//para atualizar a quantidade de livros locados do aluno          
                 for (ItemDeAluguelVO listItemDeAluguelVO : aluguel.getItensDeAluguel()) {// para cada item de aluguel, cadastre
                     LivroVO livro = listItemDeAluguelVO.getLivro();
                     listItemDeAluguelVO.setAluguel(aluguelDAO.buscarUltimoAluguel());
@@ -160,6 +163,47 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
                     Logger.getLogger(FXMLAnchorPaneAlugarLivroController.class.getName()).log(Level.SEVERE, null, ex1);
                 }
                 Logger.getLogger(FXMLAnchorPaneAlugarLivroController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    
+    //INCOMPLETO
+    @FXML
+    public void handleButtonEditar() throws IOException, SQLException {
+        AluguelVO aluguel = tblAluguel.getSelectionModel().getSelectedItem();// puxa as informações da aluguel selecionado
+        List<ItemDeAluguelVO> listItensDeAluguel = new ArrayList<>();
+        aluguel.setItensDeAluguel(listItensDeAluguel);
+        if (aluguel != null) {
+            boolean buttonConfirmarClicked = showFXMLAnchorPaneAlugarLivroDialog(aluguel);
+            if (buttonConfirmarClicked) {
+                try {
+                    connection.setAutoCommit(false);
+                    aluguelDAO.setConnection(connection);
+                    aluguelDAO.alterar(aluguel);
+                    itemDeAluguelDAO.setConnection(connection);
+                    livroDAO.setConnection(connection);
+                    for (ItemDeAluguelVO listItemDeAluguelVO : aluguel.getItensDeAluguel()) {
+                        LivroVO livro = listItemDeAluguelVO.getLivro();
+                        listItemDeAluguelVO.setAluguel(aluguelDAO.buscarUltimoAluguel());
+                        itemDeAluguelDAO.inserir(listItemDeAluguelVO);
+                        livro.setQuantidade_livro(livro.getQuantidade_livro() - listItemDeAluguelVO.getQuantidade());
+                        livroDAO.editarCad(livro);
+                    }
+                    connection.commit();//se nao tiver ocorrido nenhum problema, efetue o cadastro
+                    carregarTableViewAlugueis();
+                } catch (SQLException ex) {
+                    try {
+                        connection.rollback();
+                    } catch (SQLException ex1) {
+                        Logger.getLogger(FXMLAnchorPaneAlugarLivroController.class.getName()).log(Level.SEVERE, null, ex1);
+                    }
+                    Logger.getLogger(FXMLAnchorPaneAlugarLivroController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Por favor, escolha um aluguel na Tabela!");
+                alert.show();
             }
         }
     }
