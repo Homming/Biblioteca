@@ -48,7 +48,7 @@ CREATE TABLE aluguel(
 	id_aluguel int auto_increment not null primary key,
     data_aluguel date not null,
     aluno_id int not null,
-    livro_id int not null,
+    livro_id int,
     data_devolucao date not null,
     devolvido boolean not null,
     CONSTRAINT fk_aluguel_aluno FOREIGN KEY (aluno_id) REFERENCES aluno(id_aluno) ON DELETE CASCADE ON UPDATE CASCADE,

@@ -168,14 +168,14 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
     }
 
     
-    //INCOMPLETO
+    //APENAS COPIADO DO HANDLEBUTTON NOVO, NAO ESTA CERTO
     @FXML
     public void handleButtonEditar() throws IOException, SQLException {
         AluguelVO aluguel = tblAluguel.getSelectionModel().getSelectedItem();// puxa as informações da aluguel selecionado
         List<ItemDeAluguelVO> listItensDeAluguel = new ArrayList<>();
         aluguel.setItensDeAluguel(listItensDeAluguel);
         if (aluguel != null) {
-            boolean buttonConfirmarClicked = showFXMLAnchorPaneAlugarLivroDialog(aluguel);
+            boolean buttonConfirmarClicked = showFXMLAnchorPaneEditarAluguelDialog(aluguel);
             if (buttonConfirmarClicked) {
                 try {
                     connection.setAutoCommit(false);
@@ -209,6 +209,29 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
     }
 
     //Método para exibir a tela (Dialog) 
+    public boolean showFXMLAnchorPaneEditarAluguelDialog(AluguelVO aluguel) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(FXMLAnchorPaneAlugarLivroDialogController.class.getResource("/javafx/view/FXMLAnchorPaneEditarAluguelDialog.fxml"));
+        AnchorPane page = (AnchorPane) loader.load(); //typecast para guardar em page a tela carregada.
+
+        // Stage Dialog, para que seja visível ao usuário
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Editar Aluguel");//exibido na parte superior da tela
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+        // Setando aluguel no controller
+        FXMLAnchorPaneEditarAluguelDialogController controller = loader.getController(); // instancia do controller da tela dialog
+        //setando para o controller
+        controller.setDialogStage(dialogStage);
+        controller.setAluguelVO(aluguel);
+
+        // Mostra a tela e espera o usuário fechar
+        dialogStage.showAndWait();
+
+        return controller.isButtonConfirmarClicked();//handleButtonConfirmar retorna verdadeiro para handleButtonNovo se o usuário clicar em confirmar no dialog.
+    }
+    
     public boolean showFXMLAnchorPaneAlugarLivroDialog(AluguelVO aluguel) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(FXMLAnchorPaneAlugarLivroDialogController.class.getResource("/javafx/view/FXMLAnchorPaneAlugarLivroDialog.fxml"));
