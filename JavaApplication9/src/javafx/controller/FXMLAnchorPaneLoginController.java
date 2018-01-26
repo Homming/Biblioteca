@@ -65,7 +65,7 @@ public class FXMLAnchorPaneLoginController implements Initializable {
                         Parent root = null;
 
                         try {
-                            root = FXMLLoader.load(getClass().getResource("view/FXMLVBoxMain.fxml"));
+                            root = FXMLLoader.load(getClass().getClassLoader().getResource("javafx/view/FXMLVBoxMain.fxml"));
                         } catch (IOException ex) {
                             Logger.getLogger(FXMLAnchorPaneLoginController.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -96,8 +96,7 @@ public class FXMLAnchorPaneLoginController implements Initializable {
         }
         );// FIM ACTION ENTRAR
 
-        btnCancelar.setOnAction(
-                new EventHandler<ActionEvent>() {
+        btnCancelar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event
             ) {
@@ -107,8 +106,7 @@ public class FXMLAnchorPaneLoginController implements Initializable {
         );// FIM ACTION SAIR
 
         //Status de conexão com o BD
-        if (connection
-                != null) {
+        if (connection != null) {
             lblStatus.setText("Online");
         } else {
             lblStatus.setText("Offline");

@@ -1,7 +1,6 @@
 package javafx.controller;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import bo.LivroBO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -9,8 +8,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import vo.LivroVO;
-import bo.LivroBO;
-import java.time.LocalDate;
+import dao.LivroDAO;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.scene.control.Alert;
 
 public class FXMLAnchorPaneCadastroLivroDialogController implements Initializable {
 
@@ -99,34 +100,40 @@ public class FXMLAnchorPaneCadastroLivroDialogController implements Initializabl
 
     @FXML
     public void handleButtonConfirmar() {
-        String valTitulo = txtTitulo.getText();// guardando o valor que deseja validar em uma variavel
-        LocalDate valData = dtpData.getValue();
-        String valAutor1 = txtAutor1.getText();
-        String valQtd = txtQtdEstq.getText();
-        LivroBO validar = new LivroBO(); // instanciando a classe BO para chamar o método de validação
+        livro.setTitulo(txtTitulo.getText());
+        livro.setData_livro(dtpData.getValue());
+        livro.setQuantidade_livro(Integer.parseInt(txtQtdEstq.getText()));
+        livro.setCdd(txtCDD.getText());
+        livro.setCutter(txtCutter.getText());
+        livro.setComplemento(txtComplemento.getText());
+        livro.setAutor1(txtAutor1.getText());
+        livro.setAutor2(txtAutor2.getText());
+        livro.setAutor3(txtAutor3.getText());
+        livro.setTradutores(txtTradut.getText());
+        livro.setIlustradores(txtIlustrad.getText());
+        livro.setAssunto(txtAssunto.getText());
+        livro.setLocal(txtLocal.getText());
+        livro.setEditora(txtEditora.getText());
+        livro.setAno(txtAno.getText());
+        livro.setEdicao(txtEdicao.getText());
 
-        //Lembrar de Experimentar enviar o objeto livro inteiro para validação no BO e a partir de lá efetuar o insert 
-        if (validar.validarEntradaDeDados(valTitulo, valData, valAutor1, valQtd)) {// se todos os campos estiverem ok
+        LivroDAO livroDAO = new LivroDAO();
+        LivroBO validar = new LivroBO(livroDAO, this.livro);
 
-            livro.setTitulo(txtTitulo.getText());
-            livro.setData_livro(dtpData.getValue());
-            livro.setQuantidade_livro(Integer.parseInt(txtQtdEstq.getText()));
-            livro.setCdd(txtCDD.getText());
-            livro.setCutter(txtCutter.getText());
-            livro.setComplemento(txtComplemento.getText());
-            livro.setAutor1(txtAutor1.getText());
-            livro.setAutor2(txtAutor2.getText());
-            livro.setAutor3(txtAutor3.getText());
-            livro.setTradutores(txtTradut.getText());
-            livro.setIlustradores(txtIlustrad.getText());
-            livro.setAssunto(txtAssunto.getText());
-            livro.setLocal(txtLocal.getText());
-            livro.setEditora(txtEditora.getText());
-            livro.setAno(txtAno.getText());
-            livro.setEdicao(txtEdicao.getText());
+        validar.validarCadastroDeTitulo();
+        validar.validarCadastroDeQuantidadeDeLivro();
+        validar.validarCadastroDeAutor();
+        validar.validarCadastroDeDataDeLivro();
 
+        if (validar.errorMessage.length() == 0) {
             buttonConfirmarClicked = true;
             dialogStage.close();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Falha no Cadastro!");
+            alert.setHeaderText("Campos Inválidos, por favor, corrija...");
+            alert.setContentText(validar.errorMessage);
+            alert.show();
         }
     }
 
@@ -135,30 +142,6 @@ public class FXMLAnchorPaneCadastroLivroDialogController implements Initializabl
         dialogStage.close();
     }
 
-    /* VALIDAÇÃO DENTRO DA PROPRIA CLASSE AO INVES DO BO
-    //Validação da entrada dos dados de cadastro de Usuário
-    private boolean validarEntradaDeDados() {
-        String errorMessage = "";
-        
-        if (txtTitulo.getText() == null || txtTitulo.getText().length() == 0) {
-            errorMessage += "Título Inválido!\n";
-        }
-        if (txtAutor1.getText() == null || txtAutor1.getText().length() == 0) {
-            errorMessage += "Autor Principal Inválido!\n";
-        }
-        
-        if (errorMessage.length() == 0) {
-            return true;
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Falha no Cadastro!");
-            alert.setHeaderText("Campos Inválidos, por favor, corrija...");
-            alert.setContentText(errorMessage);
-            alert.show();
-            return false;
-        }
-    }
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 

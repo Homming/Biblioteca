@@ -1,5 +1,7 @@
 package javafx.controller;
 
+import bo.AluguelBO;
+import dao.AluguelDAO;
 import dao.AlunoDAO;
 import dao.LivroDAO;
 import database.Database;
@@ -119,54 +121,33 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
 
     @FXML
     public void handleButtonConfirmar() {
-        if (validarEntradaDeDados()) {
-            //setar o aluguel com as informações necessárias
-            aluguel.setAluno((AlunoVO) cbxAluno.getSelectionModel().getSelectedItem());
-            aluguel.setDevolvido(chbDevolvido.isSelected());
-            aluguel.setData_aluguel(dtpAluguel.getValue());
-            aluguel.setData_devolucao(dtpDevolucao.getValue());
+        aluguel.setAluno((AlunoVO) cbxAluno.getSelectionModel().getSelectedItem());
+        aluguel.setDevolvido(chbDevolvido.isSelected());
+        aluguel.setData_aluguel(dtpAluguel.getValue());
+        aluguel.setData_devolucao(dtpDevolucao.getValue());
 
-            buttonConfirmarClicked = true;//confirmação do botão
-            dialogStage.close();//fechamento da tela Dialog
+        AluguelDAO aluguelDAO = new AluguelDAO();
+        AluguelBO validar = new AluguelBO(aluguelDAO, this.aluguel);
+
+        validar.validarDataDeAluguel();
+        validar.validarDataDeDevolucao();
+
+        if (validar.errorMessage.length() == 0) {
+            buttonConfirmarClicked = true;
+            dialogStage.close();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Falha no Cadastro!");
+            alert.setHeaderText("Campos Inválidos, por favor, corrija...");
+            alert.setContentText(validar.errorMessage);
+            alert.show();
         }
+
     }
 
     @FXML
     public void handleButtonCancelar() {
         dialogStage.close();
-    }
-
-    //VALIDAÇÃO DENTRO DA PROPRIA CLASSE AO INVES DO BO
-    private boolean validarEntradaDeDados() {
-        String errorMessage = "";
-
-        if (cbxAluno.getSelectionModel().getSelectedItem() == null) {
-            errorMessage += "Aluno inválido!\n";
-        }
-        if (cbxLivro.getSelectionModel().getSelectedItem() == null) {
-            errorMessage += "Livro inválido!\n";
-        }
-
-        if (observableListItensDeAluguel == null) {
-            errorMessage += "Itens de Aluguel inválidos!\n";
-        }
-        if (dtpAluguel.getValue() == null) {
-            errorMessage += "Data de aluguel inválida!\n";
-        }
-
-        if (dtpDevolucao.getValue() == null) {
-            errorMessage += "Data de devolução inválida!\n";
-        }
-        if (errorMessage.length() == 0) {
-            return true;
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro no registro");
-            alert.setHeaderText("Campos inválidos, correção necessária...");
-            alert.setContentText(errorMessage);
-            alert.show();
-            return false;
-        }
     }
 
     @FXML

@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import vo.BibliotecariaVO;
 import bo.BibliotecariaBO;
+import dao.BibliotecariaDAO;
+import javafx.scene.control.Alert;
 
 public class FXMLAnchorPaneCadastroUsuarioDialogController implements Initializable {
 
@@ -70,25 +72,31 @@ public class FXMLAnchorPaneCadastroUsuarioDialogController implements Initializa
 
     @FXML
     public void handleButtonConfirmar() {
-        String valNome = txtUserName.getText();// guardando o valor que deseja validar em uma variavel
-        String valEmail = txtUserEmail.getText();
-        String valUser = txtUserUser.getText();
-        String valPass = txtUserPass.getText();
-        String valConfPass = txtUserConfPass.getText();//NAO ESTA FUNCIONANDO
-        BibliotecariaBO validar = new BibliotecariaBO(); // instanciando a classe BO para chamar o método de validação
+        this.bibliotecaria.setNome(txtUserName.getText());
+        this.bibliotecaria.setCpf(txtUserCPF.getText());
+        this.bibliotecaria.setCel(txtUserTel.getText());
+        this.bibliotecaria.setEmail(txtUserEmail.getText());
+        this.bibliotecaria.setUsuario(txtUserUser.getText());
+        this.bibliotecaria.setSenha(txtUserPass.getText());
+        this.bibliotecaria.setConf_senha(txtUserConfPass.getText());
 
-        if (validar.validarEntradaDeDados(valNome, valEmail, valUser, valPass)) {// se todos os campos estiverem ok
+        BibliotecariaDAO bibliotecariaDAO = new BibliotecariaDAO();
+        BibliotecariaBO validar = new BibliotecariaBO(bibliotecariaDAO, this.bibliotecaria);
 
-            bibliotecaria.setNome(txtUserName.getText());
-            bibliotecaria.setCpf(txtUserCPF.getText());
-            bibliotecaria.setCel(txtUserTel.getText());
-            bibliotecaria.setEmail(txtUserEmail.getText());
-            bibliotecaria.setUsuario(txtUserUser.getText());
-            bibliotecaria.setSenha(txtUserPass.getText());
-            bibliotecaria.setConf_senha(txtUserConfPass.getText());
+        validar.validarCadastroDeUsuario();
+        validar.validarCadastroDeNome();
+        validar.validarCadastroDeCelular();
+        validar.validarCadastroDeSenha();
 
+        if (validar.errorMessage.length() == 0) {
             buttonConfirmarClicked = true;
             dialogStage.close();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Falha no Cadastro!");
+            alert.setHeaderText("Campos Inválidos, por favor, corrija...");
+            alert.setContentText(validar.errorMessage);
+            alert.show();
         }
     }
 

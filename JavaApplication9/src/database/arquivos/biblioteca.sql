@@ -60,8 +60,8 @@ CREATE TABLE itensdealuguel(
    quantidade int not null,
    livro_id int not null,
    aluguel_id int not null,
-   CONSTRAINT fk_itensdealuguel_livro FOREIGN KEY(livro_id) REFERENCES livro(id_livro),
-   CONSTRAINT fk_itensdealuguel_aluguel FOREIGN KEY(aluguel_id) REFERENCES aluguel(id_aluguel)
+   CONSTRAINT fk_itensdealuguel_livro FOREIGN KEY(livro_id) REFERENCES livro(id_livro) ON DELETE CASCADE ON UPDATE CASCADE,
+   CONSTRAINT fk_itensdealuguel_aluguel FOREIGN KEY(aluguel_id) REFERENCES aluguel(id_aluguel) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha) 
@@ -79,6 +79,6 @@ VALUES ('2018/01/10',1,1,'2018/01/12',false);
 INSERT INTO itensdealuguel(quantidade, livro_id, aluguel_id) 
 VALUES('1', '1', '1');
 
--- select * from bibliotecaria;
+select * from aluno;
 
 -- select count(id_aluguel), extract(year from data_aluguel) as ano, extract(month from data_aluguel) as mes from aluguel group by ano, mes order by ano, mes;

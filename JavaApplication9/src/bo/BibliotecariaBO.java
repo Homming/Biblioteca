@@ -5,93 +5,64 @@ import dao.IAlunoDAO;
 import dao.IBibliotecariaDAO;
 import java.sql.SQLException;
 import vo.BibliotecariaVO;
-import javafx.scene.control.Alert;
 
 public class BibliotecariaBO {
+
     private ILivroDAO livroDAO;
     private String senha;
     private IAlunoDAO usuarioDAO;
     private IBibliotecariaDAO bibliotecariaDAO;
     private BibliotecariaVO bibliotecariaVo;
-    
-    public BibliotecariaBO(){
-        
+    public String errorMessage = "";
+
+    public BibliotecariaBO() {
+
     }
-    
-    
-    public BibliotecariaBO(IBibliotecariaDAO bibliotecariaDAO, BibliotecariaVO bibliotecariaVo){
+
+    public BibliotecariaBO(IBibliotecariaDAO bibliotecariaDAO, BibliotecariaVO bibliotecariaVo) {
         this.bibliotecariaDAO = bibliotecariaDAO;
         this.bibliotecariaVo = bibliotecariaVo;
     }
-    
-    public boolean validarCadastroDeNome(){
-        if(this.bibliotecariaVo.getNome().length() > 10 && !this.bibliotecariaVo.getNome().isEmpty() && this.bibliotecariaVo.getNome()!= null)
-            return true;
-        else
-            return false;
-    }
-    
-    public boolean validarCadastroDeCelular(){
-         if(this.bibliotecariaVo.getCel().length() > 7 && !this.bibliotecariaVo.getCel().isEmpty() && this.bibliotecariaVo.getCel()!= null)
-            return true;
-        else
-            return false;
-    }
-    
-    public boolean validarCadastroDeUsuario(){
-        if(this.bibliotecariaVo.getUsuario().length() > 4 && !this.bibliotecariaVo.getUsuario().isEmpty() && this.bibliotecariaVo.getUsuario() != null)
-            return true;
-        else
-            return false;
-    }
-    
-    public boolean validarCadastroDeSenha(){
-        if (this.bibliotecariaVo.getSenha() == this.bibliotecariaVo.getConf_senha() && this.bibliotecariaVo.getSenha() != null && this.bibliotecariaVo.getSenha().length() > 7 && !this.bibliotecariaVo.getSenha().isEmpty())
-            return true;
-        else
-            return false;
-        }   
-    
-    public void cadastrarBibliotecaria()throws SQLException{
-        if (!validarCadastroDeSenha() && !validarCadastroDeUsuario() &&  !validarCadastroDeCelular() && !validarCadastroDeNome())
-            throw new IllegalArgumentException("Senha ou Usuario de bibliotecaria invalido");
-        else
-            this.bibliotecariaDAO.cadastrar(this.bibliotecariaVo);
-    }
-    
-    //Validação da entrada dos dados de cadastro de Usuário
-    public boolean validarEntradaDeDados(String txtNome, String txtEmail, String txtUser, String txtPass) {
-        String errorMessage = "";
 
-        if (txtNome == null || txtNome.length() == 0) {
-            errorMessage += "Nome Inválido!\n";
-        }
-        if (txtEmail == null || txtEmail.length() == 0) {
-            errorMessage += "E-mail Inválido!\n";
-        }
-        if (txtUser == null || txtUser.length() == 0) {
-            errorMessage += "Usuário Inválido!\n";
-        }
-        if (txtPass == null || txtPass.length() == 0) {
-            errorMessage += "Senha Inválida!\n";
-        }
-        /* NAO ESTA FUNCIONANDO, mesmo puxando os valores ele acusa que nao batem
-        if(txtConfPass != txtPass){
-            errorMessage += "Senhas não batem!\n";
-        }
-        */
-
-        if (errorMessage.length() == 0) {
+    public boolean validarCadastroDeNome() {
+        if (this.bibliotecariaVo.getNome().length() > 5 && !this.bibliotecariaVo.getNome().isEmpty() && this.bibliotecariaVo.getNome() != null) {
             return true;
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Falha no Cadastro!");
-            alert.setHeaderText("Campos Inválidos, por favor, corrija...");
-            alert.setContentText(errorMessage);
-            alert.show();
+            this.errorMessage += "Nome Inválido! (Precisa ter mais que 5 caracteres)\n";
             return false;
         }
     }
-    
-    
+
+    public boolean validarCadastroDeCelular() {
+        if (this.bibliotecariaVo.getCel().length() > 7 && !this.bibliotecariaVo.getCel().isEmpty() && this.bibliotecariaVo.getCel() != null) {
+            return true;
+        } else {
+            this.errorMessage += "Celular Inválido! (Precisa ter mais que 7 caracteres)\n";
+            return false;
+        }
+    }
+
+    public boolean validarCadastroDeUsuario() {
+        if (this.bibliotecariaVo.getUsuario().length() > 4 && !this.bibliotecariaVo.getUsuario().isEmpty() && this.bibliotecariaVo.getUsuario() != null) {
+            return true;
+        } else {
+            this.errorMessage += "Usuário Inválido! (Precisa ter mais que 4 caracteres)\n";
+            return false;
+        }
+    }
+
+    public boolean validarCadastroDeSenha() {
+        if (this.bibliotecariaVo.getSenha().equals(this.bibliotecariaVo.getConf_senha()) && this.bibliotecariaVo.getSenha() != null && this.bibliotecariaVo.getSenha().length() > 6 && !this.bibliotecariaVo.getSenha().isEmpty()) {
+            return true;
+        } else {
+            this.errorMessage += "Senha Inválido! (Senha precisa ser igual ao confirma senha)\n (Senha precisa ter mais que 6 caracteres)";
+            return false;
+        }
+    }
+
+    public void cadastrarBibliotecaria() throws SQLException {
+        this.bibliotecariaDAO.cadastrar(this.bibliotecariaVo);
+
+    }
+
 }

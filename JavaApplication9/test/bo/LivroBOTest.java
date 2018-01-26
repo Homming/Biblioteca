@@ -4,6 +4,7 @@ import dao.ILivroDAO;
 import java.time.LocalDate;
 import junit.framework.TestCase;
 import dao.LivroDAOMock;
+import java.sql.SQLException;
 import vo.LivroVO;
 
 public class LivroBOTest extends TestCase {
@@ -11,14 +12,15 @@ public class LivroBOTest extends TestCase {
     private LivroVO livroVO;
     private ILivroDAO livroDAOMock;
 
+    @Override
     protected void setUp() throws Exception {
-       //ILivroDAO livroDAOMock = new LivroDAOMock();
-        LocalDate teste = LocalDate.now();
+        ILivroDAO livroDAOMock = new LivroDAOMock();
         LivroVO livroVO = new LivroVO();
-        livroVO.setTitulo("Livro Matematica 1");
+        LocalDate teste = LocalDate.now();
+        livroVO.setTitulo("Livro Matematica Discreta 1");
         livroVO.setData_livro(teste);
         livroVO.setQuantidade_livro(3);
-        livroVO.setAutor1("mark zuckeberg");
+        livroVO.setAutor1("mark zuckeberg do facebook e do instagram");
 
         this.livroVO = livroVO;
         this.livroDAOMock = livroDAOMock;
@@ -81,16 +83,13 @@ public class LivroBOTest extends TestCase {
         assertFalse(livroBO.validarAlocaçãoDeLivro());
     }
 
-    /* teste futuro pra quando o tevonha fazer o DAOMockLivro
-    
-    public void testDeveriaCadastrarLivro() throws Exception{
-        LivroBO livroBO = new LivroBO(this.livroDAOMock,this.livroVO);
-        
-        try{
-            livroBO.CadastroLivro();
-        }catch(Exception e){
+    public void testDeveriaCadastrarLivro() {
+        LivroBO livroBO = new LivroBO(this.livroDAOMock, this.livroVO);
+        try {
+            assertTrue(livroBO.CadastroLivro());
+        } catch (SQLException e) {
             fail("Deveria ter cadastrado");
         }
-        
-    }*/
+
+    }
 }

@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class BibliotecariaVO implements Serializable {
     
      private int id_usuario;
-     private String nome;
-     private String cpf;
-     private String cel;
-     private String usuario;
-     private String senha;
-     private String conf_senha;
-     private String email;
+     private String nome = "";
+     private String cpf = "";
+     private String cel = "";
+     private String usuario = "";
+     private String senha = "";
+     private String conf_senha = "";
+     private String email = "";
 
     public int getId_usuario() {
         return id_usuario;

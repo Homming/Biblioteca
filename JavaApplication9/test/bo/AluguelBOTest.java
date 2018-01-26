@@ -36,24 +36,24 @@ public class AluguelBOTest extends TestCase {
     }*/
     
     public void testDeveriaValidarIdAluno(){
-        AluguelBO aluguelBO = new AluguelBO(this.aluguelVO,this.aluguelDAOMock);
+        AluguelBO aluguelBO = new AluguelBO(this.aluguelDAOMock, this.aluguelVO);
         assertTrue(aluguelBO.inserindoAluno());
     }
     
     public void testeNaoDeveriaValidarIdAluno(){
         this.aluguelVO.setAluno_id(0);
-        AluguelBO aluguelBO = new AluguelBO(this.aluguelVO,this.aluguelDAOMock);
+        AluguelBO aluguelBO = new AluguelBO(this.aluguelDAOMock, this.aluguelVO);
         assertFalse(aluguelBO.inserindoAluno());
     }
     
     public void testDeveriaValidarIdLivro(){
-        AluguelBO aluguelBO = new AluguelBO(this.aluguelVO,this.aluguelDAOMock);
+        AluguelBO aluguelBO = new AluguelBO(this.aluguelDAOMock, this.aluguelVO);
         assertTrue(aluguelBO.inserindoLivro());
     }
     
     public void testeNaoDeveriaValidarIdLivro(){
         this.aluguelVO.setLivro_id(0);
-        AluguelBO aluguelBO = new AluguelBO(this.aluguelVO,this.aluguelDAOMock);
+        AluguelBO aluguelBO = new AluguelBO(this.aluguelDAOMock, this.aluguelVO);
         assertFalse(aluguelBO.inserindoLivro());
     }
     

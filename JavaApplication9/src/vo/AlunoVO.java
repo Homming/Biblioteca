@@ -5,14 +5,14 @@ import java.util.ArrayList;
 public class AlunoVO {
 
     private int id_aluno;
-    private String nome;
-    private int quantidade_alocados;
-    private int qtd_maxlivro;
-    private String telefone;
-    private String email;
-    private String complemento;
-    private String matricula;
-    private String turma;
+    private String nome = "";
+    private int quantidade_alocados = 0;
+    private int qtd_maxlivro = 0;
+    private String telefone = "";
+    private String email = "";
+    private String complemento = "";
+    private String matricula = "";
+    private String turma = "";
     private ArrayList<LivroVO> livros_alocados = new ArrayList<LivroVO>();
 
     public int getId_aluno() {

@@ -26,7 +26,7 @@ public class BibliotecariaDAO implements IBibliotecariaDAO {
     }
 
     @Override
-    public boolean cadastrar(BibliotecariaVO bibliotecaria) {
+    public boolean cadastrar(BibliotecariaVO bibliotecaria){
         String sql = "INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha, email) values (?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);

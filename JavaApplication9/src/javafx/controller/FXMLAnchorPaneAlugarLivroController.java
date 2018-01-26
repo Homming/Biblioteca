@@ -32,6 +32,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import vo.AluguelVO;
+import vo.AlunoVO;
 import vo.ItemDeAluguelVO;
 import vo.LivroVO;
 
@@ -146,12 +147,14 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
                 aluguelDAO.cadastrar(aluguel);
                 itemDeAluguelDAO.setConnection(connection);
                 livroDAO.setConnection(connection);//para atualizar a quantidade do livro em estoque
-                alunoDAO.setConnection(connection);//para atualizar a quantidade de livros locados do aluno          
+                //alunoDAO.setConnection(connection);//para atualizar a quantidade de livros locados do aluno          
                 for (ItemDeAluguelVO listItemDeAluguelVO : aluguel.getItensDeAluguel()) {// para cada item de aluguel, cadastre
                     LivroVO livro = listItemDeAluguelVO.getLivro();
+                    //AlunoVO aluno = new AlunoVO();
                     listItemDeAluguelVO.setAluguel(aluguelDAO.buscarUltimoAluguel());
                     itemDeAluguelDAO.inserir(listItemDeAluguelVO);//inserção
                     livro.setQuantidade_livro(livro.getQuantidade_livro() - listItemDeAluguelVO.getQuantidade());
+                    //aluno.setQuantidade_alocados(aluno.getQuantidade_alocados() - listItemDeAluguelVO.getQuantidade());
                     livroDAO.editarCad(livro);
                 }
                 connection.commit();//se nao tiver ocorrido nenhum problema, efetue o cadastro

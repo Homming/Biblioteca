@@ -95,7 +95,6 @@ public class LivroDAO implements ILivroDAO {
 
     @Override
     public boolean excluirCad(LivroVO cad) {
-
         try {
             String excluiSQL = ("DELETE FROM livro WHERE Id_livro = ?");
             PreparedStatement pstm = conexao.prepareStatement(excluiSQL);

@@ -5,22 +5,22 @@ import java.time.LocalDate;
 public class LivroVO {
 
     private int id_livro;
-    private String titulo;
+    private String titulo  = "";
     private LocalDate data_livro;
-    private int quantidade_livro;
-    private String cdd;
-    private String cutter;
-    private String complemento;
-    private String autor1;
-    private String assunto;
-    private String autor2;
-    private String local;
-    private String autor3;
-    private String editora;
-    private String tradutores;
-    private String ano;
-    private String ilustradores;
-    private String edicao;
+    private int quantidade_livro = 0;
+    private String cdd = "";
+    private String cutter = "";
+    private String complemento = "";
+    private String autor1 = "";
+    private String assunto = "";
+    private String autor2 = "";
+    private String local = "";
+    private String autor3 = "";
+    private String editora = "";
+    private String tradutores = "";
+    private String ano = "";
+    private String ilustradores = "";
+    private String edicao = "";
 
     public int getId_livro() {
         return id_livro;

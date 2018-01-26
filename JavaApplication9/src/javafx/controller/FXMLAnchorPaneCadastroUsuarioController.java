@@ -1,11 +1,13 @@
 package javafx.controller;
 
+import bo.BibliotecariaBO;
 import dao.BibliotecariaDAO;
 import database.Database;
 import database.DatabaseFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
