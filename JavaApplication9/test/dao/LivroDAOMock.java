@@ -13,6 +13,14 @@ public class LivroDAOMock implements ILivroDAO {
 
     LivroVO livro;
     Connection conexao;
+    
+     public Connection getConnection() {
+        return conexao;
+    }
+     
+     public void setConnection(Connection conexao) {
+        this.conexao = conexao;
+    }
 
     protected void setUp() throws Exception {//EFETUADO ANTES DE CADA TESTE REALIZADO
         DatabaseMySQL mysql = new DatabaseMySQL();

@@ -4,6 +4,9 @@ import dao.ILivroDAO;
 import java.time.LocalDate;
 import junit.framework.TestCase;
 import dao.LivroDAOMock;
+import database.Database;
+import database.DatabaseFactory;
+import java.sql.Connection;
 import java.sql.SQLException;
 import vo.LivroVO;
 
@@ -11,6 +14,8 @@ public class LivroBOTest extends TestCase {
 
     private LivroVO livroVO;
     private ILivroDAO livroDAOMock;
+    private final Database database = DatabaseFactory.getDatabase("mysql");
+    private final Connection connection = database.conectar();
 
     @Override
     protected void setUp() throws Exception {
@@ -21,9 +26,10 @@ public class LivroBOTest extends TestCase {
         livroVO.setData_livro(teste);
         livroVO.setQuantidade_livro(3);
         livroVO.setAutor1("mark zuckeberg do facebook e do instagram");
-
+        
         this.livroVO = livroVO;
         this.livroDAOMock = livroDAOMock;
+        this.livroDAOMock.setConnection(connection);
 
     }
 
