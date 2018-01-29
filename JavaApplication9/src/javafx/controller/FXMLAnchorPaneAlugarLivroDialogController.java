@@ -119,7 +119,6 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
     @FXML
     public void handleButtonConfirmar() {
         aluguel.setAluno((AlunoVO) cbxAluno.getSelectionModel().getSelectedItem());
-        //aluguel.setDevolvido(chbDevolvido.isSelected());
         aluguel.setData_aluguel(dtpAluguel.getValue());
         aluguel.setData_devolucao(dtpDevolucao.getValue());
 

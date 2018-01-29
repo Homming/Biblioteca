@@ -22,7 +22,6 @@
           <Menu mnemonicParsing="false" text="Registrar">
             <items>
               <MenuItem fx:id="menuItemAlugarLivro" mnemonicParsing="false" onAction="#handleMenuItemAlugarLivro" text="Aluguel" />
-                  <MenuItem fx:id="menuItemRegistrarDevolucao" mnemonicParsing="false" onAction="#handleMenuItemRegistrarDevolucao" text="Devolução" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Gráficos">

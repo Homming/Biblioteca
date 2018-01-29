@@ -85,6 +85,8 @@ public class AluguelDAO implements IAluguelDAO {
                 aluno.setId_aluno(resultado.getInt("aluno_id"));
                 livro.setId_livro(resultado.getInt("livro_id"));
                 aluguel.setData_devolucao(resultado.getDate("data_devolucao").toLocalDate());
+                aluguel.setData_devolvido(resultado.getDate("data_devolvido").toLocalDate());
+                aluguel.setDevolvido(resultado.getBoolean("devolvido"));
 
                 //Obtendo os dados completos do Aluno associado
                 AlunoDAO alunoDAO = new AlunoDAO();
@@ -177,6 +179,30 @@ public class AluguelDAO implements IAluguelDAO {
             Logger.getLogger(AluguelDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return retorno;
+    }
+
+    public boolean devolver(AluguelVO aluguel) throws SQLException {
+        try {
+            String editaSQL = ("UPDATE aluguel SET devolvido = ?, data_devolvido = ? WHERE id_aluguel = ?");
+
+            PreparedStatement pstm = conexao.prepareStatement(editaSQL);
+
+            pstm.setBoolean(1, aluguel.isDevolvido());
+            pstm.setDate(2, Date.valueOf(aluguel.getData_devolvido()));
+            pstm.setInt(3, aluguel.getId_aluguel());
+
+            int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja modificar as informações", "Atenção", +JOptionPane.YES_NO_OPTION);
+
+            if (confirma == JOptionPane.YES_NO_OPTION) {
+                pstm.execute();
+                JOptionPane.showMessageDialog(null, "Devolução registrada com sucesso!");
+
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro no registro!\n" + ex);
+            return false;
+        }// fim try
+        return true;
     }
 
 }

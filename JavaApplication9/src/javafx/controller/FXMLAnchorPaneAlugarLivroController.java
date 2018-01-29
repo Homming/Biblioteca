@@ -52,6 +52,8 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
     @FXML
     private Button btnEditar;
     @FXML
+    private Button btnDevolver;
+    @FXML
     private Label lblCodigo;
     @FXML
     private Label lblDataAluguel;
@@ -60,7 +62,11 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
     @FXML
     private Label lblLivro;
     @FXML
+    private Label lblDevolvido;
+    @FXML
     private Label lblDevolucao;
+    @FXML
+    private Label lblDataDevolvido;
 
     private List<AluguelVO> listAlugueis; // pega a lista de alugueis retornada pelo BD
     private ObservableList<AluguelVO> observableListAlugueis; // seta os dados da list em um observable list
@@ -93,20 +99,32 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
             lblLivro.setText(aluguel.getLivro().toString());//ESTA EXIBINDO APENAS UM LIVRO, SE HOUVER MAIS NAO EXIBE
             //lblLivro.setText(LivrosLocados(aluguel.getItensDeAluguel()));
             lblDevolucao.setText(String.valueOf(aluguel.getData_devolucao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+            lblDevolvido.setText(Devolvido(aluguel.isDevolvido()));
+            lblDataDevolvido.setText(DataDevolvido(String.valueOf(aluguel.getData_devolvido().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))));
             //lblDevolvido.setText(String.valueOf(aluguel.getDevolvido())); retorna a string true ou false
-            //lblDevolvido.setText(Devolvido(aluguel.getDevolvido()));
         } else {
             lblCodigo.setText("");
             lblDataAluguel.setText("");
             lblAluno.setText("");
             lblLivro.setText("");
             lblDevolucao.setText("");
+            lblDevolvido.setText("");
+            lblDataDevolvido.setText("");
         }
     }
 
     public String LivrosLocados(List<ItemDeAluguelVO> livro) {
         //FAZER COM QUE EXIBA OS LIVROS LOCADOS
         return null;
+    }
+
+    public String DataDevolvido(String dev) {
+        String data_default = "01/01/2018";
+
+        if (dev.equals(data_default)) {
+            return "Não Devolvido";
+        }
+        return dev;
     }
 
     public String Devolvido(boolean dev) {
@@ -166,27 +184,20 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
         }
     }
 
-    public boolean showFXMLAnchorPaneAlugarLivroDialog(AluguelVO aluguel) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(FXMLAnchorPaneAlugarLivroDialogController.class.getResource("/javafx/view/FXMLAnchorPaneAlugarLivroDialog.fxml"));
-        AnchorPane page = (AnchorPane) loader.load(); //typecast para guardar em page a tela carregada.
-
-        // Stage Dialog, para que seja visível ao usuário
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle("Registro de Aluguel");//exibido na parte superior da tela
-        Scene scene = new Scene(page);
-        dialogStage.setScene(scene);
-
-        // Setando aluguel no controller
-        FXMLAnchorPaneAlugarLivroDialogController controller = loader.getController(); // instancia do controller da tela dialog
-        //setando para o controller
-        controller.setDialogStage(dialogStage);
-        controller.setAluguelVO(aluguel);
-
-        // Mostra a tela e espera o usuário fechar
-        dialogStage.showAndWait();
-
-        return controller.isButtonConfirmarClicked();//handleButtonConfirmar retorna verdadeiro para handleButtonNovo se o usuário clicar em confirmar no dialog.
+    @FXML
+    public void handleButtonDevolver() throws IOException, SQLException {
+        AluguelVO aluguel = tblAluguel.getSelectionModel().getSelectedItem();
+        if (aluguel != null) {
+            boolean buttonConfirmarClicked = showFXMLAnchorPaneDevolverLivroDialog(aluguel); // abre a tela para inserção dos dados
+            if (buttonConfirmarClicked) {// se o botão confirmar for clicado
+                aluguelDAO.devolver(aluguel);// insere os dados cadastrados na tela
+                carregarTableViewAlugueis();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Por favor, escolha um aluno na Tabela!");
+                alert.show();
+            }
+        }
     }
 
     @FXML
@@ -211,5 +222,51 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
             alert.setContentText("Por favor, escolha um aluguel na Tabela!");
             alert.show();
         }
+    }
+
+    public boolean showFXMLAnchorPaneAlugarLivroDialog(AluguelVO aluguel) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(FXMLAnchorPaneAlugarLivroDialogController.class.getResource("/javafx/view/FXMLAnchorPaneAlugarLivroDialog.fxml"));
+        AnchorPane page = (AnchorPane) loader.load(); //typecast para guardar em page a tela carregada.
+
+        // Stage Dialog, para que seja visível ao usuário
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Registro de Aluguel");//exibido na parte superior da tela
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+        // Setando aluguel no controller
+        FXMLAnchorPaneAlugarLivroDialogController controller = loader.getController(); // instancia do controller da tela dialog
+        //setando para o controller
+        controller.setDialogStage(dialogStage);
+        controller.setAluguelVO(aluguel);
+
+        // Mostra a tela e espera o usuário fechar
+        dialogStage.showAndWait();
+
+        return controller.isButtonConfirmarClicked();//handleButtonConfirmar retorna verdadeiro para handleButtonNovo se o usuário clicar em confirmar no dialog.
+    }
+
+    public boolean showFXMLAnchorPaneDevolverLivroDialog(AluguelVO aluguel) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(FXMLAnchorPaneDevolverLivroDialogController.class.getResource("/javafx/view/FXMLAnchorPaneDevolverLivroDialog.fxml"));
+        AnchorPane page = (AnchorPane) loader.load(); //typecast para guardar em page a tela carregada.
+
+        // Stage Dialog, para que seja visível ao usuário
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Registro de Devolução");//exibido na parte superior da tela
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+        // Setando aluguel no controller
+        FXMLAnchorPaneDevolverLivroDialogController controller = loader.getController(); // instancia do controller da tela dialog
+        //setando para o controller
+        controller.setDialogStage(dialogStage);
+        controller.setAluguelVO(aluguel);
+
+        // Mostra a tela e espera o usuário fechar
+        dialogStage.showAndWait();
+
+        return controller.isButtonConfirmarClicked();//handleButtonConfirmar retorna verdadeiro para handleButtonNovo se o usuário clicar em confirmar no dialog.
     }
 }

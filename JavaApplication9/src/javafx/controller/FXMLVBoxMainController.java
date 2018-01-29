@@ -106,12 +106,6 @@ public class FXMLVBoxMainController implements Initializable {
     }
 
     @FXML
-    public void handleMenuItemRegistrarDevolucao() throws IOException {
-        AnchorPane p = (AnchorPane) FXMLLoader.load(getClass().getResource("/javafx/view/FXMLAnchorPaneRegistrarDevolucao.fxml"));
-        anchorPane.getChildren().setAll(p);
-    }
-
-    @FXML
     public void handleMenuItemOpcaoSair() throws IOException {
         menuItemOpcaoSair.setOnAction(new EventHandler<ActionEvent>() {
             @Override
