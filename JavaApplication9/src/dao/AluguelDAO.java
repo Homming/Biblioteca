@@ -31,30 +31,12 @@ public class AluguelDAO implements IAluguelDAO {
 
     @Override
     public boolean cadastrar(AluguelVO aluguel) throws SQLException {
-        String sql = "INSERT INTO aluguel(data_aluguel, aluno_id, data_devolucao, devolvido) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO aluguel(data_aluguel, aluno_id, data_devolucao) VALUES(?,?,?)";
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setDate(1, Date.valueOf(aluguel.getData_aluguel()));
             stmt.setInt(2, aluguel.getAluno().getId_aluno());
             stmt.setDate(3, Date.valueOf(aluguel.getData_devolucao()));
-            stmt.setBoolean(4, aluguel.getDevolvido());
-            stmt.execute();
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(AluguelDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
-
-    @Override
-    public boolean alterar(AluguelVO aluguel) {
-        String sql = "UPDATE aluguel SET data_aluguel=?, aluno_id=?, livro_id=? WHERE Id_aluguel=?";
-        try {
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            stmt.setDate(1, Date.valueOf(aluguel.getData_aluguel()));
-            stmt.setInt(2, aluguel.getAluno().getId_aluno());
-            stmt.setInt(3, aluguel.getLivro().getId_livro());
-            stmt.setInt(4, aluguel.getId_aluguel());
             stmt.execute();
             return true;
         } catch (SQLException ex) {
@@ -103,7 +85,6 @@ public class AluguelDAO implements IAluguelDAO {
                 aluno.setId_aluno(resultado.getInt("aluno_id"));
                 livro.setId_livro(resultado.getInt("livro_id"));
                 aluguel.setData_devolucao(resultado.getDate("data_devolucao").toLocalDate());
-                aluguel.setDevolvido(resultado.getBoolean("devolvido"));
 
                 //Obtendo os dados completos do Aluno associado
                 AlunoDAO alunoDAO = new AlunoDAO();
@@ -144,7 +125,6 @@ public class AluguelDAO implements IAluguelDAO {
                 aluguel.setData_aluguel(resultado.getDate("data_aluguel").toLocalDate());
                 aluno.setId_aluno(resultado.getInt("aluno_id"));
                 // livro ?
-                aluguel.setDevolvido(resultado.getBoolean("devolvido"));
                 aluguel.setAluno(aluno);
                 retorno = aluguel;
             }

@@ -30,7 +30,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="479.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="479.0" style="-fx-background-color: #E4E4E7;">
                <children>
                   <GridPane layoutX="31.0" layoutY="106.0" prefHeight="315.0" prefWidth="386.0">
                     <columnConstraints>

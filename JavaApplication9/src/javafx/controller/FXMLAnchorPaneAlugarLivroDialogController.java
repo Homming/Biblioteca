@@ -16,7 +16,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
@@ -43,8 +42,6 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
     private DatePicker dtpAluguel;
     @FXML
     private DatePicker dtpDevolucao;
-    @FXML
-    private CheckBox chbDevolvido;
     @FXML
     private TextField txtItemDeAluguelQtd;
     @FXML
@@ -122,7 +119,7 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
     @FXML
     public void handleButtonConfirmar() {
         aluguel.setAluno((AlunoVO) cbxAluno.getSelectionModel().getSelectedItem());
-        aluguel.setDevolvido(chbDevolvido.isSelected());
+        //aluguel.setDevolvido(chbDevolvido.isSelected());
         aluguel.setData_aluguel(dtpAluguel.getValue());
         aluguel.setData_devolucao(dtpDevolucao.getValue());
 

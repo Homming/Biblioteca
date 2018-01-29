@@ -11,30 +11,20 @@ public class AluguelVO implements Serializable {
     private int aluno_id;
     private int livro_id;
     private LocalDate data_devolucao;
-    private boolean devolvido;
     private List<ItemDeAluguelVO> itensDeAluguel;
     private LivroVO livro;
     private AlunoVO aluno;
-    
-    public AluguelVO(){
-    
+
+    public AluguelVO() {
+
     }
-    
+
     public AluguelVO(int id_aluguel, LocalDate data_aluguel, int aluno_id, int livro_id, LocalDate data_devolucao, boolean devolvido) {
         this.id_aluguel = id_aluguel;
         this.data_aluguel = data_aluguel;
         this.aluno_id = aluno_id;
         this.livro_id = livro_id;
         this.data_devolucao = data_devolucao;
-        this.devolvido = devolvido;
-    }
-
-    public boolean getDevolvido() {
-        return devolvido;
-    }
-
-    public void setDevolvido(boolean devolvido) {
-        this.devolvido = devolvido;
     }
 
     public int getId_aluguel() {
@@ -100,5 +90,5 @@ public class AluguelVO implements Serializable {
     public void setItensDeAluguel(List<ItemDeAluguelVO> itensDeAluguel) {
         this.itensDeAluguel = itensDeAluguel;
     }
-   
+
 }

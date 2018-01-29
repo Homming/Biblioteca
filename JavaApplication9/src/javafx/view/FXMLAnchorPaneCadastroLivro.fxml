@@ -29,7 +29,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="279.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="279.0" style="-fx-background-color: #E4E4E7;">
                <children>
                   <Label layoutX="143.0" layoutY="14.0" text="Gerenciar Livros">
                      <font>

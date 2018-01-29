@@ -60,8 +60,6 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
     @FXML
     private Label lblLivro;
     @FXML
-    private Label lblDevolvido;
-    @FXML
     private Label lblDevolucao;
 
     private List<AluguelVO> listAlugueis; // pega a lista de alugueis retornada pelo BD
@@ -96,14 +94,13 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
             //lblLivro.setText(LivrosLocados(aluguel.getItensDeAluguel()));
             lblDevolucao.setText(String.valueOf(aluguel.getData_devolucao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
             //lblDevolvido.setText(String.valueOf(aluguel.getDevolvido())); retorna a string true ou false
-            lblDevolvido.setText(Devolvido(aluguel.getDevolvido()));
+            //lblDevolvido.setText(Devolvido(aluguel.getDevolvido()));
         } else {
             lblCodigo.setText("");
             lblDataAluguel.setText("");
             lblAluno.setText("");
             lblLivro.setText("");
             lblDevolucao.setText("");
-            lblDevolvido.setText("");
         }
     }
 

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="622.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.FXMLAnchorPaneGraficosAlugueisPorMesController">
+<AnchorPane id="AnchorPane" prefHeight="622.0" prefWidth="730.0" style="-fx-background-color: #E4E4E7;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.FXMLAnchorPaneGraficosAlugueisPorMesController">
    <children>
       <BarChart fx:id="barChart" layoutX="43.0" layoutY="50.0" prefHeight="622.0" prefWidth="730.0" title=" " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <xAxis>

@@ -48,7 +48,6 @@ CREATE TABLE aluguel(
     aluno_id int not null,
     livro_id int,
     data_devolucao date not null,
-    devolvido boolean not null,
     CONSTRAINT fk_aluguel_aluno FOREIGN KEY (aluno_id) REFERENCES aluno(id_aluno), -- ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT fk_aluguel_livro FOREIGN KEY (livro_id) REFERENCES  livro(id_livro) -- ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -77,8 +76,8 @@ VALUES ('NomeDoLivro','01/01/10',5,'Exemplo','Exemplo','Exemplo');
 INSERT INTO aluno (nome, telefone) 
 VALUES ('AlunoExemplo','99999-9999');
 
-INSERT INTO aluguel (data_aluguel, aluno_id, livro_id,data_devolucao,devolvido) 
-VALUES ('2018/01/10',1,1,'2018/01/12',false);
+INSERT INTO aluguel (data_aluguel, aluno_id, livro_id,data_devolucao) 
+VALUES ('2018/01/10',1,1,'2018/01/12');
 
 INSERT INTO itensdealuguel(quantidade, livro_id, aluguel_id) 
 VALUES('1', '1', '1');
