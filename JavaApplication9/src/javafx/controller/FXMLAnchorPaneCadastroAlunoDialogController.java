@@ -16,9 +16,7 @@ public class FXMLAnchorPaneCadastroAlunoDialogController implements Initializabl
 
     @FXML
     private TextField txtNome;
-    @FXML
     private TextField txtQtdAlocados;
-    @FXML
     private TextField txtQtdMax;
     @FXML
     private TextField txtTelefone;
@@ -68,8 +66,8 @@ public class FXMLAnchorPaneCadastroAlunoDialogController implements Initializabl
         this.aluno = aluno;
         //Caso não seja um aluno Novo, set os valores do aluno existente
         this.txtNome.setText(aluno.getNome());
-        this.txtQtdAlocados.setText(String.valueOf(aluno.getQuantidade_alocados()));
-        this.txtQtdMax.setText(String.valueOf(aluno.getQtd_maxlivro()));
+        //this.txtQtdAlocados.setText(String.valueOf(aluno.getQuantidade_alocados()));
+        //this.txtQtdMax.setText(String.valueOf(aluno.getQtd_maxlivro()));
         this.txtTelefone.setText(aluno.getTelefone());
         this.txtEmail.setText(aluno.getEmail());
         this.txtComplemento.setText(aluno.getComplemento());
@@ -80,8 +78,8 @@ public class FXMLAnchorPaneCadastroAlunoDialogController implements Initializabl
     @FXML
     public void handleButtonConfirmar() {
         aluno.setNome(txtNome.getText());
-        aluno.setQuantidade_alocados(Integer.parseInt(txtQtdAlocados.getText()));
-        aluno.setQtd_maxlivro(Integer.parseInt(txtQtdMax.getText()));
+        //aluno.setQuantidade_alocados(Integer.parseInt(txtQtdAlocados.getText()));
+        //aluno.setQtd_maxlivro(Integer.parseInt(txtQtdMax.getText()));
         aluno.setTelefone(txtTelefone.getText());
         aluno.setEmail(txtEmail.getText());
         aluno.setComplemento(txtComplemento.getText());
@@ -94,7 +92,7 @@ public class FXMLAnchorPaneCadastroAlunoDialogController implements Initializabl
         validar.validarCadastroDeNome();
         validar.validarCadastroDeMatricula();
         validar.validarCadastroDeTelefone();
-        validar.validarQtdMaxDeLivro();
+        //validar.validarQtdMaxDeLivro();
 
         if (validar.errorMessage.length() == 0) {
             buttonConfirmarClicked = true;

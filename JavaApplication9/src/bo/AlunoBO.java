@@ -43,14 +43,15 @@ public class AlunoBO {
     }
 
     public boolean validarCadastroDeMatricula() {
-        if (this.alunoVo.getMatricula().length() > 5 && !this.alunoVo.getMatricula().isEmpty() && alunoVo.getMatricula() != null) {
+        if (this.alunoVo.getMatricula().length() > 0 && !this.alunoVo.getMatricula().isEmpty() && alunoVo.getMatricula() != null) {
             return true;
         } else {
-            this.errorMessage += "Matrícula Inválida! (Precisa ter mais que 5 caracteres e não pode se repetir)\n";
+            this.errorMessage += "Matrícula Inválida! (Precisa ter algum caractere e não pode se repetir)\n";
             return false;
         }
     }
     
+    /*
     public boolean validarQtdMaxDeLivro() {
         if (this.alunoVo.getQtd_maxlivro() > 0) {
             return true;
@@ -68,6 +69,7 @@ public class AlunoBO {
             return false;
         }
     }
+*/
 
     public void cadastrarAluno() throws SQLException {
         if (!validarCadastroDeNome()) {

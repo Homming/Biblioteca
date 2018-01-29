@@ -76,6 +76,11 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
+                        <Label text="Qtd em Estoque" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
                         <Label text="Data" GridPane.rowIndex="2">
                            <font>
                               <Font name="System Bold" size="14.0" />
@@ -156,6 +161,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
+                        <Label fx:id="lblLivroEstq" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label fx:id="lblLivroCDD" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <font>
                               <Font size="16.0" />
@@ -221,19 +227,13 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label text="Qtd em Estoque" GridPane.rowIndex="3">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="lblLivroEstq" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                   <Group layoutX="115.0" layoutY="567.0">
                      <children>
-                        <Button fx:id="btnExcluir" layoutX="143.0" mnemonicParsing="false" onAction="#handleButtonRemover" prefHeight="38.0" prefWidth="62.0" text="Excluir" />
-                        <Button fx:id="btnEditar" layoutX="72.0" mnemonicParsing="false" onAction="#handleButtonEditar" prefHeight="38.0" prefWidth="62.0" text="Editar" />
                         <Button fx:id="btnNovo" mnemonicParsing="false" onAction="#handleButtonNovo" prefHeight="38.0" prefWidth="62.0" text="Novo" />
+                        <Button fx:id="btnEditar" layoutX="72.0" mnemonicParsing="false" onAction="#handleButtonEditar" prefHeight="38.0" prefWidth="62.0" text="Editar" />
+                        <Button fx:id="btnExcluir" layoutX="143.0" mnemonicParsing="false" onAction="#handleButtonRemover" prefHeight="38.0" prefWidth="62.0" text="Excluir" />
                      </children>
                   </Group>
                </children>

@@ -1,6 +1,5 @@
 package javafx.controller;
 
-import bo.LivroBO;
 import dao.LivroDAO;
 import database.Database;
 import database.DatabaseFactory;

@@ -77,17 +77,11 @@ public class LivroDAO implements ILivroDAO {
             pstm.setString(16, cad.getEdicao());
             pstm.setInt(17, cad.getId_livro());
 
-            /*
-            int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja modificar as informações", "Atenção", +JOptionPane.YES_NO_OPTION);
+            pstm.execute();
 
-            if (confirma == JOptionPane.YES_NO_OPTION) {
-                pstm.execute();
-                JOptionPane.showMessageDialog(null, "Livro editado com sucesso!");
-            }
-             */
             return true;
         } catch (SQLException ex) {
-            //JOptionPane.showMessageDialog(null, "Erro na edição!");
+            JOptionPane.showMessageDialog(null, "Erro na edição!");
             Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
@@ -100,7 +94,7 @@ public class LivroDAO implements ILivroDAO {
             PreparedStatement pstm = conexao.prepareStatement(excluiSQL);
             pstm.setInt(1, cad.getId_livro());
 
-            int confirma = JOptionPane.showConfirmDialog(null, "OBS: AO DELETAR O LIVRO TODOS OS ALUGUÉIS RELACIONADOS AO LIVRO SERÃO REMOVIDOS, Tem certeza de que deseja excluir o livro?", "Atenção",
+            int confirma = JOptionPane.showConfirmDialog(null, "OBS: NÃO É POSSÍVEL DELETAR LIVROS COM ALUGUÉIS REGISTRADOS, Tem certeza de que deseja excluir o livro?", "Atenção",
                     +JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
             if (confirma == JOptionPane.YES_NO_OPTION) {
@@ -110,7 +104,7 @@ public class LivroDAO implements ILivroDAO {
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro na exclusão do livro!" + ex);
+            JOptionPane.showMessageDialog(null, "Erro na exclusão do livro!"/*+ ex*/);
             return false;
         }
         return true;

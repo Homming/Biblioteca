@@ -52,10 +52,10 @@ public class BibliotecariaBO {
     }
 
     public boolean validarCadastroDeSenha() {
-        if (this.bibliotecariaVo.getSenha().equals(this.bibliotecariaVo.getConf_senha()) && this.bibliotecariaVo.getSenha() != null && this.bibliotecariaVo.getSenha().length() > 6 && !this.bibliotecariaVo.getSenha().isEmpty()) {
+        if (this.bibliotecariaVo.getSenha().equals(this.bibliotecariaVo.getConf_senha()) && this.bibliotecariaVo.getSenha() != null && this.bibliotecariaVo.getSenha().length() > 5 && !this.bibliotecariaVo.getSenha().isEmpty()) {
             return true;
         } else {
-            this.errorMessage += "Senha Inválido! (Senha precisa ser igual ao confirma senha)\n (Senha precisa ter mais que 6 caracteres)";
+            this.errorMessage += "Senha Inválido! (Senha precisa ser igual ao confirma senha)\n (Senha precisa ter mais que 5 caracteres)";
             return false;
         }
     }

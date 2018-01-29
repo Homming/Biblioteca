@@ -35,10 +35,10 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <GridPane layoutX="109.0" layoutY="126.0" prefHeight="261.0" prefWidth="235.0">
+                  <GridPane layoutX="48.0" layoutY="128.0" prefHeight="272.0" prefWidth="315.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="137.0" minWidth="10.0" prefWidth="137.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="63.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="137.0" minWidth="10.0" prefWidth="58.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="174.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -74,27 +74,27 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblUserCod" GridPane.columnIndex="1">
+                        <Label fx:id="lblUserCod" prefHeight="20.0" prefWidth="227.0" GridPane.columnIndex="1">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblUserName" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label fx:id="lblUserName" prefHeight="20.0" prefWidth="183.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblUserCPF" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Label fx:id="lblUserCPF" prefHeight="20.0" prefWidth="189.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblUserEmail" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <Label fx:id="lblUserEmail" prefHeight="20.0" prefWidth="189.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblUserUser" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <Label fx:id="lblUserUser" prefHeight="20.0" prefWidth="202.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                            <font>
                               <Font size="14.0" />
                            </font>

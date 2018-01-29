@@ -44,10 +44,6 @@ public class FXMLAnchorPaneCadastroAlunoController implements Initializable {
     @FXML
     private Label lblNome;
     @FXML
-    private Label lblQtdLocados;
-    @FXML
-    private Label lblQtdMax;
-    @FXML
     private Label lblTelefone;
     @FXML
     private Label lblEmail;
@@ -88,8 +84,8 @@ public class FXMLAnchorPaneCadastroAlunoController implements Initializable {
         if (aluno != null) {
             lblCodigo.setText(String.valueOf(aluno.getId_aluno()));
             lblNome.setText(aluno.getNome());
-            lblQtdLocados.setText(String.valueOf(aluno.getQuantidade_alocados()));
-            lblQtdMax.setText(String.valueOf(aluno.getQtd_maxlivro()));
+            //lblQtdLocados.setText(String.valueOf(aluno.getQuantidade_alocados()));
+            //lblQtdMax.setText(String.valueOf(aluno.getQtd_maxlivro()));
             lblTelefone.setText(aluno.getTelefone());
             lblEmail.setText(aluno.getEmail());
             lblComplemento.setText(aluno.getComplemento());
@@ -98,8 +94,8 @@ public class FXMLAnchorPaneCadastroAlunoController implements Initializable {
         } else {
             lblCodigo.setText("");
             lblNome.setText("");
-            lblQtdLocados.setText("");
-            lblQtdMax.setText("");
+            //lblQtdLocados.setText("");
+            //lblQtdMax.setText("");
             lblTelefone.setText("");
             lblEmail.setText("");
             lblComplemento.setText("");

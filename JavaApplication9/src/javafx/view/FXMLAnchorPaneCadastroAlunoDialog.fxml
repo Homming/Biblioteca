@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="435.0" prefWidth="474.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="javafx.controller.FXMLAnchorPaneCadastroAlunoDialogController">
+<AnchorPane id="AnchorPane" prefHeight="435.0" prefWidth="474.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.FXMLAnchorPaneCadastroAlunoDialogController">
     <stylesheets>
         <URL value="@/style/fxmlanchorpanecadastroalunodialog.css" />
     </stylesheets>
@@ -28,8 +28,6 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -42,49 +40,37 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label text="Qtd Máx. de Livros" GridPane.rowIndex="2">
+            <Label text="Telefone" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label text="Telefone" GridPane.rowIndex="3">
+            <Label text="E-mail" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label text="E-mail" GridPane.rowIndex="4">
+            <Label text="Complemento" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label text="Complemento" GridPane.rowIndex="5">
+            <Label text="Matrícula" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label text="Matrícula" GridPane.rowIndex="6">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label text="Turma" GridPane.rowIndex="7">
+            <Label text="Turma" GridPane.rowIndex="5">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
             <TextField fx:id="txtNome" GridPane.columnIndex="1" />
-            <TextField fx:id="txtQtdMax" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="txtTelefone" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="txtComplemento" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="txtMatricula" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="txtTurma" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label text="Qtd Alocados" GridPane.rowIndex="1">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtQtdAlocados" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtTelefone" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtComplemento" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtMatricula" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="txtTurma" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <Group layoutX="280.0" layoutY="379.0">

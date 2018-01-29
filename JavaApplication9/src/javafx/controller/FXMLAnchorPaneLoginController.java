@@ -70,7 +70,7 @@ public class FXMLAnchorPaneLoginController implements Initializable {
                             Logger.getLogger(FXMLAnchorPaneLoginController.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
-                        Scene scene = new Scene(root);//aparentemente está chegando aqui como null
+                        Scene scene = new Scene(root);
 
                         stage.setScene(scene);
                         stage.setResizable(false);

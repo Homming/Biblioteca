@@ -81,6 +81,7 @@ public class AlunoBOTest extends TestCase {
         assertFalse(alunoBO.validarCadastroDeMatricula());
     }
 
+    /*
     public void testDeveriaValidarAlocacaoLivro() {
         AlunoBO alunoBO = new AlunoBO(this.alunoDAOMock, this.alunoVO);
         assertTrue(alunoBO.validarAlocaçãoDeLivro());
@@ -91,5 +92,6 @@ public class AlunoBOTest extends TestCase {
         AlunoBO alunoBO = new AlunoBO(this.alunoDAOMock, this.alunoVO);
         assertFalse(alunoBO.validarAlocaçãoDeLivro());
     }
+    */
 
 }

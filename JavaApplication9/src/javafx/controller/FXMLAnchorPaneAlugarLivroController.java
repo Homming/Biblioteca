@@ -32,7 +32,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import vo.AluguelVO;
-import vo.AlunoVO;
 import vo.ItemDeAluguelVO;
 import vo.LivroVO;
 
@@ -170,71 +169,6 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
         }
     }
 
-    
-    //APENAS COPIADO DO HANDLEBUTTON NOVO, NAO ESTA CERTO
-    @FXML
-    public void handleButtonEditar() throws IOException, SQLException {
-        AluguelVO aluguel = tblAluguel.getSelectionModel().getSelectedItem();// puxa as informações da aluguel selecionado
-        List<ItemDeAluguelVO> listItensDeAluguel = new ArrayList<>();
-        aluguel.setItensDeAluguel(listItensDeAluguel);
-        if (aluguel != null) {
-            boolean buttonConfirmarClicked = showFXMLAnchorPaneEditarAluguelDialog(aluguel);
-            if (buttonConfirmarClicked) {
-                try {
-                    connection.setAutoCommit(false);
-                    aluguelDAO.setConnection(connection);
-                    aluguelDAO.alterar(aluguel);
-                    itemDeAluguelDAO.setConnection(connection);
-                    livroDAO.setConnection(connection);
-                    for (ItemDeAluguelVO listItemDeAluguelVO : aluguel.getItensDeAluguel()) {
-                        LivroVO livro = listItemDeAluguelVO.getLivro();
-                        listItemDeAluguelVO.setAluguel(aluguelDAO.buscarUltimoAluguel());
-                        itemDeAluguelDAO.inserir(listItemDeAluguelVO);
-                        livro.setQuantidade_livro(livro.getQuantidade_livro() - listItemDeAluguelVO.getQuantidade());
-                        livroDAO.editarCad(livro);
-                    }
-                    connection.commit();//se nao tiver ocorrido nenhum problema, efetue o cadastro
-                    carregarTableViewAlugueis();
-                } catch (SQLException ex) {
-                    try {
-                        connection.rollback();
-                    } catch (SQLException ex1) {
-                        Logger.getLogger(FXMLAnchorPaneAlugarLivroController.class.getName()).log(Level.SEVERE, null, ex1);
-                    }
-                    Logger.getLogger(FXMLAnchorPaneAlugarLivroController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("Por favor, escolha um aluguel na Tabela!");
-                alert.show();
-            }
-        }
-    }
-
-    //Método para exibir a tela (Dialog) 
-    public boolean showFXMLAnchorPaneEditarAluguelDialog(AluguelVO aluguel) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(FXMLAnchorPaneAlugarLivroDialogController.class.getResource("/javafx/view/FXMLAnchorPaneEditarAluguelDialog.fxml"));
-        AnchorPane page = (AnchorPane) loader.load(); //typecast para guardar em page a tela carregada.
-
-        // Stage Dialog, para que seja visível ao usuário
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle("Editar Aluguel");//exibido na parte superior da tela
-        Scene scene = new Scene(page);
-        dialogStage.setScene(scene);
-
-        // Setando aluguel no controller
-        FXMLAnchorPaneEditarAluguelDialogController controller = loader.getController(); // instancia do controller da tela dialog
-        //setando para o controller
-        controller.setDialogStage(dialogStage);
-        controller.setAluguelVO(aluguel);
-
-        // Mostra a tela e espera o usuário fechar
-        dialogStage.showAndWait();
-
-        return controller.isButtonConfirmarClicked();//handleButtonConfirmar retorna verdadeiro para handleButtonNovo se o usuário clicar em confirmar no dialog.
-    }
-    
     public boolean showFXMLAnchorPaneAlugarLivroDialog(AluguelVO aluguel) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(FXMLAnchorPaneAlugarLivroDialogController.class.getResource("/javafx/view/FXMLAnchorPaneAlugarLivroDialog.fxml"));
