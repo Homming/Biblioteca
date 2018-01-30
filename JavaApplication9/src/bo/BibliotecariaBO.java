@@ -60,8 +60,18 @@ public class BibliotecariaBO {
         }
     }
 
-    public void cadastrarBibliotecaria() throws SQLException {
-        this.bibliotecariaDAO.cadastrar(this.bibliotecariaVo);
+    public boolean cadastrarBibliotecaria() throws SQLException {
+        return this.bibliotecariaDAO.cadastrar(this.bibliotecariaVo);
+
+    }
+    
+    public boolean editarBibliotecaria()throws SQLException {
+        return this.bibliotecariaDAO.editar(this.bibliotecariaVo);
+
+    }
+    
+    public boolean excluirBibliotecaria()throws SQLException {
+        return this.bibliotecariaDAO.excluirCad(this.bibliotecariaVo);
 
     }
 

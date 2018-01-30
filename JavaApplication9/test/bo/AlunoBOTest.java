@@ -3,12 +3,18 @@ package bo;
 import dao.IAlunoDAO;
 import junit.framework.TestCase;
 import dao.AlunoDAOMock;
+import database.Database;
+import database.DatabaseFactory;
+import java.sql.Connection;
+import java.sql.SQLException;
 import vo.AlunoVO;
 
 public class AlunoBOTest extends TestCase {
 
     private AlunoVO alunoVO;
     private IAlunoDAO alunoDAOMock;
+    private final Database database = DatabaseFactory.getDatabase("mysql");
+    private final Connection connection = database.conectar();
 
     protected void setUp() throws Exception {
         IAlunoDAO alunoDAOMock = new AlunoDAOMock();
@@ -22,21 +28,42 @@ public class AlunoBOTest extends TestCase {
 
         this.alunoVO = alunoVO;
         this.alunoDAOMock = alunoDAOMock;
+        this.alunoDAOMock.setConnection(connection);
 
     }
 
-    /* teste futuro pra quando o tevonha fazer o DAOMockAluno
+    
     
     public void testDeveriaCadastrarAluno() throws Exception{
-        AlunoBO alunoBO = new AlunoBO(this.alunoVO,this.alunoDAOMock);
+        AlunoBO alunoBO = new AlunoBO(this.alunoDAOMock, this.alunoVO);
         
         try{
-            alunoBO.CadastrarAluno();
-        }catch(Exception e){
+           assertTrue(alunoBO.cadastrarAluno());
+        }catch(SQLException e){
             fail("Deveria ter cadastrado");
         }
+    }
+    
+    public void testDeveriaEditarAluno(){
+        AlunoBO alunoBO = new AlunoBO(this.alunoDAOMock, this.alunoVO);
         
-    }*/
+        try{
+           assertTrue(alunoBO.editarAluno());
+        }catch(SQLException e){
+            fail("Deveria ter cadastrado");
+        }
+    }
+    
+    public void testDeveriaExcluirAluno(){
+         AlunoBO alunoBO = new AlunoBO(this.alunoDAOMock, this.alunoVO);
+        
+        try{
+           assertTrue(alunoBO.removerAluno());
+        }catch(SQLException e){
+            fail("Deveria ter cadastrado");
+        }
+    }
+    
     public void testDeveriaValidarNomeAluno() {
         AlunoBO alunoBO = new AlunoBO(this.alunoDAOMock, this.alunoVO);
         assertTrue(alunoBO.validarCadastroDeNome());
@@ -76,7 +103,7 @@ public class AlunoBOTest extends TestCase {
     }
 
     public void testNaoDeveriaValidarMatriculaAluno() {
-        this.alunoVO.setMatricula("teste");
+        this.alunoVO.setMatricula("");
         AlunoBO alunoBO = new AlunoBO(this.alunoDAOMock, this.alunoVO);
         assertFalse(alunoBO.validarCadastroDeMatricula());
     }

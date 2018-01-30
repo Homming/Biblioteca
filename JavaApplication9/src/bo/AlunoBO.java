@@ -71,12 +71,17 @@ public class AlunoBO {
     }
 */
 
-    public void cadastrarAluno() throws SQLException {
-        if (!validarCadastroDeNome()) {
-            throw new IllegalArgumentException("Nome de aluno invalido");
-        } else {
-            this.alunoDAO.cadastrar(this.alunoVo);
-        }
+    public boolean cadastrarAluno() throws SQLException {
+           return this.alunoDAO.cadastrar(this.alunoVo);
+        
+    }
+    
+    public boolean editarAluno()throws SQLException{
+        return this.alunoDAO.editar(this.alunoVo);
+    }
+    
+    public boolean removerAluno()throws SQLException{
+        return this.alunoDAO.remover(alunoVo);
     }
 
 }

@@ -98,4 +98,22 @@ public class LivroBOTest extends TestCase {
         }
 
     }
+    
+    public void testDeveriaAlterarLivro(){
+        LivroBO livroBO = new LivroBO(this.livroDAOMock, this.livroVO);
+         try {
+            assertTrue(livroBO.alteracaoLivro());
+        } catch (SQLException e) {
+            fail("Deveria ter cadastrado");
+        }
+    }
+    
+    public void testDeveriaExcluirLivro(){
+        LivroBO livroBO = new LivroBO(this.livroDAOMock, this.livroVO);
+         try {
+            assertTrue(livroBO.excluirLivro());
+        } catch (SQLException e) {
+            fail("Deveria ter cadastrado");
+        }
+    }
 }

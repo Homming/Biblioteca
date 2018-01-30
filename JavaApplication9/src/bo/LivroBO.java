@@ -71,4 +71,12 @@ public class LivroBO {
     public boolean CadastroLivro() throws SQLException {
         return livroDAO.cadastrar(this.livroVO);
     }
+    
+    public boolean alteracaoLivro() throws SQLException{
+        return livroDAO.editarCad(this.livroVO);
+    }
+    
+    public boolean excluirLivro() throws SQLException{
+        return livroDAO.excluirCad(this.livroVO);
+    }
 }

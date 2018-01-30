@@ -5,6 +5,9 @@ import bo.BibliotecariaBO;
 import dao.IBibliotecariaDAO;
 import junit.framework.TestCase;
 import dao.BibliotecariaDAOMock;
+import database.Database;
+import database.DatabaseFactory;
+import java.sql.Connection;
 import static org.junit.Assert.*;
 import vo.BibliotecariaVO;
 
@@ -12,6 +15,8 @@ import vo.BibliotecariaVO;
 public class BibliotecariaBOTest extends TestCase {
     private BibliotecariaVO bibliotecariaVO;
     private IBibliotecariaDAO bibliotecariaDAOMock;
+    private final Database database = DatabaseFactory.getDatabase("mysql");
+    private final Connection connection = database.conectar();
     
     protected void setUp() throws Exception{
         
@@ -19,13 +24,13 @@ public class BibliotecariaBOTest extends TestCase {
         BibliotecariaVO bibliotecariaVO = new BibliotecariaVO();
         bibliotecariaVO.setNome("Maria Joaquina pereira");
         bibliotecariaVO.setCel("996222428");
-        bibliotecariaVO.setUsuario("admin");
+        bibliotecariaVO.setUsuario("adminin");
         bibliotecariaVO.setSenha("admin123");
         bibliotecariaVO.setConf_senha("admin123");
         
         this.bibliotecariaDAOMock = bibliotecariaDAOMock;
         this.bibliotecariaVO = bibliotecariaVO;
-       
+        this.bibliotecariaDAOMock.setConnection(connection);
     }
     
     public void testDeveriaValidarNomeBibliotecaria(){
@@ -71,13 +76,9 @@ public class BibliotecariaBOTest extends TestCase {
         BibliotecariaBO bibliotecariaBO = new  BibliotecariaBO(this.bibliotecariaDAOMock,this.bibliotecariaVO);
         assertFalse(bibliotecariaBO.validarCadastroDeSenha());
     }
-    /* fazer essa com tevonha
-    public void testDeveriaValidarEntradaDeDados(){
-        
-    }
-    */
+ 
     
-     /* teste futuro pra quando o tevonha fazer o DAOMockBibliotecaria
+
     
     public void testDeveriaCadastrarBibliotecaria() throws Exception{
         BibliotecariaBO bibliotecariaBO = new  BibliotecariaBO(this.bibliotecariaDAOMock,this.bibliotecariaVO);
@@ -88,6 +89,27 @@ public class BibliotecariaBOTest extends TestCase {
             fail("Deveria ter cadastrado");
         }
         
-    }*/
+    }
+    
+    public void testDeveriaEditarBibliotecaria() throws Exception{
+        BibliotecariaBO bibliotecariaBO = new  BibliotecariaBO(this.bibliotecariaDAOMock,this.bibliotecariaVO);
+        
+        try{
+            bibliotecariaBO.cadastrarBibliotecaria();
+        }catch(Exception e){
+            fail("Deveria ter cadastrado");
+        }
+    }
+    
+    public void testDeveriaExcluirBibliotecaria()throws Exception{
+        BibliotecariaBO bibliotecariaBO = new  BibliotecariaBO(this.bibliotecariaDAOMock,this.bibliotecariaVO);
+        
+        try{
+            bibliotecariaBO.excluirBibliotecaria();
+        }catch(Exception e){
+            fail("Deveria ter cadastrado");
+        }
+    }
+    
     
 }

@@ -62,9 +62,12 @@ public class LivroDAOMock implements ILivroDAO {
         }
     }
 
-    /*
+    
     @Override
     public boolean editarCad(LivroVO cad) throws SQLException {
+        cadastrar(cad);
+        cad.setAutor1("Bill Gates teste teste");
+        cad.setTitulo("piratas do vale do silicio");
         String sql = "UPDATE livro SET titulo = ?, data_livro = ?, quantidade_livro = ?, cdd = ?, cutter = ?, complemento = ?, autor1 = ?, autor2 = ?, autor3 = ?, tradutores = ?, ilustradores = ?, assunto = ?, local_livro = ?, editora = ?, ano = ?, edicao = ? WHERE id_livro = ?";
         try {
             PreparedStatement pstm = conexao.prepareStatement(sql);
@@ -95,6 +98,7 @@ public class LivroDAOMock implements ILivroDAO {
 
     @Override
     public boolean excluirCad(LivroVO cad) throws SQLException {
+        cadastrar(cad);
         try {
             String excluiSQL = ("DELETE FROM livro WHERE Id_livro = ?");
             PreparedStatement pstm = conexao.prepareStatement(excluiSQL);
@@ -105,14 +109,5 @@ public class LivroDAOMock implements ILivroDAO {
         }
         return true;
     }
-     */
-    @Override
-    public boolean editarCad(LivroVO livroVO) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean excluirCad(LivroVO livroVO) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+     
 }
