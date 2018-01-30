@@ -61,5 +61,10 @@ public class ItemDeAluguelVO implements Serializable {
     public void setAluguel(AluguelVO aluguel) {
         this.aluguel = aluguel;
     }
+    
+    @Override
+    public String toString(){
+        return this.livro.getTitulo();
+    }
 
 }

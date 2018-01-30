@@ -158,6 +158,7 @@ public class LivroVO {
         this.edicao = edicao;
     }
     
+    @Override
     public String toString(){
         return this.titulo;
     }

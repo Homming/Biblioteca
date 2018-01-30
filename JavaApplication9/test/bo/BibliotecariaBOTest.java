@@ -19,7 +19,7 @@ public class BibliotecariaBOTest extends TestCase {
     private final Connection connection = database.conectar();
     
     protected void setUp() throws Exception{
-        
+        this.connection.setAutoCommit(false);
         IBibliotecariaDAO bibliotecariaDAOMock = new BibliotecariaDAOMock();
         BibliotecariaVO bibliotecariaVO = new BibliotecariaVO();
         bibliotecariaVO.setNome("Maria Joaquina pereira");

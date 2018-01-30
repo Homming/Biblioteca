@@ -126,7 +126,6 @@ public class AluguelDAO implements IAluguelDAO {
                 aluguel.setId_aluguel(resultado.getInt("id_aluguel"));
                 aluguel.setData_aluguel(resultado.getDate("data_aluguel").toLocalDate());
                 aluno.setId_aluno(resultado.getInt("aluno_id"));
-                // livro ?
                 aluguel.setAluno(aluno);
                 retorno = aluguel;
             }

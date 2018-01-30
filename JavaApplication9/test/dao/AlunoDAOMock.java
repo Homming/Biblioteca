@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import vo.AlunoVO;
 
 public class AlunoDAOMock implements IAlunoDAO {
-    
+
     Connection conexao;
 
     public Connection getConnection() {
@@ -20,7 +20,7 @@ public class AlunoDAOMock implements IAlunoDAO {
     public void setConnection(Connection conexao) {
         this.conexao = conexao;
     }
-    
+
     protected void setUp() throws Exception {//EFETUADO ANTES DE CADA TESTE REALIZADO
         DatabaseMySQL mysql = new DatabaseMySQL();
         this.conexao = mysql.conectar();
@@ -34,7 +34,7 @@ public class AlunoDAOMock implements IAlunoDAO {
 
     @Override
     public boolean cadastrar(AlunoVO aluno) throws SQLException {
-         String sql = "INSERT INTO aluno(nome, telefone, email, complemento, matricula, turma) values (?,?,?,?,?,?)";
+        String sql = "INSERT INTO aluno(nome, telefone, email, complemento, matricula, turma) values (?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setString(1, aluno.getNome());
@@ -68,43 +68,30 @@ public class AlunoDAOMock implements IAlunoDAO {
             pstm.setString(6, aluno.getTurma());
             pstm.setInt(7, aluno.getId_aluno());
 
-            int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja modificar as informações", "Atenção", +JOptionPane.YES_NO_OPTION);
+            pstm.execute();
 
-            if (confirma == JOptionPane.YES_NO_OPTION) {
-                pstm.execute();
-                JOptionPane.showMessageDialog(null, "Aluno editado com sucesso!");
-
-            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro na edição!" + ex);
             return false;
         }// fim try
         return true;
-    }    
+    }
 
     @Override
     public boolean remover(AlunoVO aluno) throws SQLException {
+        cadastrar(aluno);
         try {
             String excluiSQL = ("DELETE FROM aluno where Id_aluno = ?");
             PreparedStatement pstm = conexao.prepareStatement(excluiSQL);
             pstm.setInt(1, aluno.getId_aluno());
 
-            int confirma = JOptionPane.showConfirmDialog(null, "OBS: NÃO É POSSÍVEL DELETAR ALUNOS COM ALUGUÉIS REGISTRADOS, Tem certeza de que deseja excluir o aluno?", "Atenção",
-                    +JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-
-            if (confirma == JOptionPane.YES_NO_OPTION) {
-                pstm.execute();
-                JOptionPane.showMessageDialog(null, "Aluno excluído com sucesso!");
-
-            }
+            pstm.execute();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro na exclusão do aluno!" /*+ ex*/);
             return false;
         }
         return true;
-}
+    }
 
 }
-
-

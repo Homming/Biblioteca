@@ -11,8 +11,8 @@ import javax.swing.JOptionPane;
 import vo.BibliotecariaVO;
 
 public class BibliotecariaDAOMock implements IBibliotecariaDAO {
-    
-     private Connection conexao;
+
+    private Connection conexao;
     ResultSet rs = null;
 
     public Connection getConnection() {
@@ -22,8 +22,9 @@ public class BibliotecariaDAOMock implements IBibliotecariaDAO {
     public void setConnection(Connection conexao) {
         this.conexao = conexao;
     }
-    
+
     protected void setUp() throws Exception {//EFETUADO ANTES DE CADA TESTE REALIZADO
+        this.conexao.setAutoCommit(false);
         DatabaseMySQL mysql = new DatabaseMySQL();
         this.conexao = mysql.conectar();
         this.conexao.setAutoCommit(false);
@@ -36,7 +37,7 @@ public class BibliotecariaDAOMock implements IBibliotecariaDAO {
 
     @Override
     public boolean cadastrar(BibliotecariaVO bibliotecaria) throws SQLException {
-   String sql = "INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha, email) values (?,?,?,?,?,?)";
+        String sql = "INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha, email) values (?,?,?,?,?,?)";
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setString(1, bibliotecaria.getNome());
@@ -70,13 +71,8 @@ public class BibliotecariaDAOMock implements IBibliotecariaDAO {
             pstm.setString(6, cad.getEmail());
             pstm.setInt(7, cad.getId_usuario());
 
-            int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja modificar as informações", "Atenção", +JOptionPane.YES_NO_OPTION);
+            pstm.execute();
 
-            if (confirma == JOptionPane.YES_NO_OPTION) {
-                pstm.execute();
-                JOptionPane.showMessageDialog(null, "Usuário editado com sucesso!");
-
-            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro na edição!");
             return false;
@@ -92,14 +88,7 @@ public class BibliotecariaDAOMock implements IBibliotecariaDAO {
             PreparedStatement pstm = conexao.prepareStatement(excluiSQL);
             pstm.setInt(1, cad.getId_usuario());
 
-            int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja excluir o usuário?", "Atenção",
-                    +JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-
-            if (confirma == JOptionPane.YES_NO_OPTION) {
-                pstm.execute();
-                JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
-
-            }
+            pstm.execute();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro na exclusão do usuário!" + ex);

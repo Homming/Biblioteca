@@ -11,6 +11,7 @@ public class AluguelBOTest extends TestCase {
     private AluguelVO aluguelVO;
     private IAluguelDAO aluguelDAOMock;
 
+    @Override
     protected void setUp() throws Exception {
         IAluguelDAO aluguelDAOMock = new AluguelDAOMock();
         LocalDate teste = LocalDate.now();
@@ -20,17 +21,10 @@ public class AluguelBOTest extends TestCase {
         this.aluguelVO = aluguelVO;
     }
 
-    /* teste futuro pra quando o tevonha fazer o DAOMockAluguel
-    
-    public void testDeveriaCadastrarAluguelPassandoAlunoELivro() throws Exception{
-        AluguelBO aluguelBO = new AluguelBO(this.aluguelVO,this.aluguelDAOMock);
-        
-        try{
-            aluguelBO.CadastroAluguel();
-        }catch(Exception e){
-            fail("Deveria ter cadastrado");
-        }
-        
+/*    public void testDeveriaRetornaroAluguelSelecionado() {
+        this.aluguelDAOMock.buscarAluguel(this.aluguelVO);
+
+        assertEquals(this.aluguelVO, this.aluguelDAOMock.buscarAluguel(this.aluguelVO));
     }*/
 
     public void testDeveriaValidarIdAluno() {
@@ -48,5 +42,4 @@ public class AluguelBOTest extends TestCase {
         AluguelBO aluguelBO = new AluguelBO(this.aluguelDAOMock, this.aluguelVO);
         assertTrue(aluguelBO.inserindoLivro());
     }*/
-
 }

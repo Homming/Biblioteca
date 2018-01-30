@@ -131,3 +131,29 @@ BEGIN
       CALL SP_AtualizaEstoque (new.id_itemdealuguel, new.quantidade - old.quantidade);
 END //
 DELIMITER ;
+
+/******************************/
+
+DELIMITER //
+  CREATE PROCEDURE `SP_QuantidadeItens`( `id_aluguel` int)
+BEGIN
+    declare contador int(11);
+
+    SELECT quantidade FROM itensdealuguel WHERE aluguel_id = id_aluguel;
+    
+    IF quantidade > 0 THEN
+		FOR EACH aluguel_id == `id_aluguel` THEN
+			UPDATE livro SET quantidade_livro = quantidade_livro + quantidade WHERE id_livro = livro_id;
+		END FOR EACH;
+    END IF;
+END //
+DELIMITER ;
+/*********TRIGGER**********/
+
+DELIMITER //
+CREATE TRIGGER `TRG_DevolveLivro_AU` AFTER UPDATE ON `aluguel`
+FOR EACH ROW
+BEGIN
+      CALL SP_QuantidadeItens (new.id_aluguel);
+END //
+DELIMITER ;

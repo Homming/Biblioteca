@@ -49,10 +49,10 @@ public class LivroBO {
     }
 
     public boolean validarCadastroDeAutor() {
-        if (this.livroVO.getAutor1().length() > 8 && !this.livroVO.getAutor1().isEmpty() && this.livroVO.getAutor1() != null) {
+        if (this.livroVO.getAutor1().length() > 5 && !this.livroVO.getAutor1().isEmpty() && this.livroVO.getAutor1() != null) {
             return true;
         } else {
-            this.errorMessage += "Autor1 Inválido! (Precisa ter mais que 8 caracteres)\n";
+            this.errorMessage += "Autor1 Inválido! (Precisa ter mais que 5 caracteres)\n";
             return false;
         }
     }

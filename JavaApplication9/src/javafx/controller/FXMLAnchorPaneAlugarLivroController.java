@@ -97,8 +97,7 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
             lblCodigo.setText(String.valueOf(aluguel.getId_aluguel()));
             lblDataAluguel.setText(String.valueOf(aluguel.getData_aluguel().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
             lblAluno.setText(aluguel.getAluno().toString());
-            lblLivro.setText(aluguel.getLivro().toString());
-            lblLivro.setText(LivrosLocados(aluguel.getItensDeAluguel()));
+            lblLivro.setText(String.valueOf(aluguel.getItensDeAluguel()));// ERRADO
             lblDevolucao.setText(String.valueOf(aluguel.getData_devolucao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
             lblDevolvido.setText(Devolvido(aluguel.isDevolvido()));
             lblDataDevolvido.setText(DataDevolvido(String.valueOf(aluguel.getData_devolvido().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))));
@@ -106,7 +105,7 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
             lblCodigo.setText("");
             lblDataAluguel.setText("");
             lblAluno.setText("");
-            lblLivro.setText("");
+            lblLivro.setLayoutX(0);
             lblDevolucao.setText("");
             lblDevolvido.setText("");
             lblDataDevolvido.setText("");
@@ -115,7 +114,6 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
 
     public String LivrosLocados(List<ItemDeAluguelVO> livro) {
         //FAZER COM QUE EXIBA OS LIVROS LOCADOS
-
         return "Lista";
     }
 
@@ -197,7 +195,6 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
             }
         }
     }*/
-    // NAO ESTA AUMENTANDO A QUANTIDADE DO ESTOQUE CORRETAMENTE
     @FXML
     public void handleButtonDevolver() throws IOException, SQLException {
         AluguelVO aluguel = tblAluguel.getSelectionModel().getSelectedItem();

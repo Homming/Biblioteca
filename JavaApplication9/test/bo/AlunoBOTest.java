@@ -16,8 +16,10 @@ public class AlunoBOTest extends TestCase {
     private final Database database = DatabaseFactory.getDatabase("mysql");
     private final Connection connection = database.conectar();
 
+    @Override
     protected void setUp() throws Exception {
         IAlunoDAO alunoDAOMock = new AlunoDAOMock();
+        this.connection.setAutoCommit(false);
         AlunoVO alunoVO = new AlunoVO();
         alunoVO.setNome("Dereguedeishon santos da silva");
         alunoVO.setTelefone("996222428");
@@ -32,38 +34,36 @@ public class AlunoBOTest extends TestCase {
 
     }
 
-    
-    
-    public void testDeveriaCadastrarAluno() throws Exception{
+    public void testDeveriaCadastrarAluno() throws Exception {
         AlunoBO alunoBO = new AlunoBO(this.alunoDAOMock, this.alunoVO);
-        
-        try{
-           assertTrue(alunoBO.cadastrarAluno());
-        }catch(SQLException e){
+
+        try {
+            assertTrue(alunoBO.cadastrarAluno());
+        } catch (SQLException e) {
             fail("Deveria ter cadastrado");
         }
     }
-    
-    public void testDeveriaEditarAluno(){
+
+    public void testDeveriaEditarAluno() {
         AlunoBO alunoBO = new AlunoBO(this.alunoDAOMock, this.alunoVO);
-        
-        try{
-           assertTrue(alunoBO.editarAluno());
-        }catch(SQLException e){
+
+        try {
+            assertTrue(alunoBO.editarAluno());
+        } catch (SQLException e) {
             fail("Deveria ter cadastrado");
         }
     }
-    
-    public void testDeveriaExcluirAluno(){
-         AlunoBO alunoBO = new AlunoBO(this.alunoDAOMock, this.alunoVO);
-        
-        try{
-           assertTrue(alunoBO.removerAluno());
-        }catch(SQLException e){
+
+    public void testDeveriaExcluirAluno() {
+        AlunoBO alunoBO = new AlunoBO(this.alunoDAOMock, this.alunoVO);
+
+        try {
+            assertTrue(alunoBO.removerAluno());
+        } catch (SQLException e) {
             fail("Deveria ter cadastrado");
         }
     }
-    
+
     public void testDeveriaValidarNomeAluno() {
         AlunoBO alunoBO = new AlunoBO(this.alunoDAOMock, this.alunoVO);
         assertTrue(alunoBO.validarCadastroDeNome());
@@ -119,6 +119,5 @@ public class AlunoBOTest extends TestCase {
         AlunoBO alunoBO = new AlunoBO(this.alunoDAOMock, this.alunoVO);
         assertFalse(alunoBO.validarAlocaçãoDeLivro());
     }
-    */
-
+     */
 }
