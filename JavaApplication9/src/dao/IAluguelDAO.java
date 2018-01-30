@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import vo.AluguelVO;
 
@@ -10,6 +11,8 @@ public interface IAluguelDAO {
 
     public boolean remover(AluguelVO aluguelVO) throws SQLException;
 
-    public AluguelVO buscarAluguel(AluguelVO aluguel);
+    public void setConnection(Connection connection);
+
+ 
 
 }

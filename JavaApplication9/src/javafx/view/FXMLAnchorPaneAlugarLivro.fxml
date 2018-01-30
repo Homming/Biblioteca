@@ -39,7 +39,7 @@
                 <Font name="System Bold" size="18.0" />
               </font>
             </Label>
-            <GridPane layoutX="41.0" layoutY="153.0" prefWidth="305.0">
+            <GridPane layoutX="11.0" layoutY="153.0" prefHeight="242.0" prefWidth="363.0">
               <children>
                 <Label text="Código">
                   <font>
@@ -48,7 +48,7 @@
                 </Label>
                 <Label font="$x1" text="Data do Aluguel" GridPane.rowIndex="1" />
                 <Label font="$x1" text="Aluno" GridPane.rowIndex="2" />
-                <Label font="$x1" text="ID Livro(s)" GridPane.rowIndex="3" />
+                <Label font="$x1" text="Livro(s)" GridPane.rowIndex="3" />
                 <Label font="$x1" text="Data Para Devolução" GridPane.rowIndex="4" />
                 <Label fx:id="lblCodigo" text="Label" GridPane.columnIndex="1" />
                 <Label fx:id="lblDataAluguel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />

@@ -1,6 +1,7 @@
 package bo;
 
 import dao.IAluguelDAO;
+import java.sql.SQLException;
 import vo.AluguelVO;
 
 public class AluguelBO {
@@ -43,19 +44,13 @@ public class AluguelBO {
         }
     }
 
-    /*public boolean inserindoLivro() {
-        if (this.aluguelVO.getLivro_id() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
-    public void CadastroAluguel() throws SQLException {
-        if (!inserindoLivro() && !inserindoAluno()) {
-            throw new IllegalArgumentException("Erro ao cadastrar aluguel, aluno ou livro com problemas ");
-        } else {
-            this.aluguelDAO.cadastrar(this.aluguelVO);
-        }
-    }*/
+    public boolean CadastroAluguel() throws SQLException {
+      return this.aluguelDAO.cadastrar(this.aluguelVO);
+    }
+    
+    public boolean removerAluguel() throws SQLException{
+        return this.aluguelDAO.remover(this.aluguelVO);
+    }
 }
+

@@ -97,7 +97,7 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
             lblCodigo.setText(String.valueOf(aluguel.getId_aluguel()));
             lblDataAluguel.setText(String.valueOf(aluguel.getData_aluguel().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
             lblAluno.setText(aluguel.getAluno().toString());
-            lblLivro.setText(String.valueOf(aluguel.getItensDeAluguel()));// ERRADO
+            lblLivro.setText(String.valueOf(aluguel.getItensDeAluguel()));
             lblDevolucao.setText(String.valueOf(aluguel.getData_devolucao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
             lblDevolvido.setText(Devolvido(aluguel.isDevolvido()));
             lblDataDevolvido.setText(DataDevolvido(String.valueOf(aluguel.getData_devolvido().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))));
@@ -105,16 +105,11 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
             lblCodigo.setText("");
             lblDataAluguel.setText("");
             lblAluno.setText("");
-            lblLivro.setLayoutX(0);
+            lblLivro.setText("");
             lblDevolucao.setText("");
             lblDevolvido.setText("");
             lblDataDevolvido.setText("");
         }
-    }
-
-    public String LivrosLocados(List<ItemDeAluguelVO> livro) {
-        //FAZER COM QUE EXIBA OS LIVROS LOCADOS
-        return "Lista";
     }
 
     public String DataDevolvido(String dev) {

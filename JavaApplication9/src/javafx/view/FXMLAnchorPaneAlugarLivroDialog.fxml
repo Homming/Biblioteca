@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -15,19 +20,19 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="494.0" prefWidth="623.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.FXMLAnchorPaneAlugarLivroDialogController">
+<AnchorPane id="AnchorPane" prefHeight="494.0" prefWidth="623.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.FXMLAnchorPaneAlugarLivroDialogController">
    <children>
-      <GridPane layoutX="57.0" layoutY="74.0" prefHeight="346.0" prefWidth="505.0">
+      <GridPane layoutX="57.0" layoutY="109.0" prefHeight="243.0" prefWidth="505.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="10.0" prefWidth="130.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="336.0" minWidth="10.0" prefWidth="336.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="48.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="173.0" minHeight="10.0" prefHeight="173.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="77.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="192.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="186.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="176.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Aluno">
@@ -58,7 +63,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TableView fx:id="tblItensdeAluguel" prefHeight="173.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TableView fx:id="tblItensdeAluguel" prefHeight="134.0" prefWidth="284.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
               <columns>
                 <TableColumn fx:id="tblColumnLivro" prefWidth="296.0" text="Livro" />
                 <TableColumn fx:id="tblColumnQtd" minWidth="0.0" prefWidth="39.0" text="Qtd" />
