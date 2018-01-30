@@ -9,7 +9,6 @@ public class AluguelVO implements Serializable {
     private int id_aluguel;
     private LocalDate data_aluguel;
     private int aluno_id;
-    private int livro_id;
     private LocalDate data_devolucao;
     private List<ItemDeAluguelVO> itensDeAluguel;
     private LivroVO livro;
@@ -21,7 +20,6 @@ public class AluguelVO implements Serializable {
         this.id_aluguel = id_aluguel;
         this.data_aluguel = data_aluguel;
         this.aluno_id = aluno_id;
-        this.livro_id = livro_id;
         this.data_devolucao = data_devolucao;
         this.devolvido = devolvido;
     }
@@ -68,14 +66,6 @@ public class AluguelVO implements Serializable {
 
     public void setAluno_id(int aluno_id) {
         this.aluno_id = aluno_id;
-    }
-
-    public int getLivro_id() {
-        return livro_id;
-    }
-
-    public void setLivro_id(int livro_id) {
-        this.livro_id = livro_id;
     }
 
     public LocalDate getData_devolucao() {

@@ -97,12 +97,11 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
             lblCodigo.setText(String.valueOf(aluguel.getId_aluguel()));
             lblDataAluguel.setText(String.valueOf(aluguel.getData_aluguel().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
             lblAluno.setText(aluguel.getAluno().toString());
-            lblLivro.setText(aluguel.getLivro().toString());//ESTA EXIBINDO APENAS UM LIVRO, SE HOUVER MAIS NAO EXIBE
-            //lblLivro.setText(LivrosLocados(aluguel.getItensDeAluguel()));
+            lblLivro.setText(aluguel.getLivro().toString());
+            lblLivro.setText(LivrosLocados(aluguel.getItensDeAluguel()));
             lblDevolucao.setText(String.valueOf(aluguel.getData_devolucao().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
             lblDevolvido.setText(Devolvido(aluguel.isDevolvido()));
             lblDataDevolvido.setText(DataDevolvido(String.valueOf(aluguel.getData_devolvido().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))));
-            //lblDevolvido.setText(String.valueOf(aluguel.getDevolvido())); retorna a string true ou false
         } else {
             lblCodigo.setText("");
             lblDataAluguel.setText("");
@@ -116,7 +115,8 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
 
     public String LivrosLocados(List<ItemDeAluguelVO> livro) {
         //FAZER COM QUE EXIBA OS LIVROS LOCADOS
-        return null;
+
+        return "Lista";
     }
 
     public String DataDevolvido(String dev) {
@@ -215,7 +215,6 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
                     for (ItemDeAluguelVO listItemDeAluguelVO : aluguel.getItensDeAluguel()) {// para cada item de aluguel, cadastre
                         LivroVO livro = listItemDeAluguelVO.getLivro();
                         listItemDeAluguelVO.setAluguel(aluguelDAO.buscarAluguel(aluguel));
-                        //itemDeAluguelDAO.inserir(listItemDeAluguelVO);
                         livro.setQuantidade_livro(livro.getQuantidade_livro() + listItemDeAluguelVO.getQuantidade());
                         livroDAO.editarCad(livro);
                     }

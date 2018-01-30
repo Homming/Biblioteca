@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -44,6 +45,12 @@ public class FXMLVBoxMainController implements Initializable {
     private MenuItem menuItemRegistrarDevolucao;
     @FXML
     private MenuBar MainMenuBar;
+    @FXML
+    private Button menuitemOpcaoLogout;
+
+    private int minute;
+    private int hour;
+    private int second;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -71,9 +78,7 @@ public class FXMLVBoxMainController implements Initializable {
                 stage.setTitle("Login");
                 stage.show();
 
-                //menuItemOpcaoLogout.getScene().getWindow().hide();
-                //fileChooser.showOpenDialog(((MenuItem) event.getTarget()).getParentPopup().getScene().getWindow().hide());
-                menuItemOpcaoLogout.getParentPopup().getScene().getWindow().hide();
+                //menuitemOpcaoLogout.getScene().getWindow().hide();
             }
         });
         /**
@@ -93,6 +98,15 @@ public class FXMLVBoxMainController implements Initializable {
             }
         });
 
+    }// FIM INITIALIZE
+
+    public class hora implements ActionListener {
+
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+            Calendar now = Calendar.getInstance();//pega a hora do sistema
+            lblHora.setText(String.format("%1$tH:%1$tM:%1$tS", now)); //Hora, Minuto e Segundo (%1$tH:%1$tM:%1$tS)
+        }
     }
 
     @FXML
@@ -130,20 +144,6 @@ public class FXMLVBoxMainController implements Initializable {
     public void handleMenuItemGerenciarAluno() throws IOException {
         AnchorPane b = (AnchorPane) FXMLLoader.load(getClass().getResource("/javafx/view/FXMLAnchorPaneCadastroAluno.fxml"));
         anchorPane.getChildren().setAll(b);
-    }
-
-    @FXML
-    public void handleMenuItemOpcaoSair() throws IOException {
-
-    }
-
-    public class hora implements ActionListener {
-
-        @Override
-        public void actionPerformed(java.awt.event.ActionEvent e) {
-            Calendar now = Calendar.getInstance();//pega a hora do sistema
-            lblHora.setText(String.format("%1$tH:%1$tM:%1$tS", now)); //Hora, Minuto e Segundo (%1$tH:%1$tM:%1$tS)
-        }
     }
 
 }

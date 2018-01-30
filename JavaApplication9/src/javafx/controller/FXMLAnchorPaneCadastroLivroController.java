@@ -163,14 +163,15 @@ public class FXMLAnchorPaneCadastroLivroController implements Initializable {
             if (buttonConfirmarClicked) {
                 livroDAO.editarCad(livro);
                 carregarTableViewLivro();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();//typecast alert para stage
-                stageAlert.getIcons().add(new Image("/imagens/ops.png")); // icone no stage alert
-                alert.setContentText("Por favor, escolha um livro na Tabela!");
-                alert.show();
             }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();//typecast alert para stage
+            stageAlert.getIcons().add(new Image("/imagens/ops.png")); // icone no stage alert
+            alert.setContentText("Por favor, escolha um livro na Tabela!");
+            alert.show();
         }
+
     }
 
     @FXML

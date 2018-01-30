@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="750.0" style="-fx-background-color: #EDEDFF;" stylesheets="@../../style/fxmlvboxmain.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.FXMLVBoxMainController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="750.0" style="-fx-background-color: #EDEDFF;" stylesheets="@../../style/fxmlvboxmain.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.FXMLVBoxMainController">
    <children>
       <MenuBar fx:id="MainMenuBar">
         <menus>
@@ -32,7 +33,7 @@
             <Menu mnemonicParsing="false" text="Opções">
               <items>
                 <MenuItem fx:id="menuItemOpcaoLogout" mnemonicParsing="false" onAction="#handleMenuItemOpcoesLogout" text="Logout" />
-                  <MenuItem fx:id="menuItemOpcaoSair" mnemonicParsing="false" onAction="#handleMenuItemOpcaoSair" text="Sair" />
+                  <MenuItem fx:id="menuItemOpcaoSair" mnemonicParsing="false" text="Sair" />
               </items>
             </Menu>
         </menus>
@@ -44,6 +45,8 @@
                   <Font size="17.0" />
                </font>
             </Label>
+            <Button fx:id="menuitemOpcaoLogout" layoutX="32.0" layoutY="586.0" mnemonicParsing="false" text="Button" visible="false" />
+            <Label fx:id="lblHora" layoutX="21.0" layoutY="603.0" prefHeight="17.0" prefWidth="52.0" text="Hora" />
          </children></AnchorPane>
    </children>
 </VBox>

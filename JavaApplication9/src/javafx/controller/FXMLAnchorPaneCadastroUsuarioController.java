@@ -118,13 +118,13 @@ public class FXMLAnchorPaneCadastroUsuarioController implements Initializable {
             if (buttonConfirmarClicked) {
                 bibliotecariaDAO.editar(bibliotecaria);
                 carregarTableViewUsuario();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();//typecast alert para stage
-                stageAlert.getIcons().add(new Image("/imagens/ops.png")); // icone no stage alert
-                alert.setContentText("Por favor, escolha um usuário na Tabela!");
-                alert.show();
             }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();//typecast alert para stage
+            stageAlert.getIcons().add(new Image("/imagens/ops.png")); // icone no stage alert
+            alert.setContentText("Por favor, escolha um usuário na Tabela!");
+            alert.show();
         }
     }
 
@@ -142,8 +142,8 @@ public class FXMLAnchorPaneCadastroUsuarioController implements Initializable {
             alert.show();
         }
     }
-
     //Método para exibir a tela de cadastro (Dialog) 
+
     public boolean showFXMLAnchorPaneCadastroUsuarioDialog(BibliotecariaVO bibliotecariaVO) throws IOException {
 
         FXMLLoader loader = new FXMLLoader();

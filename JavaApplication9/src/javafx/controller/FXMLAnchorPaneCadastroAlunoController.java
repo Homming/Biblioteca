@@ -137,14 +137,15 @@ public class FXMLAnchorPaneCadastroAlunoController implements Initializable {
             if (buttonConfirmarClicked) {
                 alunoDAO.editar(aluno);
                 carregarTableViewAluno();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();//typecast alert para stage
-                stageAlert.getIcons().add(new Image("/imagens/ops.png")); // icone no stage alert
-                alert.setContentText("Por favor, escolha um aluno na Tabela!");
-                alert.show();
             }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();//typecast alert para stage
+            stageAlert.getIcons().add(new Image("/imagens/ops.png")); // icone no stage alert
+            alert.setContentText("Por favor, escolha um aluno na Tabela!");
+            alert.show();
         }
+
     }
 
     @FXML

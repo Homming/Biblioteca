@@ -6,12 +6,12 @@ public class ItemDeAluguelVO implements Serializable {
 
     private int id_itemdealuguel;
     private int quantidade;
-    private double valor;
+    private int livro_id;
+    private int aluguel_id;
     private LivroVO livro;
     private AluguelVO aluguel;
 
     public ItemDeAluguelVO() {
-
     }
 
     public int getId_itemdealuguel() {
@@ -30,12 +30,20 @@ public class ItemDeAluguelVO implements Serializable {
         this.quantidade = quantidade;
     }
 
-    public double getValor() {
-        return valor;
+    public int getLivro_id() {
+        return livro_id;
     }
 
-    public void setValor(double valor) {
-        this.valor = valor;
+    public void setLivro_id(int livro_id) {
+        this.livro_id = livro_id;
+    }
+
+    public int getAluguel_id() {
+        return aluguel_id;
+    }
+
+    public void setAluguel_id(int aluguel_id) {
+        this.aluguel_id = aluguel_id;
     }
 
     public LivroVO getLivro() {

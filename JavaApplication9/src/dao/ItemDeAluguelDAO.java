@@ -96,7 +96,7 @@ public class ItemDeAluguelDAO implements IItemDeAluguelDAO {
         return retorno;
     }
 
-    public List<ItemDeAluguelVO> listarPorVenda(AluguelVO aluguel) {
+    public List<ItemDeAluguelVO> listarPorAluguel(AluguelVO aluguel) {
         String sql = "SELECT * FROM itensdealuguel WHERE id_itemdealuguel=?";
         List<ItemDeAluguelVO> retorno = new ArrayList<>();
         try {
@@ -158,6 +158,24 @@ public class ItemDeAluguelDAO implements IItemDeAluguelDAO {
                 itemDeAluguel.setAluguel(aluguel);
 
                 retorno = itemDeAluguel;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AluguelDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
+    }
+
+    public ItemDeAluguelVO buscarLivrosdoAluguel(ItemDeAluguelVO itens) {
+        String sql = "SELECT * FROM itensdealuguel where aluguel_id = ?";
+        ItemDeAluguelVO retorno = new ItemDeAluguelVO();
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, itens.getAluguel().getId_aluguel());
+            ResultSet resultado = stmt.executeQuery();
+
+            if (resultado.next()) {
+                retorno.setAluguel_id(resultado.getInt("aluguel_id"));
+                return retorno;
             }
         } catch (SQLException ex) {
             Logger.getLogger(AluguelDAO.class.getName()).log(Level.SEVERE, null, ex);

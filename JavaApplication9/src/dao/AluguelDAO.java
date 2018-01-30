@@ -83,7 +83,7 @@ public class AluguelDAO implements IAluguelDAO {
                 aluguel.setId_aluguel(resultado.getInt("id_aluguel"));
                 aluguel.setData_aluguel(resultado.getDate("data_aluguel").toLocalDate());
                 aluno.setId_aluno(resultado.getInt("aluno_id"));
-                livro.setId_livro(resultado.getInt("livro_id"));
+                //livro.setId_livro(resultado.getInt("livro_id"));
                 aluguel.setData_devolucao(resultado.getDate("data_devolucao").toLocalDate());
                 aluguel.setData_devolvido(resultado.getDate("data_devolvido").toLocalDate());
                 aluguel.setDevolvido(resultado.getBoolean("devolvido"));
@@ -96,7 +96,7 @@ public class AluguelDAO implements IAluguelDAO {
                 //Obtendo os dados completos dos Itens de Venda associados à Venda
                 ItemDeAluguelDAO itemDeAluguelDAO = new ItemDeAluguelDAO();
                 itemDeAluguelDAO.setConnection(conexao);
-                itensDeAluguel = itemDeAluguelDAO.listarPorVenda(aluguel);
+                itensDeAluguel = itemDeAluguelDAO.listarPorAluguel(aluguel);
 
                 //Obtendo os dados completos do Livro associado
                 LivroDAO livroDAO = new LivroDAO();
@@ -137,7 +137,7 @@ public class AluguelDAO implements IAluguelDAO {
     }
 
     public AluguelVO buscarUltimoAluguel() {
-        String sql = "SELECT MAX(Id_aluguel) as id_aluguel FROM aluguel";
+        String sql = "SELECT MAX(Id_aluguel) AS id_aluguel FROM aluguel";
         AluguelVO retorno = new AluguelVO();
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
@@ -159,6 +159,7 @@ public class AluguelDAO implements IAluguelDAO {
         try {
             PreparedStatement stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, aluguel.getId_aluguel());
+
             ResultSet resultado = stmt.executeQuery();
 
             if (resultado.next()) {

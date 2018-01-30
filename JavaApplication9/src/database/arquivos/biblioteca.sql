@@ -99,7 +99,35 @@ VALUES('1', '2', '1');
 
 select * from aluguel;
 
+select * from itensdealuguel;
+
 SELECT * FROM aluno WHERE nome LIKE '%%';
 
 -- select count(id_aluguel), extract(year from data_aluguel) as ano, extract(month from data_aluguel) as mes from aluguel group by ano, mes order by ano, mes;
 -- drop database biblioteca;
+
+
+-- PROTOTIPOS
+/*********PROCEDURE**********/
+DELIMITER //
+  CREATE PROCEDURE `SP_AtualizaEstoque`( `id_liv` int, `quantidade` int)
+BEGIN
+    declare contador int(11);
+
+    SELECT count(*) into contador FROM livro WHERE id_livro = id_liv;
+
+    IF contador > 0 THEN
+        UPDATE livro SET quantidade_livro=quantidade_livro + quantidade
+        WHERE id_livro = id_liv;
+    END IF;
+END //
+DELIMITER ;
+/**********TRIGGER*********/
+
+DELIMITER //
+CREATE TRIGGER `TRG_DevolveLivro_AU` AFTER UPDATE ON `itensdealuguel`
+FOR EACH ROW
+BEGIN
+      CALL SP_AtualizaEstoque (new.id_itemdealuguel, new.quantidade - old.quantidade);
+END //
+DELIMITER ;
