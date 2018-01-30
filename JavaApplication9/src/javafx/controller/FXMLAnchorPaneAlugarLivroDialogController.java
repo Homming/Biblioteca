@@ -22,6 +22,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import vo.AluguelVO;
 import vo.AlunoVO;
@@ -134,6 +135,8 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Falha no Cadastro!");
+            Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();//typecast alert para stage
+            stageAlert.getIcons().add(new Image("/imagens/ops.png")); // icone no stage alert
             alert.setHeaderText("Campos Inválidos, por favor, corrija...");
             alert.setContentText(validar.errorMessage);
             alert.show();
@@ -169,6 +172,8 @@ public class FXMLAnchorPaneAlugarLivroDialogController implements Initializable 
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText("Problemas na escolha do livro!");
+                Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();//typecast alert para stage
+                stageAlert.getIcons().add(new Image("/imagens/ops.png")); // icone no stage alert
                 alert.setContentText("Não existe a quantidade de livros disponíveis no estoque!");
                 alert.show();
             }

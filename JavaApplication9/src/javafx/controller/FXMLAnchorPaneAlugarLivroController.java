@@ -29,6 +29,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import vo.AluguelVO;
@@ -196,14 +197,13 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
             }
         }
     }*/
-    
     // NAO ESTA AUMENTANDO A QUANTIDADE DO ESTOQUE CORRETAMENTE
     @FXML
     public void handleButtonDevolver() throws IOException, SQLException {
         AluguelVO aluguel = tblAluguel.getSelectionModel().getSelectedItem();
-        List<ItemDeAluguelVO> listItensDeAluguel = aluguel.getItensDeAluguel();
-        aluguel.setItensDeAluguel(listItensDeAluguel);
         if (aluguel != null) {
+            List<ItemDeAluguelVO> listItensDeAluguel = aluguel.getItensDeAluguel();
+            aluguel.setItensDeAluguel(listItensDeAluguel);
             boolean buttonConfirmarClicked = showFXMLAnchorPaneDevolverLivroDialog(aluguel);
             if (buttonConfirmarClicked) {
                 try {
@@ -230,6 +230,12 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
                     Logger.getLogger(FXMLAnchorPaneAlugarLivroController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();//typecast alert para stage
+            stageAlert.getIcons().add(new Image("/imagens/ops.png")); // icone no stage alert
+            alert.setContentText("Por favor, escolha um aluguel na Tabela!");
+            alert.show();
         }
     }
 
@@ -252,6 +258,8 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
             carregarTableViewAlugueis();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();//typecast alert para stage
+            stageAlert.getIcons().add(new Image("/imagens/ops.png")); // icone no stage alert
             alert.setContentText("Por favor, escolha um aluguel na Tabela!");
             alert.show();
         }
@@ -265,6 +273,8 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
         // Stage Dialog, para que seja visível ao usuário
         Stage dialogStage = new Stage();
         dialogStage.setTitle("Registro de Aluguel");//exibido na parte superior da tela
+        Image Icon = new Image("/imagens/books64.png");
+        dialogStage.getIcons().add(Icon);
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
 
@@ -288,6 +298,8 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
         // Stage Dialog, para que seja visível ao usuário
         Stage dialogStage = new Stage();
         dialogStage.setTitle("Registro de Devolução");//exibido na parte superior da tela
+        Image Icon = new Image("/imagens/books64.png");
+        dialogStage.getIcons().add(Icon);
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
 

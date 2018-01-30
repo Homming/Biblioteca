@@ -15,7 +15,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
@@ -40,9 +42,56 @@ public class FXMLVBoxMainController implements Initializable {
     private Label lblHora;
     @FXML
     private MenuItem menuItemRegistrarDevolucao;
+    @FXML
+    private MenuBar MainMenuBar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        /**
+         * ********************LOGOUT*************************
+         */
+        menuItemOpcaoLogout.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Stage stage = new Stage();
+                Parent root = null;
+
+                try {
+                    root = FXMLLoader.load(getClass().getClassLoader().getResource("javafx/view/FXMLAnchorPaneLogin.fxml"));
+                } catch (IOException ex) {
+                    Logger.getLogger(FXMLAnchorPaneLoginController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                Scene scene = new Scene(root);
+
+                stage.setScene(scene);
+                stage.setResizable(false);
+                Image Icon = new Image("/imagens/books64.png");
+                stage.getIcons().add(Icon);
+                stage.setTitle("Login");
+                stage.show();
+
+                //menuItemOpcaoLogout.getScene().getWindow().hide();
+                //fileChooser.showOpenDialog(((MenuItem) event.getTarget()).getParentPopup().getScene().getWindow().hide());
+                menuItemOpcaoLogout.getParentPopup().getScene().getWindow().hide();
+            }
+        });
+        /**
+         * ********************EXIT***************************
+         */
+        menuItemOpcaoSair.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                int sair;
+
+                sair = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja "
+                        + "fechar o sistema?", "Atenção", JOptionPane.YES_NO_OPTION);
+                if (sair == JOptionPane.YES_OPTION) {
+                    System.exit(0);
+
+                }
+            }
+        });
 
     }
 
@@ -75,26 +124,6 @@ public class FXMLVBoxMainController implements Initializable {
         //AnchorPane h = (AnchorPane) FXMLLoader.load(getClass().getResource("/javafx/view/FXMLAnchorPaneLogin.fxml"));
         //anchorPane.getChildren().setAll(h);
         //menuItemOpcaoLogout.setGraphic(new ImageView(new javafx.Main.scene.image.Image(getClass(.getResourceAsStream("/src/imagem.png")))));
-        menuItemOpcaoLogout.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Stage stage = new Stage();
-                Parent root = null;
-
-                try {
-                    root = FXMLLoader.load(getClass().getClassLoader().getResource("javafx/view/FXMLAnchorPaneLogin.fxml"));
-                } catch (IOException ex) {
-                    Logger.getLogger(FXMLAnchorPaneLoginController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                Scene scene = new Scene(root);
-
-                stage.setScene(scene);
-                stage.setResizable(false);
-                stage.setTitle("Login");
-                stage.show();
-            }
-        });
     }
 
     @FXML
@@ -105,19 +134,7 @@ public class FXMLVBoxMainController implements Initializable {
 
     @FXML
     public void handleMenuItemOpcaoSair() throws IOException {
-        menuItemOpcaoSair.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                int sair;
 
-                sair = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja "
-                        + "fechar o sistema?", "Atenção", JOptionPane.YES_NO_OPTION);
-                if (sair == JOptionPane.YES_OPTION) {
-                    System.exit(0);
-
-                }
-            }
-        });
     }
 
     public class hora implements ActionListener {

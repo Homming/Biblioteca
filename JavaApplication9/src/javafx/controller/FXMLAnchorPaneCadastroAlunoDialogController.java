@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import vo.AlunoVO;
 
@@ -16,8 +17,6 @@ public class FXMLAnchorPaneCadastroAlunoDialogController implements Initializabl
 
     @FXML
     private TextField txtNome;
-    private TextField txtQtdAlocados;
-    private TextField txtQtdMax;
     @FXML
     private TextField txtTelefone;
     @FXML
@@ -66,8 +65,6 @@ public class FXMLAnchorPaneCadastroAlunoDialogController implements Initializabl
         this.aluno = aluno;
         //Caso não seja um aluno Novo, set os valores do aluno existente
         this.txtNome.setText(aluno.getNome());
-        //this.txtQtdAlocados.setText(String.valueOf(aluno.getQuantidade_alocados()));
-        //this.txtQtdMax.setText(String.valueOf(aluno.getQtd_maxlivro()));
         this.txtTelefone.setText(aluno.getTelefone());
         this.txtEmail.setText(aluno.getEmail());
         this.txtComplemento.setText(aluno.getComplemento());
@@ -97,6 +94,8 @@ public class FXMLAnchorPaneCadastroAlunoDialogController implements Initializabl
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Falha no Cadastro!");
+            Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();//typecast alert para stage
+            stageAlert.getIcons().add(new Image("/imagens/ops.png")); // icone no stage alert
             alert.setHeaderText("Campos Inválidos, por favor, corrija...");
             alert.setContentText(validar.errorMessage);
             alert.show();

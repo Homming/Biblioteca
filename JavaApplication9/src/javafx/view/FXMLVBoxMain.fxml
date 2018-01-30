@@ -10,7 +10,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="750.0" style="-fx-background-color: #EDEDFF;" stylesheets="@../../style/fxmlvboxmain.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.FXMLVBoxMainController">
    <children>
-      <MenuBar>
+      <MenuBar fx:id="MainMenuBar">
         <menus>
           <Menu mnemonicParsing="false" text="Gerenciar">
             <items>

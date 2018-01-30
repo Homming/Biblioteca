@@ -1,13 +1,11 @@
 package javafx.controller;
 
-import bo.BibliotecariaBO;
 import dao.BibliotecariaDAO;
 import database.Database;
 import database.DatabaseFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -22,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import vo.BibliotecariaVO;
@@ -121,6 +120,8 @@ public class FXMLAnchorPaneCadastroUsuarioController implements Initializable {
                 carregarTableViewUsuario();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();//typecast alert para stage
+                stageAlert.getIcons().add(new Image("/imagens/ops.png")); // icone no stage alert
                 alert.setContentText("Por favor, escolha um usuário na Tabela!");
                 alert.show();
             }
@@ -135,6 +136,8 @@ public class FXMLAnchorPaneCadastroUsuarioController implements Initializable {
             carregarTableViewUsuario();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();//typecast alert para stage
+            stageAlert.getIcons().add(new Image("/imagens/ops.png")); // icone no stage alert
             alert.setContentText("Por favor, escolha um usuário na Tabela!");
             alert.show();
         }
@@ -151,6 +154,8 @@ public class FXMLAnchorPaneCadastroUsuarioController implements Initializable {
         // Stage Dialog, para que seja visível ao usuário
         Stage dialogStage = new Stage();
         dialogStage.setTitle("Cadastro de Usuário");//exibido na parte superior da tela
+        Image Icon = new Image("/imagens/books64.png");
+        dialogStage.getIcons().add(Icon);
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
 

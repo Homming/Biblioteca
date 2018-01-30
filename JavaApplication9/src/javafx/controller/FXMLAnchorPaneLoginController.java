@@ -23,6 +23,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
@@ -75,17 +76,24 @@ public class FXMLAnchorPaneLoginController implements Initializable {
                         stage.setScene(scene);
                         stage.setResizable(false);
                         stage.setTitle("Sistema de Gerenciamento de Biblioteca");
+                        Image Icon = new Image("/imagens/books64.png");
+                        stage.getIcons().add(Icon);
+                        
                         stage.show();
 
                         btnEntrar.getScene().getWindow().hide();// fecha a tela de login
 
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Login");
+                        Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();//typecast alert para stage
+                        stageAlert.getIcons().add(new Image("/imagens/ok.png")); // icone no stage alert
                         alert.setHeaderText("Logado(a) com Sucesso!");
                         alert.show();
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Login");
+                        Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();//typecast alert para stage
+                        stageAlert.getIcons().add(new Image("/imagens/ops.png")); // icone no stage alert
                         alert.setHeaderText("Usuário ou Senha Incorreta");
                         alert.show();
                     }

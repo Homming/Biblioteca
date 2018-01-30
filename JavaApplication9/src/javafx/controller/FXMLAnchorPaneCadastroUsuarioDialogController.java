@@ -11,6 +11,7 @@ import vo.BibliotecariaVO;
 import bo.BibliotecariaBO;
 import dao.BibliotecariaDAO;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 
 public class FXMLAnchorPaneCadastroUsuarioDialogController implements Initializable {
 
@@ -94,6 +95,8 @@ public class FXMLAnchorPaneCadastroUsuarioDialogController implements Initializa
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Falha no Cadastro!");
+            Stage stageAlert = (Stage) alert.getDialogPane().getScene().getWindow();//typecast alert para stage
+            stageAlert.getIcons().add(new Image("/imagens/ops.png")); // icone no stage alert
             alert.setHeaderText("Campos Inválidos, por favor, corrija...");
             alert.setContentText(validar.errorMessage);
             alert.show();

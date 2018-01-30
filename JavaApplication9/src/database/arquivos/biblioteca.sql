@@ -49,8 +49,7 @@ CREATE TABLE aluguel(
     data_devolucao date not null,
     devolvido boolean,
     data_devolvido date default '2018/01/01',
-    CONSTRAINT fk_aluguel_aluno FOREIGN KEY (aluno_id) REFERENCES aluno(id_aluno), -- ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT fk_aluguel_livro FOREIGN KEY (livro_id) REFERENCES  livro(id_livro) -- ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT fk_aluguel_aluno FOREIGN KEY (aluno_id) REFERENCES aluno(id_aluno) -- ON DELETE CASCADE ON UPDATE CASCADE,
 );
 
 CREATE TABLE itensdealuguel(
@@ -62,20 +61,41 @@ CREATE TABLE itensdealuguel(
    CONSTRAINT fk_itensdealuguel_aluguel FOREIGN KEY(aluguel_id) REFERENCES aluguel(id_aluguel) -- ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha, tipo_usuario) 
-VALUES ('Admnistrador','999.999.999-99','82999999999','admin','admin',1);
+INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha) 
+VALUES ('Admnistrador','999.999.999-99','82999999999','admin','admin');
+
+INSERT INTO bibliotecaria(nome, cpf, cel, usuario, senha) 
+VALUES ('Usuario de Teste','999.999.999-99','82999999999','estevao','123456');
 
 INSERT INTO livro(titulo, data_livro, quantidade_livro, cdd, cutter, autor1)
-VALUES ('NomeDoLivro','01/01/10',5,'Exemplo','Exemplo','Exemplo');
+VALUES ('A Guerra dos Mundos','1987/12/01',5,'999999','9999999','H. G. Wells');
 
-INSERT INTO aluno (nome, telefone) 
-VALUES ('AlunoExemploTeste123456','99999-9999');
+INSERT INTO livro(titulo, data_livro, quantidade_livro, cdd, cutter, autor1, autor2)
+VALUES ('A Genética do Comportamento','2016/10/01',2,'999999','9999999','Gerald E. Mcclearn','Robert Plomin');
+
+INSERT INTO aluno (nome, telefone, matricula) 
+VALUES ('Nicholas Torres Jatobá','99999-9999','951753');
+
+INSERT INTO aluno (nome, telefone, matricula) 
+VALUES ('Estevão Gabriel Santos','99999-9999','753951');
 
 INSERT INTO aluguel (data_aluguel, aluno_id,data_devolucao) 
 VALUES ('2018/01/10',1,'2018/01/12');
 
+INSERT INTO aluguel (data_aluguel, aluno_id,data_devolucao) 
+VALUES ('2018/01/12',1,'2018/01/14');
+
+INSERT INTO aluguel (data_aluguel, aluno_id,data_devolucao) 
+VALUES ('2018/01/12',2,'2018/01/14');
+
 INSERT INTO itensdealuguel(quantidade, livro_id, aluguel_id) 
 VALUES('1', '1', '1');
+
+INSERT INTO itensdealuguel(quantidade, livro_id, aluguel_id) 
+VALUES('1', '1', '1');
+
+INSERT INTO itensdealuguel(quantidade, livro_id, aluguel_id) 
+VALUES('1', '2', '1');
 
 select * from aluguel;
 
