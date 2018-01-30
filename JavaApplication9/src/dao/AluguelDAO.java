@@ -153,6 +153,24 @@ public class AluguelDAO implements IAluguelDAO {
         return retorno;
     }
 
+    public AluguelVO buscarAluguel(AluguelVO aluguel) {
+        String sql = "SELECT * FROM aluguel where id_aluguel = ?";
+        AluguelVO retorno = new AluguelVO();
+        try {
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, aluguel.getId_aluguel());
+            ResultSet resultado = stmt.executeQuery();
+
+            if (resultado.next()) {
+                retorno.setId_aluguel(resultado.getInt("id_aluguel"));
+                return retorno;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AluguelDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
+    }
+
     //Map<Chave, Valor> No nosso caso : <Ano, arraylist de meses e a qtd de alugueis em cada mes>
     public Map<Integer, ArrayList> listarAlugueisPorMes() {
         String sql = "SELECT COUNT(Id_aluguel) as id_aluguel, extract(year from data_aluguel) as ano, extract(month from data_aluguel) as mes from aluguel group by ano, mes order by ano, mes";

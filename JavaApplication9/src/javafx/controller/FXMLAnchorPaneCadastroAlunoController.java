@@ -1,14 +1,20 @@
 package javafx.controller;
 
 import dao.AlunoDAO;
+import dao.LivroDAO;
 import database.Database;
 import database.DatabaseFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -40,6 +47,8 @@ public class FXMLAnchorPaneCadastroAlunoController implements Initializable {
     @FXML
     private Button btnExcluir;
     @FXML
+    private Button btnBuscar;
+    @FXML
     private Label lblCodigo;
     @FXML
     private Label lblNome;
@@ -53,9 +62,12 @@ public class FXMLAnchorPaneCadastroAlunoController implements Initializable {
     private Label lblMatricula;
     @FXML
     private Label lblTurma;
+    @FXML
+    private TextField txtPesq;
 
     private List<AlunoVO> listAlunos;
     private ObservableList<AlunoVO> observableListAlunos;
+    private boolean buttonBuscarClicked = false;
 
     private final Database database = DatabaseFactory.getDatabase("mysql");
     private final Connection connection = database.conectar();
@@ -74,7 +86,11 @@ public class FXMLAnchorPaneCadastroAlunoController implements Initializable {
         tblColumnMatr.setCellValueFactory(new PropertyValueFactory<>("matricula"));
         tblColumnNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
 
-        listAlunos = alunoDAO.listar();
+        if (txtPesq == null) {
+            listAlunos = alunoDAO.listar();
+        } else {
+            listAlunos = pesquisar_aluno();
+        }
 
         observableListAlunos = FXCollections.observableArrayList(listAlunos);
         tblViewAlunos.setItems(observableListAlunos);
@@ -84,8 +100,6 @@ public class FXMLAnchorPaneCadastroAlunoController implements Initializable {
         if (aluno != null) {
             lblCodigo.setText(String.valueOf(aluno.getId_aluno()));
             lblNome.setText(aluno.getNome());
-            //lblQtdLocados.setText(String.valueOf(aluno.getQuantidade_alocados()));
-            //lblQtdMax.setText(String.valueOf(aluno.getQtd_maxlivro()));
             lblTelefone.setText(aluno.getTelefone());
             lblEmail.setText(aluno.getEmail());
             lblComplemento.setText(aluno.getComplemento());
@@ -170,6 +184,31 @@ public class FXMLAnchorPaneCadastroAlunoController implements Initializable {
 
         return controller.isButtonConfirmarClicked();
 
+    }
+
+    public List<AlunoVO> pesquisar_aluno() {
+        String sql = "SELECT * FROM aluno WHERE nome LIKE ?";
+        List<AlunoVO> retorno = new ArrayList<>();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, txtPesq.getText() + "%");//"%" Representa tudo que vem depois da primeira letra digitada no botao pesquisar.
+            ResultSet resultado = stmt.executeQuery();
+            while (resultado.next()) {
+                AlunoVO aluno = new AlunoVO();
+                aluno.setId_aluno(resultado.getInt("id_aluno"));
+                aluno.setNome(resultado.getString("nome"));
+                aluno.setTelefone(resultado.getString("telefone"));
+                aluno.setEmail(resultado.getString("email"));
+                aluno.setComplemento(resultado.getString("complemento"));
+                aluno.setMatricula(resultado.getString("matricula"));
+                aluno.setTurma(resultado.getString("turma"));
+
+                retorno.add(aluno);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LivroDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return retorno;
     }
 
 }

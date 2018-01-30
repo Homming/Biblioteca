@@ -40,8 +40,6 @@ public class FXMLVBoxMainController implements Initializable {
     private Label lblHora;
     @FXML
     private MenuItem menuItemRegistrarDevolucao;
-    @FXML
-    private MenuItem menuItemSobre1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

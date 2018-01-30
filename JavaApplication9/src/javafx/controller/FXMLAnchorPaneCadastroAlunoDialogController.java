@@ -78,8 +78,6 @@ public class FXMLAnchorPaneCadastroAlunoDialogController implements Initializabl
     @FXML
     public void handleButtonConfirmar() {
         aluno.setNome(txtNome.getText());
-        //aluno.setQuantidade_alocados(Integer.parseInt(txtQtdAlocados.getText()));
-        //aluno.setQtd_maxlivro(Integer.parseInt(txtQtdMax.getText()));
         aluno.setTelefone(txtTelefone.getText());
         aluno.setEmail(txtEmail.getText());
         aluno.setComplemento(txtComplemento.getText());
@@ -92,7 +90,6 @@ public class FXMLAnchorPaneCadastroAlunoDialogController implements Initializabl
         validar.validarCadastroDeNome();
         validar.validarCadastroDeMatricula();
         validar.validarCadastroDeTelefone();
-        //validar.validarQtdMaxDeLivro();
 
         if (validar.errorMessage.length() == 0) {
             buttonConfirmarClicked = true;

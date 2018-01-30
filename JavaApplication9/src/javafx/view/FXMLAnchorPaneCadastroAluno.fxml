@@ -7,6 +7,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -32,7 +33,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="479.0" style="-fx-background-color: #E4E4E7;">
                <children>
-                  <GridPane layoutX="31.0" layoutY="106.0" prefHeight="315.0" prefWidth="386.0">
+                  <GridPane layoutX="36.0" layoutY="137.0" prefHeight="315.0" prefWidth="386.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="157.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="219.0" minWidth="10.0" prefWidth="219.0" />
@@ -103,6 +104,13 @@
                         <Button fx:id="btnExcluir" layoutX="163.0" mnemonicParsing="false" onAction="#handleButtonRemover" prefHeight="36.0" prefWidth="70.0" text="Excluir" />
                      </children>
                   </Group>
+                  <TextField fx:id="txtPesq" layoutX="36.0" layoutY="103.0" prefHeight="25.0" prefWidth="322.0" />
+                  <Label layoutX="36.0" layoutY="78.0" text="Buscar Aluno">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="btnBuscar" layoutX="358.0" layoutY="103.0" mnemonicParsing="false" text="Buscar" />
                </children>
             </AnchorPane>
         </items>

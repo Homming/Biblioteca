@@ -160,15 +160,12 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
                 aluguelDAO.setConnection(connection);
                 aluguelDAO.cadastrar(aluguel);
                 itemDeAluguelDAO.setConnection(connection);
-                livroDAO.setConnection(connection);//para atualizar a quantidade do livro em estoque
-                //alunoDAO.setConnection(connection);//para atualizar a quantidade de livros locados do aluno          
+                livroDAO.setConnection(connection);//para atualizar a quantidade do livro em estoque         
                 for (ItemDeAluguelVO listItemDeAluguelVO : aluguel.getItensDeAluguel()) {// para cada item de aluguel, cadastre
                     LivroVO livro = listItemDeAluguelVO.getLivro();
-                    //AlunoVO aluno = new AlunoVO();
                     listItemDeAluguelVO.setAluguel(aluguelDAO.buscarUltimoAluguel());
                     itemDeAluguelDAO.inserir(listItemDeAluguelVO);//inserção
                     livro.setQuantidade_livro(livro.getQuantidade_livro() - listItemDeAluguelVO.getQuantidade());
-                    //aluno.setQuantidade_alocados(aluno.getQuantidade_alocados() - listItemDeAluguelVO.getQuantidade());
                     livroDAO.editarCad(livro);
                 }
                 connection.commit();//se nao tiver ocorrido nenhum problema, efetue o cadastro
@@ -184,7 +181,7 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
         }
     }
 
-    @FXML
+    /*@FXML
     public void handleButtonDevolver() throws IOException, SQLException {
         AluguelVO aluguel = tblAluguel.getSelectionModel().getSelectedItem();
         if (aluguel != null) {
@@ -196,6 +193,42 @@ public class FXMLAnchorPaneAlugarLivroController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Por favor, escolha um aluno na Tabela!");
                 alert.show();
+            }
+        }
+    }*/
+    
+    // NAO ESTA AUMENTANDO A QUANTIDADE DO ESTOQUE CORRETAMENTE
+    @FXML
+    public void handleButtonDevolver() throws IOException, SQLException {
+        AluguelVO aluguel = tblAluguel.getSelectionModel().getSelectedItem();
+        List<ItemDeAluguelVO> listItensDeAluguel = aluguel.getItensDeAluguel();
+        aluguel.setItensDeAluguel(listItensDeAluguel);
+        if (aluguel != null) {
+            boolean buttonConfirmarClicked = showFXMLAnchorPaneDevolverLivroDialog(aluguel);
+            if (buttonConfirmarClicked) {
+                try {
+                    connection.setAutoCommit(false);
+                    aluguelDAO.setConnection(connection);
+                    aluguelDAO.devolver(aluguel);
+                    itemDeAluguelDAO.setConnection(connection);
+                    livroDAO.setConnection(connection);
+                    for (ItemDeAluguelVO listItemDeAluguelVO : aluguel.getItensDeAluguel()) {// para cada item de aluguel, cadastre
+                        LivroVO livro = listItemDeAluguelVO.getLivro();
+                        listItemDeAluguelVO.setAluguel(aluguelDAO.buscarAluguel(aluguel));
+                        //itemDeAluguelDAO.inserir(listItemDeAluguelVO);
+                        livro.setQuantidade_livro(livro.getQuantidade_livro() + listItemDeAluguelVO.getQuantidade());
+                        livroDAO.editarCad(livro);
+                    }
+                    connection.commit();//se nao tiver ocorrido nenhum problema, efetue o cadastro
+                    carregarTableViewAlugueis();
+                } catch (SQLException ex) {
+                    try {
+                        connection.rollback();
+                    } catch (SQLException ex1) {
+                        Logger.getLogger(FXMLAnchorPaneAlugarLivroController.class.getName()).log(Level.SEVERE, null, ex1);
+                    }
+                    Logger.getLogger(FXMLAnchorPaneAlugarLivroController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
